@@ -12,6 +12,15 @@
 | [src/lv_100ask_memory](src/lv_100ask_memory/README_zh.md) | Lvgl scheme reference (number pair puzzle) TODO |
 | more todo...  | more todo... |
 
+# Usage
+
+1. Clone this repository:  `https://github.com/100askTeam/lv_lib_100ask.git`
+2. The `lv_lib_100ask` directory should be next to the `lvgl` directory in your project.
+Similarly to `lv_conf.h` there is a configuration file for the examples too. It is called `lv_lib_100ask_conf.h`.
+3. Copy `lv_lib_100ask/lv_lib_100ask_conf_template.h` next to `lv_lib_100ask` directory
+4. Rename it to `lv_lib_100ask_conf.h`
+5. Change the first `#if 0` to `#if 1` to enable the file's content
+6. Enable or Disable function
 
 # About
 This is an open project and contribution is very welcome!
