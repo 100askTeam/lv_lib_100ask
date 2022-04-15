@@ -232,7 +232,7 @@ static void lv_100ask_page_manager_constructor(const lv_obj_class_t * class_p, l
     page_manager->cur_depth = 0;
     page_manager->prev_depth = 0;
 
-    _lv_ll_init(&(page_manager->history_ll), sizeof(lv_menu_history_t));
+    _lv_ll_init(&(page_manager->history_ll), sizeof(lv_100ask_page_manager_history_t));
 
     page_manager->main_page = NULL;
     g_obj_page_manager = obj;
@@ -378,10 +378,10 @@ static void lv_page_back_event_cb(lv_event_t * e)
         lv_ll_t * history_ll = &(page_manager->history_ll);
 
         /* The current page */
-        lv_menu_history_t * act_hist = _lv_ll_get_head(history_ll);
+        lv_100ask_page_manager_history_t * act_hist = _lv_ll_get_head(history_ll);
 
         /* The previous page */
-        lv_menu_history_t * prev_hist = _lv_ll_get_next(history_ll, act_hist);
+        lv_100ask_page_manager_history_t * prev_hist = _lv_ll_get_next(history_ll, act_hist);
 
         if(prev_hist != NULL) {
             lv_100ask_page_manager_set_close_page(act_hist->page, NULL);
@@ -521,12 +521,7 @@ static lv_obj_t * get_page(lv_obj_t * page_manager, char *name)
 
 static void lv_obj_clean_anim_ready_cb(lv_anim_t * a)
 {
-    uint32_t i;
     lv_obj_t * obj = (lv_obj_t *)a->var;
-    for(i = 0; i < lv_obj_get_child_cnt(obj); i++) {
-        lv_obj_t * child = lv_obj_get_child(obj, i);
-        //lv_obj_del(child);
-        lv_obj_del_async(child);
-    }
+    lv_obj_clean(obj);
 }
 #endif  /*LV_100ASK_PG_MGT*/
