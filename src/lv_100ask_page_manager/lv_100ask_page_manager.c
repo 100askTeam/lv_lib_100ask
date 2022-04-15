@@ -434,7 +434,7 @@ static void defaule_open_page(lv_obj_t * obj)
     //lv_obj_refr_pos(obj);
     lv_obj_update_layout(obj);
 
-    lv_anim_timeline_wrapper_t wrapper = ANIM_DEF(300, obj, height, 0, lv_obj_get_height(obj));
+    lv_anim_timeline_wrapper_t wrapper = ANIM_DEF(400, obj, height, 0, lv_obj_get_height(obj));
     page_open_anim_timeline_create(page->anim_timeline, &wrapper);
 
     lv_anim_timeline_set_reverse(page->anim_timeline, 0);
@@ -457,7 +457,7 @@ static void defaule_close_page(lv_obj_t * obj)
     //lv_obj_refr_pos(obj);
     lv_obj_update_layout(obj);
 
-	lv_anim_timeline_wrapper_t wrapper = ANIM_DEF(300, obj, y, -lv_obj_get_width(obj), lv_obj_get_y(lv_scr_act()));
+	lv_anim_timeline_wrapper_t wrapper = ANIM_DEF(300, obj, y, -lv_obj_get_height(obj), 0);
 	page_close_anim_timeline_create(page->anim_timeline, &wrapper);
 
 	lv_anim_timeline_set_reverse(page->anim_timeline, 1);
