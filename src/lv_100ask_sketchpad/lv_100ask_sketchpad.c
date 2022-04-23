@@ -187,15 +187,17 @@ static void lv_100ask_sketchpad_toolbar_constructor(const lv_obj_class_t * class
     lv_obj_set_flex_grow(obj, 1);
     lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_ROW);
 
+    static lv_coord_t sketchpad_toolbar_cw = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW;
     lv_obj_t * color = lv_label_create(obj);
     lv_label_set_text(color, LV_SYMBOL_EDIT);
     lv_obj_add_flag(color, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(color, sketchpad_toolbar_event_cb, LV_EVENT_ALL, LV_100ASK_SKETCHPAD_TOOLBAR_CW);
+    lv_obj_add_event_cb(color, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_cw);
 
+    static lv_coord_t sketchpad_toolbar_width = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH;
     lv_obj_t * size = lv_label_create(obj);
     lv_label_set_text(size, LV_SYMBOL_EJECT);
     lv_obj_add_flag(size, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(size, sketchpad_toolbar_event_cb, LV_EVENT_ALL, LV_100ASK_SKETCHPAD_TOOLBAR_WIDTH);
+    lv_obj_add_event_cb(size, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_width);
 
     LV_TRACE_OBJ_CREATE("finished");
 }
@@ -236,7 +238,7 @@ static void lv_100ask_sketchpad_toolbar_event(const lv_obj_class_t * class_p, lv
 
 static void sketchpad_toolbar_event_cb(lv_event_t * e)
 {
-    lv_coord_t index = lv_event_get_user_data(e);
+    lv_coord_t *toolbar_opt = lv_event_get_user_data(e);
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
     lv_obj_t * toolbar= lv_obj_get_parent(obj);
@@ -246,45 +248,46 @@ static void sketchpad_toolbar_event_cb(lv_event_t * e)
 
     if (code == LV_EVENT_CLICKED)
     {
-        if (index == LV_100ASK_SKETCHPAD_TOOLBAR_CW)
+        if ((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW)
         {
+            static lv_coord_t sketchpad_toolbar_cw = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW;
             lv_obj_t * cw = lv_colorwheel_create(sketchpad, true);
-            lv_obj_set_size(cw, 200, 200);
             lv_obj_align_to(cw, obj, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-            lv_obj_add_event_cb(cw, toolbar_set_event_cb, LV_EVENT_RELEASED, LV_100ASK_SKETCHPAD_TOOLBAR_CW);
+            lv_obj_add_event_cb(cw, toolbar_set_event_cb, LV_EVENT_RELEASED, &sketchpad_toolbar_cw);
         }
-        else if(index == LV_100ASK_SKETCHPAD_TOOLBAR_WIDTH)
+        else if((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH)
         {
+            static lv_coord_t sketchpad_toolbar_width = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH;
             lv_obj_t * slider = lv_slider_create(sketchpad);
             lv_slider_set_value(slider, (int32_t)(sketchpad_t->line_rect_dsc.width), LV_ANIM_OFF);
             lv_obj_align_to(slider, obj, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-            lv_obj_add_event_cb(slider, toolbar_set_event_cb, LV_EVENT_ALL, LV_100ASK_SKETCHPAD_TOOLBAR_WIDTH);
+            lv_obj_add_event_cb(slider, toolbar_set_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_width);
         }
     }
 }
 
 static void toolbar_set_event_cb(lv_event_t * e)
 {
-	lv_coord_t index = lv_event_get_user_data(e);
+	lv_coord_t *toolbar_opt = lv_event_get_user_data(e);
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
     lv_100ask_sketchpad_t * sketchpad = (lv_100ask_sketchpad_t *)lv_obj_get_parent(obj);
 
     if (code == LV_EVENT_RELEASED)
     {
-        if (index == LV_100ASK_SKETCHPAD_TOOLBAR_CW)
+        if ((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW)
         {
             sketchpad->line_rect_dsc.color = lv_colorwheel_get_rgb(obj);
             lv_obj_del(obj);
         }
-        else if (index == LV_100ASK_SKETCHPAD_TOOLBAR_WIDTH)
+        else if (*(toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH)
         {
             lv_obj_del(obj);
         }
     }
     else if (code == LV_EVENT_VALUE_CHANGED)
     {
-        if(index == LV_100ASK_SKETCHPAD_TOOLBAR_WIDTH)
+        if((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH)
         {
             sketchpad->line_rect_dsc.width = (lv_coord_t)lv_slider_get_value(obj);
         }
