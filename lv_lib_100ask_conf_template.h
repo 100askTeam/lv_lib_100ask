@@ -72,6 +72,17 @@
 #endif
 
 
+/*Calculator*/
+#define LV_100ASK_CALC                                      1
+#if LV_100ASK_CALC
+    /*Calculation expression*/
+    #define LV_100ASK_CALC_EXPR_LEN                      (128) // Maximum allowed length of expression
+    #define LV_100ASK_CALC_MAX_NUM_LEN                   (5)   // Maximum length of operands allowed
+
+    /*test*/
+    #define LV_100ASK_CALC_SIMPLE_TEST                  1
+#endif
+
 #endif /*LV_LIB_100ASK_H*/
 
 #endif /*End of "Content enable"*/

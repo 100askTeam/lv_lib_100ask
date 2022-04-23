@@ -40,7 +40,9 @@ extern "C" {
 /*lv_100ask_sketchpad*/
 #include "src/lv_100ask_sketchpad/lv_100ask_sketchpad.h"
 #include "test/lv_100ask_sketchpad_test/simple_test.h"
-
+/*lv_100ask_calc*/
+#include "src/lv_100ask_calc/lv_100ask_calc.h"
+#include "test/lv_100ask_calc_test/simple_test.h"
 
 
 /*********************

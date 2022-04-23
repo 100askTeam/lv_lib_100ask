@@ -8,6 +8,7 @@
 | [src/lv_100ask_chinese_ime](src/lv_100ask_chinese_ime/README_zh.md) | lvgl组件增强接口(中文输入) |
 | [src/lv_100ask_sketchpad](src/lv_100ask_sketchpad/README_zh.md) | lvgl组件增强接口(画板) |
 | [src/lv_100ask_page_manager](src/lv_100ask_page_manager/README_zh.md) | lvgl组件增强接口(页面管理器) |
+| [src/lv_100ask_calc](src/lv_100ask_calc/README_zh.md) | lvgl组件增强接口(计算器) |
 | [src/lv_100ask_2048](src/lv_100ask_2048/README_zh.md) | lvgl方案参考(2048小游戏)TODO |
 | [src/lv_100ask_memory](src/lv_100ask_memory/README_zh.md) | lvgl方案参考(数字对拼图小游戏) TODO|
 | more todo...  | more todo... |
