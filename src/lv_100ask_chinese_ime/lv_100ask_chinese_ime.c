@@ -9,6 +9,7 @@
 #include "lv_100ask_chinese_ime.h"
 
 #if LV_100ASK_CHINESE_IME
+#include <stdio.h>
 #include "cJSON.h"
 
 /*********************

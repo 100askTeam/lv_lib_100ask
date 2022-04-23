@@ -2,8 +2,8 @@
  * @file lv_100ask_chinese_ime.h
  *
  */
-#ifndef LV_100ASK_CHINESE_IME
-#define LV_100ASK_CHINESE_IME
+#ifndef LV_100ASK_CHINESE_IME_H
+#define LV_100ASK_CHINESE_IME_H
 
 #ifdef __cplusplus
 extern "C" {
