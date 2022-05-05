@@ -83,6 +83,19 @@
     #define LV_100ASK_CALC_SIMPLE_TEST                  1
 #endif
 
+/*GAME*/
+/*Memory game*/
+#define LV_100ASK_MEMORY_GAME                               1
+#if LV_100ASK_MEMORY_GAME
+    /*Initial values of rows and columns.*/
+    /*Recommended row == column*/
+    #define  LV_100ASK_MEMORY_GAME_DEFAULT_ROW          4
+    #define  LV_100ASK_MEMORY_GAME_DEFAULT_COL          4
+
+    /*test*/
+    #define  LV_100ASK_MEMORY_GAME_SIMPLE_TEST          1
+#endif   
+
 #endif /*LV_LIB_100ASK_H*/
 
 #endif /*End of "Content enable"*/

@@ -10,7 +10,7 @@
 | [src/lv_100ask_page_manager](src/lv_100ask_page_manager/README_zh.md) | lvgl组件增强接口(页面管理器) |
 | [src/lv_100ask_calc](src/lv_100ask_calc/README_zh.md) | lvgl组件增强接口(计算器) |
 | [src/lv_100ask_2048](src/lv_100ask_2048/README_zh.md) | lvgl方案参考(2048小游戏)TODO |
-| [src/lv_100ask_memory](src/lv_100ask_memory/README_zh.md) | lvgl方案参考(数字对拼图小游戏) TODO|
+| [src/lv_100ask_memory_game](src/lv_100ask_memory_game/README_zh.md) | lvgl方案参考(数字对拼图小游戏) |
 | more todo...  | more todo... |
 
 # 使用方法

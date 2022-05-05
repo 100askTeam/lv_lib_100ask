@@ -43,7 +43,9 @@ extern "C" {
 /*lv_100ask_calc*/
 #include "src/lv_100ask_calc/lv_100ask_calc.h"
 #include "test/lv_100ask_calc_test/simple_test.h"
-
+/*lv_100ask_memory_game*/
+#include "src/lv_100ask_memory_game/lv_100ask_memory_game.h"
+#include "test/lv_100ask_memory_game_test/simple_test.h"
 
 /*********************
  *      DEFINES
