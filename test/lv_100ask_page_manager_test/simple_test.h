@@ -16,6 +16,8 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
+#if LV_100ASK_PAGE_MANAGER_SIMPLE_TEST != 0
+
 /*********************
  *      DEFINES
  *********************/
@@ -53,4 +55,5 @@ void lv_100ask_page_manager_simple_test(void);
 } /*extern "C"*/
 #endif
 
+#endif /*LV_100ASK_PAGE_MANAGER_SIMPLE_TEST*/
 #endif /*LV_100ASK_PAGE_MANAGER_SIMPLE_TEST_H*/

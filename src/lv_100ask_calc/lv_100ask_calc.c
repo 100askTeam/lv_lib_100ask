@@ -8,7 +8,8 @@
  *********************/
 #include "lv_100ask_calc.h"
 
-#if LV_100ASK_CALC
+#if LV_100ASK_CALC != 0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>

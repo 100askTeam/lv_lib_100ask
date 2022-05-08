@@ -10,7 +10,7 @@
 #include "lv_100ask_page_manager.h"
 
 
-#if LV_100ASK_PAGE_MANAGER
+#if LV_100ASK_PAGE_MANAGER != 0
 
 
 /*********************

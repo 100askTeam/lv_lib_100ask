@@ -16,6 +16,8 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
+#if LV_100ASK_CALC != 0
+
 /*********************
  *      DEFINES
  *********************/
@@ -120,4 +122,5 @@ lv_obj_t * lv_100ask_calc_get_ta_input(lv_obj_t * obj);
 } /*extern "C"*/
 #endif
 
+#endif  /*LV_100ASK_CALC*/
 #endif /*LV_SKETCHPAD_H*/

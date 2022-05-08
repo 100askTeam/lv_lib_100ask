@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_sketchpad.h"
 
-#if LV_100ASK_SKETCHPAD
+#if LV_100ASK_SKETCHPAD != 0
 
 /*********************
  *      DEFINES

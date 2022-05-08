@@ -16,6 +16,8 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
+#if LV_100ASK_PAGE_MANAGER != 0
+
 /*********************
  *      DEFINES
  *********************/
@@ -110,4 +112,5 @@ void lv_100ask_page_manager_set_load_page_event(lv_obj_t * obj, lv_obj_t * page,
 } /*extern "C"*/
 #endif
 
+#endif  /*LV_100ASK_PG_MGT*/
 #endif /*LV_100ASK_PAGE_MANAGER_H*/

@@ -1,0 +1,116 @@
+# Kconfig file
+
+menu "LV_LIB_100ASK configuration"
+
+    menu "Chinese input method"
+        config LV_100ASK_CHINESE_IME
+            bool "Enable LV_100ASK_CHINESE_IME."
+            default n
+            help
+                Must deploy LV_USE_KEYBOARD for "lv_conf.h".
+
+        config LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT
+            bool "Enable LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT."
+            depends on LV_100ASK_CHINESE_IME
+            default y
+            help
+                Use internal Thesaurus.
+
+        config LV_100ASK_CHINESE_IME_SIMPLE_TEST
+            bool "Enable LV_100ASK_CHINESE_IME_SIMPLE_TEST."
+            depends on LV_100ASK_CHINESE_IME
+            default n
+            help
+                Chinese input method simple test.
+    endmenu
+
+    menu "Page manager"
+        config LV_100ASK_PAGE_MANAGER
+            bool "Enable LV_100ASK_PAGE_MANAGER."
+            default n
+        config LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE
+            bool "Switch pages and delete old pages at the same time.."
+            depends on LV_100ASK_PAGE_MANAGER
+            default n
+            help
+                Switch pages and delete old pages at the same time.
+                1: DELETE , 0:DELETE NO
+        config PAGE_SWITCHER_SNAPSHOT
+            bool "age switcher snapshot"
+            depends on LV_100ASK_PAGE_MANAGER
+            default n
+
+        config LV_100ASK_PAGE_MANAGER_BACK_BTN_SIZE
+            int "age switcher snapshot"
+            depends on LV_100ASK_PAGE_MANAGER
+            default 60
+                        
+        config LV_100ASK_PAGE_MANAGER_SIMPLE_TEST
+            bool "Enable LV_100ASK_PAGE_MANAGER_SIMPLE_TEST."
+            depends on LV_100ASK_PAGE_MANAGER
+            default n
+    endmenu
+
+    menu "lv_lib_100ask sketchpad"
+        config LV_100ASK_SKETCHPAD
+            bool "Enable LV_100ASK_SKETCHPAD."
+            default y
+            help
+                Must deploy LV_USE_CANVAS for "lv_conf.h".
+
+        config SKETCHPAD_DEFAULT_WIDTH
+            int "sketchpad default width."
+            depends on LV_100ASK_SKETCHPAD
+            default 20
+        config SKETCHPAD_DEFAULT_HEIGHT
+            int "sketchpad default height."
+            depends on LV_100ASK_SKETCHPAD
+            default 20
+
+        config LV_100ASK_SKETCHPAD_SIMPLE_TEST
+            bool "Enable LV_100ASK_SKETCHPAD_SIMPLE_TEST."
+            depends on LV_100ASK_SKETCHPAD
+            default n
+            help
+                Sketchpad simple test.
+    endmenu
+
+    menu "Calculator"
+        config LV_100ASK_CALC
+            bool "Enable LV_100ASK_CALC."
+            default n
+        config LV_100ASK_CALC_EXPR_LEN
+            int "Enable LV_100ASK_CALC_EXPR_LEN."
+            depends on LV_100ASK_CALC
+            default 128
+        config LV_100ASK_CALC_MAX_NUM_LEN
+            int "Enable LV_100ASK_CALC_MAX_NUM_LEN."
+            depends on LV_100ASK_CALC
+            default 5
+
+        config LV_100ASK_CALC_SIMPLE_TEST
+            bool "Enable LV_100ASK_CALC_SIMPLE_TEST."
+            depends on LV_100ASK_CALC
+            default n
+    endmenu
+
+    menu "Memory game"
+        config LV_100ASK_MEMORY_GAME
+            bool "Enable LV_100ASK_MEMORY_GAME."
+            default y
+        config LV_100ASK_MEMORY_GAME_DEFAULT_ROW
+            int "Enable LV_100ASK_CALC_EXPR_LEN."
+            depends on LV_100ASK_MEMORY_GAME
+            default 4
+        config LV_100ASK_MEMORY_GAME_DEFAULT_COL
+            int "Enable LV_100ASK_CALC_MAX_NUM_LEN."
+            depends on LV_100ASK_MEMORY_GAME
+            default 4
+
+        config LV_100ASK_MEMORY_GAME_SIMPLE_TEST
+            bool "Enable LV_100ASK_MEMORY_GAME_SIMPLE_TEST."
+            depends on LV_100ASK_MEMORY_GAME
+            default n
+    endmenu
+
+endmenu

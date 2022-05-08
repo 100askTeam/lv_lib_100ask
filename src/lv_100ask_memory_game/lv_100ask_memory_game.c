@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_memory_game.h"
 
-#if LV_100ASK_MEMORY_GAME
+#if LV_100ASK_MEMORY_GAME != 0
 
 #include<time.h>
 #include <stdio.h>

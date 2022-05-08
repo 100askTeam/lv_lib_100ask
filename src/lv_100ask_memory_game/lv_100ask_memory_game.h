@@ -16,6 +16,8 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
+#if LV_100ASK_MEMORY_GAME != 0
+
 /*********************
  *      DEFINES
  *********************/
@@ -73,4 +75,5 @@ uint16_t lv_100ask_memory_game_get_col(lv_obj_t * obj);
 } /*extern "C"*/
 #endif
 
+#endif  /*LV_100ASK_MEMORY_GAME*/
 #endif /*LV_100ASK_MEMORY_GAME_H*/

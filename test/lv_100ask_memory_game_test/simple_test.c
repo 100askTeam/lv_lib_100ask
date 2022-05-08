@@ -11,7 +11,7 @@
  *********************/
 #include "simple_test.h"
 
-#if LV_100ASK_MEMORY_GAME_SIMPLE_TEST
+#if LV_100ASK_MEMORY_GAME_SIMPLE_TEST != 0
 
 /*********************
  *      DEFINES
