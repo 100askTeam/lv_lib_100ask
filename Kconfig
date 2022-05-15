@@ -113,4 +113,19 @@ menu "LV_LIB_100ASK configuration"
             default n
     endmenu
 
+    menu "Game 2048"
+        config LV_100ASK_2048
+            bool "Enable LV_100ASK_MEMORY_GAME."
+            default y
+        config LV_100ASK_2048_MATRIX_SIZE
+            int "Set LV_100ASK_2048_MATRIX_SIZE."
+            depends on LV_100ASK_2048
+            default 4
+
+        config LV_100ASK_2048_SIMPLE_TEST
+            bool "Enable LV_100ASK_2048_SIMPLE_TEST."
+            depends on LV_100ASK_2048
+            default y
+    endmenu
+
 endmenu

@@ -161,5 +161,31 @@
 #  endif
 #endif
 
+/*LV_100ASK_2048*/
+#ifndef LV_100ASK_2048
+#  ifdef CONFIG_LV_100ASK_2048
+#    define LV_100ASK_2048 CONFIG_LV_100ASK_2048
+#  else
+#    define LV_100ASK_2048          1
+#  endif
+#endif
+
+#ifndef LV_100ASK_2048_MATRIX_SIZE
+#  ifdef CONFIG_LV_100ASK_2048_MATRIX_SIZE
+#    define LV_100ASK_2048_MATRIX_SIZE CONFIG_LV_100ASK_2048_MATRIX_SIZE
+#  else
+#    define LV_100ASK_2048_MATRIX_SIZE          4
+#  endif
+#endif
+
+
+#ifndef LV_100ASK_2048_SIMPLE_TEST
+#  ifdef CONFIG_LV_100ASK_2048_SIMPLE_TEST
+#    define LV_100ASK_2048_SIMPLE_TEST CONFIG_LV_100ASK_2048_SIMPLE_TEST
+#  else
+#    define LV_100ASK_2048_SIMPLE_TEST          0
+#  endif
+#endif
+
 
 #endif /*LV_LIB_100ASK_CONF_INTERNAL_H*/

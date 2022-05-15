@@ -48,6 +48,9 @@ extern "C" {
 /*lv_100ask_memory_game*/
 #include "src/lv_100ask_memory_game/lv_100ask_memory_game.h"
 #include "test/lv_100ask_memory_game_test/simple_test.h"
+/*lv_100ask_2048*/
+#include "src/lv_100ask_2048/lv_100ask_2048.h"
+#include "test/lv_100ask_2048_test/simple_test.h"
 
 /*********************
  *      DEFINES

@@ -96,6 +96,17 @@
     #define  LV_100ASK_MEMORY_GAME_SIMPLE_TEST          1
 #endif   
 
+/*2048 game*/
+#define LV_100ASK_2048                               1
+#if LV_100ASK_2048
+    /* Matrix size*/
+    /*Do not modify*/
+    #define  LV_100ASK_2048_MATRIX_SIZE          4
+
+    /*test*/
+    #define  LV_100ASK_2048_SIMPLE_TEST          1
+#endif  
+
 #endif /*LV_LIB_100ASK_H*/
 
 #endif /*End of "Content enable"*/
