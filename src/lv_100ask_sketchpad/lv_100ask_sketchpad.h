@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-
 /*********************
  *      INCLUDES
  *********************/
@@ -64,9 +63,10 @@ lv_obj_t * lv_100ask_sketchpad_create(lv_obj_t * parent);
  *      MACROS
  **********************/
 
+#endif  /*LV_SKETCHPAD*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif  /*LV_SKETCHPAD*/
 #endif /*LV_SKETCHPAD_H*/

@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-
 /*********************
  *      INCLUDES
  *********************/
@@ -108,9 +107,10 @@ void lv_100ask_page_manager_set_load_page_event(lv_obj_t * obj, lv_obj_t * page,
  *      MACROS
  **********************/
 
+#endif  /*LV_100ASK_PG_MGT*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif  /*LV_100ASK_PG_MGT*/
 #endif /*LV_100ASK_PAGE_MANAGER_H*/

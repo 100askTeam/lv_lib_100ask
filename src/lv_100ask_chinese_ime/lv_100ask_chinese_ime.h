@@ -9,7 +9,6 @@
 extern "C" {
 #endif
 
-
 /*********************
  *      INCLUDES
  *********************/
@@ -84,10 +83,11 @@ void lv_100ask_chinese_ime_set_text_font(const lv_font_t * value, lv_style_selec
  *      MACROS
  **********************/
 
+#endif  /*LV_CHINESE_IME*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif  /*LV_CHINESE_IME*/
 #endif /*LV_100ASK_CHINESE_IME*/
 

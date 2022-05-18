@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-
 /*********************
  *      INCLUDES
  *********************/
@@ -118,9 +117,10 @@ lv_obj_t * lv_100ask_calc_get_ta_input(lv_obj_t * obj);
  *      MACROS
  **********************/
 
+#endif  /*LV_100ASK_CALC*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif  /*LV_100ASK_CALC*/
 #endif /*LV_SKETCHPAD_H*/

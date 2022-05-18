@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-
 /*********************
  *      INCLUDES
  *********************/
@@ -72,9 +71,10 @@ bool lv_100ask_2048_get_status(lv_obj_t * obj);
  *      MACROS
  **********************/
 
+#endif  /*LV_SKETCHPAD*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif  /*LV_SKETCHPAD*/
 #endif /*LV_SKETCHPAD_H*/

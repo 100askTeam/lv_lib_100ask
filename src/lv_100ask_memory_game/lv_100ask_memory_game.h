@@ -71,9 +71,10 @@ uint16_t lv_100ask_memory_game_get_col(lv_obj_t * obj);
  *      MACROS
  **********************/
 
+#endif  /*LV_100ASK_MEMORY_GAME*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif  /*LV_100ASK_MEMORY_GAME*/
 #endif /*LV_100ASK_MEMORY_GAME_H*/

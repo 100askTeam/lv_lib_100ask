@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-
 /*********************
  *      INCLUDES
  *********************/
@@ -51,9 +50,10 @@ void lv_100ask_2048_simple_test(void);
  *      MACROS
  **********************/
 
+#endif /*LV_100ASK_2048_SIMPLE_TEST*/
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif /*LV_100ASK_2048_SIMPLE_TEST*/
 #endif /*LV_100ASK_2048_SIMPLE_TEST_H*/
