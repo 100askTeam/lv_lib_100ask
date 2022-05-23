@@ -2,26 +2,26 @@
 
 menu "LV_LIB_100ASK configuration"
 
-    menu "Chinese input method"
-        config LV_100ASK_CHINESE_IME
-            bool "Enable LV_100ASK_CHINESE_IME."
+    menu "Pinyin input method"
+        config LV_100ASK_PINYIN_IME
+            bool "Enable LV_100ASK_PINYIN_IME."
             default n
             help
                 Must deploy LV_USE_KEYBOARD for "lv_conf.h".
 
-        config LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT
-            bool "Enable LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT."
-            depends on LV_100ASK_CHINESE_IME
+        config LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT
+            bool "Enable LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT."
+            depends on LV_100ASK_PINYIN_IME
             default y
             help
                 Use internal Thesaurus.
 
-        config LV_100ASK_CHINESE_IME_SIMPLE_TEST
-            bool "Enable LV_100ASK_CHINESE_IME_SIMPLE_TEST."
-            depends on LV_100ASK_CHINESE_IME
+        config LV_100ASK_PINYIN_IME_SIMPLE_TEST
+            bool "Enable LV_100ASK_PINYIN_IME_SIMPLE_TEST."
+            depends on LV_100ASK_PINYIN_IME
             default n
             help
-                Chinese input method simple test.
+                Pinyin input method simple test.
     endmenu
 
     menu "Page manager"

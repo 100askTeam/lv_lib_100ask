@@ -1,10 +1,10 @@
 #include "../../lv_lib_100ask.h"
 
-#ifndef LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT
-#define LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT 0
+#ifndef LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT
+#define LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT 0
 #endif
 
-#if LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT
+#if LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT
 
 const char * zh_cn_pinyin_dict = \
 "{\
@@ -413,4 +413,4 @@ const char * zh_cn_pinyin_dict = \
 
 extern const char * zh_cn_pinyin_dict;
 
-#endif  /*#if LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT*/ 
+#endif  /*#if LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT*/ 

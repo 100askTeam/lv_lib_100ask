@@ -5,7 +5,7 @@
 # lib列表
 |  路径   | 说明  |
 |  ----  | ----  |
-| [src/lv_100ask_chinese_ime](src/lv_100ask_chinese_ime/README_zh.md) | lvgl组件增强接口(中文输入) |
+| [src/lv_100ask_pinyin_ime](src/lv_100ask_pinyin_ime/README_zh.md) | lvgl组件增强接口(拼音输入法) |
 | [src/lv_100ask_sketchpad](src/lv_100ask_sketchpad/README_zh.md) | lvgl组件增强接口(画板) |
 | [src/lv_100ask_page_manager](src/lv_100ask_page_manager/README_zh.md) | lvgl组件增强接口(页面管理器) |
 | [src/lv_100ask_calc](src/lv_100ask_calc/README_zh.md) | lvgl组件增强接口(计算器) |

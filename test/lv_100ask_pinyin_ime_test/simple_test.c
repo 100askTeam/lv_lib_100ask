@@ -11,7 +11,7 @@
  *********************/
 #include "simple_test.h"
 
-#if LV_100ASK_CHINESE_IME_SIMPLE_TEST != 0
+#if LV_100ASK_PINYIN_IME_SIMPLE_TEST != 0
 
 /*********************
  *      DEFINES
@@ -42,7 +42,7 @@
  *   GLOBAL FUNCTIONS
  **********************/
 
-// Oops!!! You can extract Chinese fonts Zip get it.
+// Oops!!! You can extract Pinyin fonts Zip get it.
 LV_FONT_DECLARE(lv_font_source_han_sans_bold_14);
 
 static void ta_event_cb(lv_event_t * e)
@@ -66,12 +66,12 @@ static void ta_event_cb(lv_event_t * e)
     }
 }
 
-void lv_100ask_chinese_ime_simple_test(void)
+void lv_100ask_pinyin_ime_simple_test(void)
 {
 
-    lv_obj_t * kb = lv_100ask_chinese_ime_create(lv_scr_act());
-    lv_100ask_chinese_ime_set_text_font(&lv_font_source_han_sans_bold_14, 0);   // set font
-    //lv_chinese_ime_set_dict(your_dict); // Use a custom thesaurus. If it is not set, the built-in thesaurus will be used
+    lv_obj_t * kb = lv_100ask_pinyin_ime_create(lv_scr_act());
+    lv_100ask_pinyin_ime_set_text_font(&lv_font_source_han_sans_bold_14, 0);   // set font
+    //lv_pinyin_ime_set_dict(your_dict); // Use a custom thesaurus. If it is not set, the built-in thesaurus will be used
 
 
     /* ta1 */

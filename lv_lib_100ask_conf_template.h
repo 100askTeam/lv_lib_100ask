@@ -23,17 +23,17 @@
  * USAGE
  *********************/
 
-/* Simplified Chinese input method */
+/* Simplified Pinyin input method */
 #if LV_USE_KEYBOARD
     /* Requires LV_USE_KEYBOARD = 1 */
-    #define LV_100ASK_CHINESE_IME                          0
+    #define LV_100ASK_PINYIN_IME                          0
 #endif
 
-#if LV_100ASK_CHINESE_IME
-    #define LV_100ASK_CHINESE_IME_ZH_CN_PIN_YIN_DICT   1
+#if LV_100ASK_PINYIN_IME
+    #define LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT   1
 
     /*test*/
-    #define LV_100ASK_CHINESE_IME_SIMPLE_TEST          1
+    #define LV_100ASK_PINYIN_IME_SIMPLE_TEST          1
 #endif
 
 

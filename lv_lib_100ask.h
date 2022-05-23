@@ -36,9 +36,9 @@ extern "C" {
 /*lv_100ask_page_manager*/
 #include "src/lv_100ask_page_manager/lv_100ask_page_manager.h"
 #include "test/lv_100ask_page_manager_test/simple_test.h"
-/*lv_100ask_chinese_ime*/
-#include "src/lv_100ask_chinese_ime/lv_100ask_chinese_ime.h"
-#include "test/lv_100ask_chinese_ime_test/simple_test.h"
+/*lv_100ask_pinyin_ime*/
+#include "src/lv_100ask_pinyin_ime/lv_100ask_pinyin_ime.h"
+#include "test/lv_100ask_pinyin_ime_test/simple_test.h"
 /*lv_100ask_sketchpad*/
 #include "src/lv_100ask_sketchpad/lv_100ask_sketchpad.h"
 #include "test/lv_100ask_sketchpad_test/simple_test.h"
