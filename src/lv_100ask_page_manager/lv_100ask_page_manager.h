@@ -25,9 +25,6 @@ extern "C" {
 #define ANIM_DEF(start_time, obj, attr, start, end) \
         {start_time, obj, LV_ANIM_EXEC(attr), start, end, 400, lv_anim_path_overshoot, true}
 
-//#define ANIM_DEF(start_time, obj, attr, start, end, duration, path_cb, early_apply) \
-//        {start_time, obj, LV_ANIM_EXEC(attr), start, end, 500, lv_anim_path_overshoot, true}
-
 #define LV_ANIM_TIMELINE_WRAPPER_END {0, NULL}
 
 
