@@ -53,7 +53,7 @@ lv_obj_t * lv_100ask_memory_game_create(lv_obj_t * parent);
  * @param max_count     Total number of random numbers to be generated
  * @param count         Random number range (max_count / 2)
  */
-void lv_100ask_memory_set_map(lv_obj_t * obj, uint16_t row, uint16_t col);
+void lv_100ask_memory_game_set_map(lv_obj_t * obj, uint16_t row, uint16_t col);
 
 /*=====================
  * Getter functions
