@@ -68,11 +68,11 @@ static void ta_event_cb(lv_event_t * e)
 
 void lv_100ask_pinyin_ime_simple_test(void)
 {
-
-    lv_obj_t * kb = lv_100ask_pinyin_ime_create(lv_scr_act());
-    lv_100ask_pinyin_ime_set_text_font(&lv_font_source_han_sans_bold_14, 0);   // set font
+    lv_obj_t * pinyin_ime = lv_100ask_pinyin_ime_create(lv_scr_act());
+    lv_obj_set_style_text_font(pinyin_ime, &lv_font_source_han_sans_bold_14, 0);   // set font
     //lv_pinyin_ime_set_dict(your_dict); // Use a custom thesaurus. If it is not set, the built-in thesaurus will be used
 
+    lv_obj_t * kb = lv_100ask_pinyin_ime_get_kb(pinyin_ime);
 
     /* ta1 */
     lv_obj_t * ta1 = lv_textarea_create(lv_scr_act());

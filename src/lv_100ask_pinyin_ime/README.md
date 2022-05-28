@@ -26,12 +26,6 @@ Normally, as long as lvgl can run in an environment `lv_100ask_pinyin_ime` can a
 # Usage
 Refer to the example in **lv_lib_100ask/test/lv_100ask_pinyin_ime_test**.
 
-# NOTE
-- Only one `lv_100ask_pinyin_ime` can exist in a project at the same time.
-- When `lv_100ask_pinyin_ime` is not needed, please use `lv_100ask_pinyin_ime_del` to delete it.
-- After deleting `lv_100ask_pinyin_ime` normally, you can recreate the usage through the [above](# Usage) usage example..
-
-
 
 # About
 This is an open project and contribution is very welcome!

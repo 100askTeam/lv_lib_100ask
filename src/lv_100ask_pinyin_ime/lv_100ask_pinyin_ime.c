@@ -11,11 +11,12 @@
 #if LV_USE_100ASK_PINYIN_IME != 0
 
 #include <stdio.h>
-#include "cJSON.h"
+#include "cJSON.h"  
 
 /*********************
  *      DEFINES
  *********************/
+#define MY_CLASS    &lv_100ask_pinyin_ime_class
 
 /**********************
  *      TYPEDEFS
@@ -24,16 +25,25 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static void lv_pinyin_ime_constructor(lv_obj_t * obj);
-static void lv_pinyin_ime_def_event_cb(lv_event_t * e);
-static void parse_match_dict(lv_obj_t * keyboard);
+static void lv_100ask_pinyin_ime_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+static void lv_100ask_pinyin_ime_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+static void lv_100ask_pinyin_ime_event(lv_event_t * e);
+
 static void select_font_event_cb(lv_event_t * e);
-static void lv_pinyin_ime_destruct(void);
+static void parse_match_dict(lv_obj_t * obj, lv_obj_t * kb);
 
 /**********************
  *  STATIC VARIABLES
  **********************/
-static lv_pinyin_ime_pt  lv_pinyin_ime;
+const lv_obj_class_t lv_100ask_pinyin_ime_class = {
+    .constructor_cb = lv_100ask_pinyin_ime_constructor,
+    .destructor_cb  = lv_100ask_pinyin_ime_destructor,
+    .width_def      = LV_PCT(100),
+    .height_def     = LV_PCT(50),
+    .group_def      = LV_OBJ_CLASS_GROUP_DEF_TRUE,
+    .instance_size  = sizeof(lv_100ask_pinyin_ime_t),
+    .base_class     = &lv_obj_class
+};
 
 /**********************
  *      MACROS
@@ -42,48 +52,48 @@ static lv_pinyin_ime_pt  lv_pinyin_ime;
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
-
-/**
- * Create a keyboard objects
- * @param par pointer to an object, it will be the parent of the new keyboard
- * @return pointer to the created keyboard
- */
 lv_obj_t * lv_100ask_pinyin_ime_create(lv_obj_t * parent)
 {
     LV_LOG_INFO("begin");
-    lv_obj_t * obj = lv_keyboard_create(parent);
-    lv_pinyin_ime_constructor(obj);
+    lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+    lv_obj_class_init_obj(obj);
     return obj;
 }
 
-/**
- * This is the inheritance and customization of "lv_obj_del".
- * @param obj       pointer to an object
- */
-void lv_100ask_pinyin_ime_del(lv_obj_t * obj)
+
+/*=====================
+ * Setter functions
+ *====================*/
+
+void lv_100ask_pinyin_ime_set_dict(lv_obj_t * obj, const char * dict)
 {
-    lv_pinyin_ime_destruct();
-    lv_obj_del(obj);
+    LV_ASSERT_OBJ(obj, MY_CLASS);
+
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
+
+    pinyin_ime->dict = dict;
+}
+
+/*=====================
+ * Getter functions
+ *====================*/
+lv_obj_t * lv_100ask_pinyin_ime_get_kb(lv_obj_t * obj)
+{
+    LV_ASSERT_OBJ(obj, MY_CLASS);
+
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
+
+    return pinyin_ime->kb;
 }
 
 
-/**
- * Set dict of input method
- * @param obj       pointer to an dict
- */
-void lv_100ask_pinyin_ime_set_dict(const char * dict)
+const char * lv_100ask_pinyin_ime_get_dict(lv_obj_t * obj)
 {
-    lv_pinyin_ime->dict = dict;
-}
+    LV_ASSERT_OBJ(obj, MY_CLASS);
 
-/**
- * Similar to "lv_obj_set_style_text_font"
- * @param value       pointer to a font
- * @param selector    selector
- */
-void lv_100ask_pinyin_ime_set_text_font(const lv_font_t * value, lv_style_selector_t selector)
-{
-    lv_obj_set_style_text_font(lv_pinyin_ime->font_panel, value, selector);
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
+
+    return pinyin_ime->dict;
 }
 
 /*=====================
@@ -94,85 +104,130 @@ void lv_100ask_pinyin_ime_set_text_font(const lv_font_t * value, lv_style_select
  *   STATIC FUNCTIONS
  **********************/
 
-/**
- * This is the inheritance and customization of "lv_keyboard_def_event_cb".
- * @param kb pointer to a keyboard
- * @param event the triggering event
- */
-static void lv_pinyin_ime_def_event_cb(lv_event_t * e)
+static void lv_100ask_pinyin_ime_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    lv_obj_t * obj = lv_event_get_target(e);
+    LV_UNUSED(class_p);
+    LV_TRACE_OBJ_CREATE("begin");
+    
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
 
-    uint16_t btn_id   = lv_btnmatrix_get_selected_btn(obj);
-    if(btn_id == LV_BTNMATRIX_BTN_NONE) return;
+    pinyin_ime->dict = zh_cn_pinyin_dict;
+    pinyin_ime->ta_count = 0;
+    lv_memset_00(pinyin_ime->input_char, sizeof(pinyin_ime->input_char));
 
-    const char * txt = lv_btnmatrix_get_btn_text(obj, lv_btnmatrix_get_selected_btn(obj));
-    if(txt == NULL) return;
+    lv_obj_set_size(obj, LV_PCT(100), LV_PCT(55));
+    lv_obj_align(obj, LV_ALIGN_BOTTOM_MID, 0, 0);
 
-    if(strcmp(txt, "Enter") == 0 || strcmp(txt, LV_SYMBOL_NEW_LINE) == 0) {
-        lv_obj_clean(lv_pinyin_ime->font_panel);
-        lv_pinyin_ime->ta_count = 0;
-        lv_memset_00(lv_pinyin_ime->input_char, sizeof(lv_pinyin_ime->input_char));
-    }
-    else if(strcmp(txt, LV_SYMBOL_BACKSPACE) == 0) {
-        // del input char
-        for (int i = strlen(lv_pinyin_ime->input_char) - 1; i >= 0; i--){
-            if (lv_pinyin_ime->input_char[i] != '\0'){
-                lv_pinyin_ime->input_char[i] = '\0';
-                break;
-            }
-        }
-        parse_match_dict(obj);
-        lv_pinyin_ime->ta_count--;
-    }
-    else if ((txt[0] >= 'a' && txt[0] <= 'z') || (txt[0] >= 'A' && txt[0] <= 'Z')){
-        strcat(lv_pinyin_ime->input_char, txt);
-        parse_match_dict(obj);
-        lv_pinyin_ime->ta_count++;
+    pinyin_ime->kb = lv_keyboard_create(lv_scr_act());
+    lv_obj_align_to(pinyin_ime->kb, obj, LV_ALIGN_BOTTOM_MID, 0, 0);
+
+    pinyin_ime->font_panel = lv_obj_create(obj);
+    lv_obj_set_size(pinyin_ime->font_panel, LV_PCT(100), LV_PCT(10));
+    lv_obj_set_flex_flow(pinyin_ime->font_panel, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_align(pinyin_ime->font_panel, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_align_to(pinyin_ime->font_panel, obj, LV_ALIGN_TOP_MID, 0, 0);
+
+    lv_obj_set_style_bg_opa(pinyin_ime->font_panel, 0, 0);
+	lv_obj_set_style_border_opa(pinyin_ime->font_panel, 0, 0);
+	lv_obj_set_style_radius(pinyin_ime->font_panel, 0, 0);
+	lv_obj_set_style_pad_all(pinyin_ime->font_panel, 0, 0);
+
+    lv_obj_add_event_cb(pinyin_ime->kb, lv_100ask_pinyin_ime_event, LV_EVENT_VALUE_CHANGED, obj);
+  
+}
+
+
+static void lv_100ask_pinyin_ime_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+{
+    LV_UNUSED(class_p);
+
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
+
+    if (pinyin_ime->kb)
+    {
+        lv_obj_del(pinyin_ime->kb);
     }
 }
 
 
-/**
- * Triggered when a font is selected.
- * @param kb pointer to a keyboard
- * @param event the triggering event
- */
+
+static void lv_100ask_pinyin_ime_event(lv_event_t * e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * kb = lv_event_get_target(e);
+    lv_obj_t * obj = lv_event_get_user_data(e);
+
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
+
+    if(code == LV_EVENT_VALUE_CHANGED)
+    {
+        uint16_t btn_id  = lv_btnmatrix_get_selected_btn(kb);
+        if(btn_id == LV_BTNMATRIX_BTN_NONE) return;
+
+        const char * txt = lv_btnmatrix_get_btn_text(kb, lv_btnmatrix_get_selected_btn(kb));
+        if(txt == NULL) return;
+
+        if(strcmp(txt, "Enter") == 0 || strcmp(txt, LV_SYMBOL_NEW_LINE) == 0) {
+            lv_obj_clean(pinyin_ime->font_panel);
+            pinyin_ime->ta_count = 0;
+            lv_memset_00(pinyin_ime->input_char, sizeof(pinyin_ime->input_char));
+        }
+        else if(strcmp(txt, LV_SYMBOL_BACKSPACE) == 0) {
+            // del input char
+            for (int i = strlen(pinyin_ime->input_char) - 1; i >= 0; i--){
+                if (pinyin_ime->input_char[i] != '\0'){
+                    pinyin_ime->input_char[i] = '\0';
+                    break;
+                }
+            }
+            parse_match_dict(obj, kb);
+            pinyin_ime->ta_count--;
+        }
+        else if ((txt[0] >= 'a' && txt[0] <= 'z') || (txt[0] >= 'A' && txt[0] <= 'Z')){
+            strcat(pinyin_ime->input_char, txt);
+            parse_match_dict(obj, kb);
+            pinyin_ime->ta_count++;
+        }
+    }  
+}
+
+
+
 static void select_font_event_cb(lv_event_t * e)
 {
-    lv_obj_t * obj = lv_event_get_target(e);
+    lv_obj_t * label = lv_event_get_target(e);
+    lv_obj_t * font_panel = lv_obj_get_parent(label);
+    lv_obj_t * obj = lv_obj_get_parent(font_panel);
 
-    lv_obj_t * keyboard = (lv_obj_t *)lv_event_get_user_data(e);
-    lv_obj_t * ta = lv_keyboard_get_textarea(keyboard);
+    lv_obj_t * kb = (lv_obj_t *)lv_event_get_user_data(e);
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
 
-    for (int i = 0; i < lv_pinyin_ime->ta_count; i++)
+    lv_obj_t * ta = lv_keyboard_get_textarea(kb);
+
+    for (int i = 0; i < pinyin_ime->ta_count; i++)
     {
         lv_textarea_del_char(ta);
     }
 
-    lv_textarea_add_text(ta, lv_label_get_text(obj));
+    lv_textarea_add_text(ta, lv_label_get_text(label));
 
-    lv_obj_clean(lv_pinyin_ime->font_panel);
-    lv_pinyin_ime->ta_count = 0;
-    lv_memset_00(lv_pinyin_ime->input_char, sizeof(lv_pinyin_ime->input_char));
+    lv_obj_clean(pinyin_ime->font_panel);
+    pinyin_ime->ta_count = 0;
+    lv_memset_00(pinyin_ime->input_char, sizeof(pinyin_ime->input_char));
 }
 
 
-
-/**
- * Parse and match dict (based on cJson)
- * @param text
- * @param label
- */
-static void parse_match_dict(lv_obj_t * kb)
+static void parse_match_dict(lv_obj_t * obj, lv_obj_t * kb)
 {
+    lv_100ask_pinyin_ime_t * pinyin_ime = (lv_100ask_pinyin_ime_t *)obj;
+
     cJSON* cjson_parse_result = NULL;
     cJSON* cjson_skill = NULL;
     cJSON* cjson_skill_item = NULL;
     int    skill_array_size = 0, i = 0;
 
     /* 解析整段JSON数据 */
-    cjson_parse_result = cJSON_Parse(lv_pinyin_ime->dict);
+    cjson_parse_result = cJSON_Parse(pinyin_ime->dict);
     if(cjson_parse_result == NULL)
     {
         printf("parse fail.\n");
@@ -181,8 +236,8 @@ static void parse_match_dict(lv_obj_t * kb)
 
     /* 解析数组 */
     lv_obj_t * label;
-    lv_obj_clean(lv_pinyin_ime->font_panel);
-    cjson_skill = cJSON_GetObjectItem(cjson_parse_result, lv_pinyin_ime->input_char);
+    lv_obj_clean(pinyin_ime->font_panel);
+    cjson_skill = cJSON_GetObjectItem(cjson_parse_result, pinyin_ime->input_char);
     skill_array_size = cJSON_GetArraySize(cjson_skill);
 
     for(i = 0; i < skill_array_size; i++)
@@ -190,55 +245,12 @@ static void parse_match_dict(lv_obj_t * kb)
         cjson_skill_item = cJSON_GetArrayItem(cjson_skill, i);
 
         /* 展示匹配结果 */
-        label = lv_label_create(lv_pinyin_ime->font_panel);
+        label = lv_label_create(pinyin_ime->font_panel);
         lv_label_set_text(label, cjson_skill_item->valuestring);
         lv_obj_add_flag(label, LV_OBJ_FLAG_CLICKABLE);
         lv_obj_add_event_cb(label, select_font_event_cb, LV_EVENT_CLICKED, kb);
     }
     cJSON_Delete(cjson_parse_result);
-}
-
-/**
- * lv_pinyin_ime constructor
- * @param obj pointer to a keyboard
- */
-static void lv_pinyin_ime_constructor(lv_obj_t * obj)
-{
-	static lv_style_t panel_style;      // 摆放文字展示的面板样式
-
-    /* 申请内存 */
-	lv_pinyin_ime = (lv_pinyin_ime_t *)lv_mem_alloc(sizeof(lv_pinyin_ime_t));
-
-	/* 摆放文字展示的面板样式 */
-	lv_style_init(&panel_style);
-	lv_style_set_bg_opa(&panel_style, 0);
-	lv_style_set_border_opa(&panel_style, 0);
-	lv_style_set_radius(&panel_style, 0);
-	lv_style_set_pad_all(&panel_style, 0);
-
-	lv_pinyin_ime->dict = zh_cn_pinyin_dict;
-    lv_pinyin_ime->ta_count = 0;
-    lv_memset_00(lv_pinyin_ime->input_char, sizeof(lv_pinyin_ime->input_char));
-
-    //lv_pinyin_ime->font_panel = lv_obj_create(obj);
-    lv_pinyin_ime->font_panel = lv_obj_create(lv_scr_act());
-    //lv_obj_clear_flag(lv_pinyin_ime->font_panel, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_size(lv_pinyin_ime->font_panel, LV_PCT(100), LV_PCT(4));
-    lv_obj_set_flex_flow(lv_pinyin_ime->font_panel, LV_FLEX_FLOW_ROW);
-    lv_obj_set_flex_align(lv_pinyin_ime->font_panel, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_align_to(lv_pinyin_ime->font_panel, obj, LV_ALIGN_OUT_TOP_MID, 0, 0);
-    lv_obj_add_style(lv_pinyin_ime->font_panel, &panel_style, 0);
-
-    lv_obj_add_event_cb(obj, lv_pinyin_ime_def_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
-}
-
-/**
- * lv_pinyin_ime destruct
- */
-static void lv_pinyin_ime_destruct(void)
-{
-    lv_obj_del(lv_pinyin_ime->font_panel);
-    lv_mem_free(lv_pinyin_ime);
 }
 
 #endif  /*LV_USE_PINYIN_IME*/
