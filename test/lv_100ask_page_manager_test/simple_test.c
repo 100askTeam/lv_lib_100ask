@@ -92,18 +92,18 @@ static void init_main_page(lv_obj_t * page)
     lv_style_set_layout(&style, LV_LAYOUT_FLEX);
 
     lv_obj_t * cont = lv_obj_create(page);
-    lv_obj_set_size(cont, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_size(cont, LV_PCT(95), LV_PCT(20));
     lv_obj_center(cont);
     lv_obj_add_style(cont, &style, 0);
 
     uint32_t i;
     for(i = 0; i < 6; i++) {
         lv_obj_t * obj = lv_obj_create(cont);
-        lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+        lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_PCT(100));
         lv_obj_add_flag(obj, LV_OBJ_FLAG_CHECKABLE);
 
         lv_obj_t * label = lv_label_create(obj);
-        lv_label_set_text_fmt(label, "Page%"LV_PRIu32, i+1);
+        lv_label_set_text_fmt(label, "Page%d", i+1);
         lv_obj_center(label);
 
         lv_100ask_page_manager_set_load_page_event(obj, NULL, lv_label_get_text(label));
