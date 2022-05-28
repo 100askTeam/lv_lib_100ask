@@ -26,10 +26,10 @@
 /* Simplified Pinyin input method */
 #if LV_USE_KEYBOARD
     /* Requires LV_USE_KEYBOARD = 1 */
-    #define LV_100ASK_PINYIN_IME                          0
+    #define LV_USE_100ASK_PINYIN_IME                          0
 #endif
 
-#if LV_100ASK_PINYIN_IME
+#if LV_USE_100ASK_PINYIN_IME
     #define LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT   1
 
     /*test*/
@@ -38,8 +38,8 @@
 
 
 /* Page manager */
-#define LV_100ASK_PAGE_MANAGER                              0
-#if LV_100ASK_PAGE_MANAGER
+#define LV_USE_100ASK_PAGE_MANAGER                              0
+#if LV_USE_100ASK_PAGE_MANAGER
     /*Switch pages and delete old pages at the same time. */
     /*1: DELETE , 0:DELETE NO*/
     #define LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE          0
@@ -60,9 +60,9 @@
 /* sketchpad */
 #if LV_USE_CANVAS
     /* Requires LV_USE_CANVAS = 1 */
-    #define LV_100ASK_SKETCHPAD                             0
+    #define LV_USE_100ASK_SKETCHPAD                             0
 #endif
-#if LV_100ASK_SKETCHPAD
+#if LV_USE_100ASK_SKETCHPAD
     /* set sketchpad default size */
     #define SKETCHPAD_DEFAULT_WIDTH                     1024    //LV_HOR_RES
     #define SKETCHPAD_DEFAULT_HEIGHT                    600     //LV_VER_RES
@@ -73,8 +73,8 @@
 
 
 /*Calculator*/
-#define LV_100ASK_CALC                                      1
-#if LV_100ASK_CALC
+#define LV_USE_100ASK_CALC                                      1
+#if LV_USE_100ASK_CALC
     /*Calculation expression*/
     #define LV_100ASK_CALC_EXPR_LEN                      (128) // Maximum allowed length of expression
     #define LV_100ASK_CALC_MAX_NUM_LEN                   (5)   // Maximum length of operands allowed
@@ -85,8 +85,8 @@
 
 /*GAME*/
 /*Memory game*/
-#define LV_100ASK_MEMORY_GAME                               1
-#if LV_100ASK_MEMORY_GAME
+#define LV_USE_100ASK_MEMORY_GAME                               1
+#if LV_USE_100ASK_MEMORY_GAME
     /*Initial values of rows and columns.*/
     /*Recommended row == column*/
     #define  LV_100ASK_MEMORY_GAME_DEFAULT_ROW          4
@@ -97,8 +97,8 @@
 #endif   
 
 /*2048 game*/
-#define LV_100ASK_2048                               1
-#if LV_100ASK_2048
+#define LV_USE_100ASK_2048                               1
+#if LV_USE_100ASK_2048
     /* Matrix size*/
     /*Do not modify*/
     #define  LV_100ASK_2048_MATRIX_SIZE          4

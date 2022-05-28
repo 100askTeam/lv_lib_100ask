@@ -14,7 +14,7 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
-#if LV_100ASK_PINYIN_IME != 0
+#if LV_USE_100ASK_PINYIN_IME != 0
 
 /*********************
  *      DEFINES
@@ -89,5 +89,5 @@ void lv_100ask_pinyin_ime_set_text_font(const lv_font_t * value, lv_style_select
 } /*extern "C"*/
 #endif
 
-#endif /*LV_100ASK_PINYIN_IME*/
+#endif /*LV_USE_100ASK_PINYIN_IME*/
 

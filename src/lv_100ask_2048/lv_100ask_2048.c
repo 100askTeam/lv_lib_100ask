@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_2048.h"
 
-#if LV_100ASK_2048 != 0
+#if LV_USE_100ASK_2048 != 0
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
@@ -662,4 +662,4 @@ static bool game_over(uint16_t matrix[MATRIX_SIZE][MATRIX_SIZE])
 }
 
 
-#endif  /*LV_SKETCHPAD*/
+#endif  /*LV_USE_100ASK_2048*/

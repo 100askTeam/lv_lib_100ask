@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_calc.h"
 
-#if LV_100ASK_CALC != 0
+#if LV_USE_100ASK_CALC != 0
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -552,4 +552,4 @@ static bool lv_100ask_calc_tokenizer_finished(token_t current_token, char *curr_
 }
 
 
-#endif  /*LV_100ASK_CALC*/
+#endif  /*LV_USE_100ASK_CALC*/

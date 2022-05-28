@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_memory_game.h"
 
-#if LV_100ASK_MEMORY_GAME != 0
+#if LV_USE_100ASK_MEMORY_GAME != 0
 
 #include<time.h>
 #include <stdio.h>
@@ -335,4 +335,4 @@ static void list_rand_number(uint16_t arry[], uint16_t max_count, uint16_t count
 }
 
 
-#endif  /*LV_100ASK_MEMORY_GAME*/
+#endif  /*LV_USE_100ASK_MEMORY_GAME*/

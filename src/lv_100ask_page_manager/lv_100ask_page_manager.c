@@ -10,7 +10,7 @@
 #include "lv_100ask_page_manager.h"
 
 
-#if LV_100ASK_PAGE_MANAGER != 0
+#if LV_USE_100ASK_PAGE_MANAGER != 0
 
 
 /*********************
@@ -524,4 +524,4 @@ static void lv_obj_clean_anim_ready_cb(lv_anim_t * a)
     lv_obj_t * obj = (lv_obj_t *)a->var;
     lv_obj_clean(obj);
 }
-#endif  /*LV_100ASK_PG_MGT*/
+#endif  /*LV_USE_100ASK_PAGE_MANAGER*/

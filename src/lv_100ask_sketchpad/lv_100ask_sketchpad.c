@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_sketchpad.h"
 
-#if LV_100ASK_SKETCHPAD != 0
+#if LV_USE_100ASK_SKETCHPAD != 0
 
 /*********************
  *      DEFINES
@@ -294,4 +294,4 @@ static void toolbar_set_event_cb(lv_event_t * e)
     }
 }
 
-#endif  /*LV_SKETCHPAD*/
+#endif  /*LV_USE_100ASK_SKETCHPAD*/

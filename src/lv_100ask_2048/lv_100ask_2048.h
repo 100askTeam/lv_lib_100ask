@@ -15,7 +15,7 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
-#if LV_100ASK_2048 != 0
+#if LV_USE_100ASK_2048 != 0
 
 /*********************
  *      DEFINES
@@ -71,10 +71,10 @@ bool lv_100ask_2048_get_status(lv_obj_t * obj);
  *      MACROS
  **********************/
 
-#endif  /*LV_SKETCHPAD*/
+#endif  /*LV_USE_100ASK_2048*/
 
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif /*LV_SKETCHPAD_H*/
+#endif /*LV_100ASK_2048_H*/

@@ -8,7 +8,7 @@
  *********************/
 #include "lv_100ask_pinyin_ime.h"
 
-#if LV_100ASK_PINYIN_IME != 0
+#if LV_USE_100ASK_PINYIN_IME != 0
 
 #include <stdio.h>
 #include "cJSON.h"
@@ -241,4 +241,4 @@ static void lv_pinyin_ime_destruct(void)
     lv_mem_free(lv_pinyin_ime);
 }
 
-#endif  /*LV_PINYIN_IME*/
+#endif  /*LV_USE_PINYIN_IME*/

@@ -15,7 +15,7 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
-#if LV_100ASK_SKETCHPAD != 0
+#if LV_USE_100ASK_SKETCHPAD != 0
 
 /*********************
  *      DEFINES
@@ -63,7 +63,7 @@ lv_obj_t * lv_100ask_sketchpad_create(lv_obj_t * parent);
  *      MACROS
  **********************/
 
-#endif  /*LV_SKETCHPAD*/
+#endif  /*LV_USE_SKETCHPAD*/
 
 #ifdef __cplusplus
 } /*extern "C"*/
