@@ -12,9 +12,16 @@ menu "LV_LIB_100ASK configuration"
         config LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT
             bool "Enable LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT."
             depends on LV_USE_100ASK_PINYIN_IME
-            default y
+            default n
             help
                 Use internal Thesaurus.
+        
+        config LV_100ASK_PINYIN_IME_CAND_TEXT_NUM
+            int "Set the number of candidate characters."
+            depends on LV_USE_100ASK_PINYIN_IME
+            default 10
+            help
+                Adjust according to screen width.
 
         config LV_100ASK_PINYIN_IME_SIMPLE_TEST
             bool "Enable LV_100ASK_PINYIN_IME_SIMPLE_TEST."

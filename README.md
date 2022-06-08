@@ -5,12 +5,12 @@
 # Item
 |  path   | describe  |
 |  ----  | ----  |
-| [src/lv_100ask_pinyin_ime](src/lv_100ask_pinyin_ime/README.md) | Lvgl component enhanced interface (Pinyin IME) |
-| [src/lv_100ask_sketchpad](src/lv_100ask_sketchpad/README.md) | Lvgl component enhanced interface (drawing board) |
-| [src/lv_100ask_page_manager](src/lv_100ask_page_manager/README.md) | Lvgl component enhanced interface (Page Manager) |
-| [src/lv_100ask_calc](src/lv_100ask_calc/README.md) | Lvgl component enhanced interface (Calculator) 
-| [src/lv_100ask_2048](src/lv_100ask_2048/README.md) | Lvgl scheme reference (2048) |
-| [src/lv_100ask_memory_game](src/lv_100ask_memory_game/README.md) | Lvgl scheme reference (number pair puzzle) |
+| [src/lv_100ask_pinyin_ime](src/lv_100ask_pinyin_ime/README_zh.md) | Lvgl component enhanced interface (Pinyin IME) |
+| [src/lv_100ask_sketchpad](src/lv_100ask_sketchpad/README_zh.md) | Lvgl component enhanced interface (drawing board) |
+| [src/lv_100ask_page_manager](src/lv_100ask_page_manager/README_zh.md) | Lvgl component enhanced interface (Page Manager) |
+| [src/lv_100ask_calc](src/lv_100ask_calc/README_zh.md) | Lvgl component enhanced interface (Calculator) 
+| [src/lv_100ask_2048](src/lv_100ask_2048/README_zh.md) | Lvgl scheme reference (2048) |
+| [src/lv_100ask_memory_game](src/lv_100ask_memory_game/README_zh.md) | Lvgl scheme reference (number pair puzzle) |
 | more todo...  | more todo... |
 
 # Usage

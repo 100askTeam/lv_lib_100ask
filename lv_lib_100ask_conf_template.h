@@ -31,6 +31,7 @@
 
 #if LV_USE_100ASK_PINYIN_IME
     #define LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT   1
+    #define LV_100ASK_PINYIN_IME_CAND_TEXT_NUM        10
 
     /*test*/
     #define LV_100ASK_PINYIN_IME_SIMPLE_TEST          1

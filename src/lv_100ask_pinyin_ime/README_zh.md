@@ -27,6 +27,43 @@ lv_100ask_pinyin_ime 是在 lv_keyboard 的基础上编写的一个自定义部�
 # 使用方法
 参考 **lv_lib_100ask/test/lv_100ask_pinyin_ime_test** 的示例。
 
+# 自定义词库
+如果不想使用内置的拼音词库，可以使用自定义的词库。
+或者觉得内置的拼音词库消耗的内存比较大，也可以使用自定义的词库。
+
+自定义词库非常简单。
+- 首先，在 `lv_lib_100ask_conf.h` 中将 `LV_100ASK_PINYIN_IME_ZH_CN_PIN_YIN_DICT` 设置为 `0`
+- 然后，按照下面这个格式编写词库。
+
+## 词库格式
+
+必须按照下面的格式，编写自己的词库：
+
+```c
+lv_100ask_pinyin_dict_t your_pinyin_dict[] = {
+            { "a", "啊阿呵吖" },
+            { "ai", "埃挨哎唉哀皑蔼矮碍爱隘癌艾" },
+            { "ba", "芭捌叭吧笆八疤巴拔跋靶把坝霸罢爸扒耙" },
+            { "cai", "猜裁材才财睬踩采彩菜蔡" },
+            /* ...... */
+            { "zuo", "昨左佐做作坐座撮琢柞"},
+            {NULL, NULL}
+
+```
+
+**最后一项**必须要以 '{NULL, NULL}' 结尾，否则将无法正常工作。
+
+## 应用新词库
+
+按照上面的词库格式编写好词库之后，只需要调用这个函数即可设置使用你的词库：
+
+```c
+    lv_obj_t * pinyin_ime = lv_100ask_pinyin_ime_create(lv_scr_act());
+    lv_100ask_pinyin_ime_set_dict(pinyin_ime, your_pinyin_dict);
+```
+
+**注意**： 必须在设置好词库之后再使用 `lv_100ask_pinyin_ime`
+
 
 # 关于我们
 这是一个开源的项目，非常欢迎大家参与改进lv_100ask_pinyin_ime 项目！
