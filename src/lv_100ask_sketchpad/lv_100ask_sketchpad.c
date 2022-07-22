@@ -92,8 +92,8 @@ static void lv_100ask_sketchpad_constructor(const lv_obj_class_t * class_p, lv_o
 
     lv_draw_line_dsc_init(&sketchpad->line_rect_dsc);
     sketchpad->line_rect_dsc.width = 2;
-    sketchpad->line_rect_dsc.round_start = 2;
-    sketchpad->line_rect_dsc.round_end = 10;
+    sketchpad->line_rect_dsc.round_start = true;
+    sketchpad->line_rect_dsc.round_end = true;
     sketchpad->line_rect_dsc.color = lv_color_black();
     sketchpad->line_rect_dsc.opa = LV_OPA_COVER;
 
