@@ -11,6 +11,7 @@
 | [src/lv_100ask_calc](src/lv_100ask_calc/README_zh.md) | Lvgl component enhanced interface (Calculator) 
 | [src/lv_100ask_2048](src/lv_100ask_2048/README_zh.md) | Lvgl scheme reference (2048) |
 | [src/lv_100ask_memory_game](src/lv_100ask_memory_game/README_zh.md) | Lvgl scheme reference (number pair puzzle) |
+| [src/lv_100ask_file_explorer](src/lv_100ask_file_explorer/README_zh.md) | Lvgl scheme reference (file explorer) |
 | more todo...  | more todo... |
 
 # Usage
