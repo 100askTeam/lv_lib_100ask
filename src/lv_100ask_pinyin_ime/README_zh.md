@@ -1,3 +1,9 @@
+⚠️  lv_100ask_pinyin_ime已合入LVGL主线仓库，因此 lv_lib_100ask **不再更新** lv_100ask_pinyin_ime，请移步：
+
+- 文档地址(有中文)：[https://docs.lvgl.io/master/others/ime_pinyin.html](https://docs.lvgl.io/master/others/ime_pinyin.html)
+- 源码地址：[https://github.com/lvgl/lvgl/tree/master/src/extra/others/ime](https://github.com/lvgl/lvgl/tree/master/src/extra/others/ime)
+- 使用示例：[https://docs.lvgl.io/master/others/ime_pinyin.html#example](https://docs.lvgl.io/master/others/ime_pinyin.html#example)
+
 
 <h1 align="center"> lv_100ask_pinyin_ime</h1>
 
