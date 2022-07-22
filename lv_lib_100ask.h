@@ -51,6 +51,9 @@ extern "C" {
 /*lv_100ask_2048*/
 #include "src/lv_100ask_2048/lv_100ask_2048.h"
 #include "test/lv_100ask_2048_test/simple_test.h"
+/*lv_100ask_file_explorer*/
+#include "src/lv_100ask_file_explorer/lv_100ask_file_explorer.h"
+#include "test/lv_100ask_file_explorer/simple_test.h"
 
 /*********************
  *      DEFINES

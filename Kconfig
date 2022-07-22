@@ -61,7 +61,7 @@ menu "LV_LIB_100ASK configuration"
     menu "lv_lib_100ask sketchpad"
         config LV_USE_100ASK_SKETCHPAD
             bool "Enable LV_USE_100ASK_SKETCHPAD."
-            default y
+            default n
             help
                 Must deploy LV_USE_CANVAS for "lv_conf.h".
 
@@ -104,7 +104,7 @@ menu "LV_LIB_100ASK configuration"
     menu "Memory game"
         config LV_USE_100ASK_MEMORY_GAME
             bool "Enable LV_USE_100ASK_MEMORY_GAME."
-            default y
+            default n
         config LV_100ASK_MEMORY_GAME_DEFAULT_ROW
             int "Enable LV_100ASK_CALC_EXPR_LEN."
             depends on LV_USE_100ASK_MEMORY_GAME
@@ -123,7 +123,7 @@ menu "LV_LIB_100ASK configuration"
     menu "Game 2048"
         config LV_USE_100ASK_2048
             bool "Enable LV_100ASK_MEMORY_GAME."
-            default y
+            default n
         config LV_100ASK_2048_MATRIX_SIZE
             int "Set LV_100ASK_2048_MATRIX_SIZE."
             depends on LV_USE_100ASK_2048
@@ -132,6 +132,25 @@ menu "LV_LIB_100ASK configuration"
         config LV_100ASK_2048_SIMPLE_TEST
             bool "Enable LV_100ASK_2048_SIMPLE_TEST."
             depends on LV_USE_100ASK_2048
+            default y
+    endmenu
+
+    menu "File explorer"
+        config LV_USE_100ASK_FILE_EXPLORER
+            bool "Enable File explorer."
+            default n
+        config LV_100ASK_FILE_EXPLORER_PATH_MAX_LEN
+            int "Set LV_100ASK_FILE_EXPLORER_PATH_MAX_LEN."
+            depends on LV_USE_100ASK_FILE_EXPLORER
+            default 128
+        config LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
+            bool "Enable LV_100ASK_FILE_EXPLORER_QUICK_ACCESS."
+            depends on LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
+            default y
+            
+        config LV_100ASK_FILE_EXPLORER_SIMPLE_TEST
+            bool "Enable LV_100ASK_FILE_EXPLORER_SIMPLE_TEST."
+            depends on LV_USE_100ASK_FILE_EXPLORER
             default y
     endmenu
 
