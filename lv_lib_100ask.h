@@ -55,6 +55,11 @@ extern "C" {
 #include "src/lv_100ask_file_explorer/lv_100ask_file_explorer.h"
 #include "test/lv_100ask_file_explorer/simple_test.h"
 
+/*Game simulator*/
+/*lv_100ask_nes*/
+#include "src/lv_100ask_nes/lv_100ask_nes.h"
+#include "test/lv_100ask_nes_test/lv_100ask_nes_simple_test.h"
+
 /*********************
  *      DEFINES
  *********************/

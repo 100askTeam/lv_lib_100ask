@@ -1,0 +1,26 @@
+
+#ifndef InfoNES_MAPPER_000_H_INCLUDED
+#define InfoNES_MAPPER_000_H_INCLUDED
+
+/*-------------------------------------------------------------------*/
+/*  Include files                                                    */
+/*-------------------------------------------------------------------*/
+
+#include "../InfoNES_Types.h"
+
+/*-------------------------------------------------------------------*/
+/*  Function prototypes                                              */
+/*-------------------------------------------------------------------*/
+
+void Map0_Init();
+void Map0_Write( WORD wAddr, BYTE byData );
+void Map0_Sram( WORD wAddr, BYTE byData );
+void Map0_Apu( WORD wAddr, BYTE byData );
+BYTE Map0_ReadApu( WORD wAddr );
+void Map0_VSync();
+void Map0_HSync();
+void Map0_PPU( WORD wAddr );
+void Map0_RenderScreen( BYTE byMode );
+
+
+#endif

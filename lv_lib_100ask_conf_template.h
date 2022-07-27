@@ -119,6 +119,20 @@
     #define  LV_100ASK_FILE_EXPLORER_SIMPLE_TEST        1
 #endif  
 
+/***Game simulator***/
+/*NES*/
+#if LV_USE_IMG
+    #define LV_USE_100ASK_NES                           0
+#endif
+#if LV_USE_100ASK_NES
+    /*platform*/
+    #define LV_100ASK_NES_PLATFORM_POSIX                1
+    #define LV_100ASK_NES_PLATFORM_FREERTOS             0 /*Not tested yet*/
+    #define LV_100ASK_NES_PLATFORM_RTTHREAD             0 /*TODO*/
+    /*test*/
+    #define LV_100ASK_NES_SIMPLE_TEST                   1
+#endif
+
 #endif /*LV_LIB_100ASK_H*/
 
 #endif /*End of "Content enable"*/

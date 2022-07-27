@@ -12,6 +12,7 @@
 | [src/lv_100ask_2048](src/lv_100ask_2048/README_zh.md) | Lvgl scheme reference (2048) |
 | [src/lv_100ask_memory_game](src/lv_100ask_memory_game/README_zh.md) | Lvgl scheme reference (number pair puzzle) |
 | [src/lv_100ask_file_explorer](src/lv_100ask_file_explorer/README_zh.md) | Lvgl scheme reference (file explorer) |
+| [src/lv_100ask_nes](src/lv_100ask_nes/README_zh.md) | Lvgl scheme reference (NES simulator) |
 | more todo...  | more todo... |
 
 # Usage
