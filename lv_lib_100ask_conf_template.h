@@ -44,6 +44,9 @@
     /*Switch pages and delete old pages at the same time. */
     /*1: DELETE , 0:DELETE NO*/
     #define LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE          0
+
+    /*1: use custom animation , 0:Use built-in animation*/
+    #define LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION     0
         
 	/* Page switcher snapshot*/
 	#if LV_USE_SNAPSHOT

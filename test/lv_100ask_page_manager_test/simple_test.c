@@ -16,7 +16,7 @@
 /*********************
  *      DEFINES
  *********************/
-
+#define LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION 0
 
 /**********************
  *      TYPEDEFS
@@ -71,6 +71,7 @@ void lv_100ask_page_manager_simple_test(void)
     lv_100ask_page_manager_set_page_init(page5, init_page5);
     lv_100ask_page_manager_set_page_init(page6, init_page6);
 
+#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION
     lv_100ask_page_manager_set_open_page_anim(main_page, open_page_anim);
     lv_100ask_page_manager_set_close_page_anim(main_page, close_page_anim);
     lv_100ask_page_manager_set_open_page_anim(page1, open_page_anim);
@@ -85,9 +86,10 @@ void lv_100ask_page_manager_simple_test(void)
     lv_100ask_page_manager_set_close_page_anim(page5, close_page_anim);
     lv_100ask_page_manager_set_open_page_anim(page6, open_page_anim);
     lv_100ask_page_manager_set_close_page_anim(page6, close_page_anim);
+#endif
 
     lv_100ask_page_manager_set_main_page(page_manager, main_page);
-    lv_100ask_page_manager_set_open_page(NULL, "Page6");
+    lv_100ask_page_manager_set_open_page(NULL, "main_page");
 }
 
 
@@ -98,7 +100,7 @@ void lv_100ask_page_manager_simple_test(void)
 /**********************
  *   STATIC FUNCTIONS
  **********************/
-
+#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION
 /*open page anim*/
 static void open_page_anim(lv_obj_t * obj)
 {
@@ -112,6 +114,7 @@ static void close_page_anim(lv_obj_t * obj)
     /*Do something with LVGL*/
     LV_LOG_USER("close page anim.");
 }
+#endif
 
 /* main page */
 static void init_main_page(lv_obj_t * page)

@@ -40,8 +40,12 @@ static void lv_100ask_page_manager_page_del_event_cb(lv_event_t * e);
 
 static void page_close_anim_timeline_create(lv_anim_timeline_t * at, const lv_anim_timeline_wrapper_t * wrapper);
 static void page_open_anim_timeline_create(lv_anim_timeline_t * at, const lv_anim_timeline_wrapper_t * wrapper);
-static void defaule_open_page(lv_obj_t * obj);
-static void defaule_close_page(lv_obj_t * obj);
+
+#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION == 0
+    static void defaule_open_page(lv_obj_t * obj);
+    static void defaule_close_page(lv_obj_t * obj);
+#endif
+
 static void lv_obj_clean_anim_ready_cb(lv_anim_t * a);
 static lv_obj_t * get_page(lv_obj_t * page_manager, char *name);
 
@@ -148,7 +152,8 @@ void lv_100ask_page_manager_set_open_page(lv_obj_t * obj, char *name)
         }
     }
 
-    page->open_page(obj);
+    if(page->open_page)
+        page->open_page(obj);
     
     /* del a new node */
     lv_100ask_page_manager_history_t * act_hist = _lv_ll_get_head(history_ll);
@@ -178,7 +183,8 @@ void lv_100ask_page_manager_set_close_page(lv_obj_t * obj, char *name)
     }
     else return;
 
-    page->close_page(obj);
+    if(page->close_page)
+        page->close_page(obj);
 
     //lv_ll_t * history_ll = &(page_manager->history_ll);
     /* The current page */
@@ -281,10 +287,15 @@ static void lv_100ask_page_manager_page_constructor(const lv_obj_class_t * class
     
     page->anim_timeline = NULL;
     page->init = NULL;
+#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION
+    page->open_page = NULL;
+    page->close_page = NULL;
+#else
     page->open_page = defaule_open_page;
     page->close_page = defaule_close_page;
-
     page->close_page(obj);
+#endif
+
 }
 
 static void lv_100ask_page_manager_page_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
@@ -430,6 +441,7 @@ static void lv_page_back_event_cb(lv_event_t * e)
     }
 }
 
+#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION == 0
 static void defaule_open_page(lv_obj_t * obj)
 {
     lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
@@ -477,6 +489,7 @@ static void defaule_close_page(lv_obj_t * obj)
 	lv_anim_timeline_set_reverse(page->anim_timeline, 1);
 	lv_anim_timeline_start(page->anim_timeline);
 }
+#endif
 
 static void page_open_anim_timeline_create(lv_anim_timeline_t * at, const lv_anim_timeline_wrapper_t * wrapper)
 {
