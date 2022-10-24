@@ -154,4 +154,29 @@ menu "LV_LIB_100ASK configuration"
             default y
     endmenu
 
+    menu "NES Simulator"
+        config LV_USE_100ASK_NES
+            bool "Enable NES simulator."
+            default n
+        config LV_100ASK_NES_PLATFORM_POSIX
+            bool "POSIX platform"
+            depends on LV_USE_100ASK_NES
+            default n
+        config LV_100ASK_NES_PLATFORM_FREERTOS
+            bool "freeRTOS platform"
+            depends on LV_USE_100ASK_NES
+            default y
+        config LV_100ASK_NES_PLATFORM_RTTHREAD
+            bool "RT-Thread platform"
+            depends on LV_USE_100ASK_NES
+            default n
+            help
+                TODO
+            
+        config LV_100ASK_NES_SIMPLE_TEST
+            bool "Enable LV_100ASK_NES_SIMPLE_TEST."
+            depends on LV_USE_100ASK_NES && LV_USE_100ASK_FILE_EXPLORER
+            default y
+    endmenu
+
 endmenu
