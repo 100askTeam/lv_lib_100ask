@@ -6,17 +6,18 @@
  * 	Start Date: 2003.04.19
  */
 
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
+
+#include "lvgl/lvgl.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
 #include "InfoNES.h"
-#include "InfoNES_System.h"
 #include "InfoNES_pAPU.h"
-
-#include "lvgl/lvgl.h"
-#include "lv_100ask_nes.h"
 
 /*-------------------------------------------------------------------*/
 /*  ROM image file information                                       */
@@ -668,4 +669,5 @@ void InfoNES_SoundOutput(int samples, BYTE *wave1, BYTE *wave2, BYTE *wave3, BYT
 /* Print system message */
 void InfoNES_MessageBox(char *pszMsg, ...){}
 
-/* End of InfoNES_System_SDL.cpp */
+#endif  /*LV_USE_100ASK_NES*/
+

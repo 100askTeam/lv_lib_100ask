@@ -9,6 +9,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
 #include "../K6502.h"
@@ -179,3 +181,5 @@ void Map0_RenderScreen( BYTE byMode )
  *
  */
 }
+
+#endif  /*LV_USE_100ASK_NES*/

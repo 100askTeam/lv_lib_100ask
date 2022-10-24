@@ -9,12 +9,19 @@
 #ifndef InfoNES_MAPPER_H_INCLUDED
 #define InfoNES_MAPPER_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
+
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Types.h"
-#include "InfoNES_System.h"
+
 
 /*-------------------------------------------------------------------*/
 /*  include Mapper                                          */
@@ -88,5 +95,10 @@ struct MapperTable_tag
 
 extern struct MapperTable_tag MapperTable[];
 
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
 
 #endif /* !InfoNES_MAPPER_H_INCLUDED */

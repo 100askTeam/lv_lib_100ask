@@ -9,10 +9,16 @@
 
 #ifndef K6502_RW_H_INCLUDED
 #define K6502_RW_H_INCLUDED
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
 
 #include "InfoNES.h"
 #include "InfoNES_System.h"
@@ -496,5 +502,11 @@ static inline WORD K6502_ReadW2( WORD wAddr )
     return K6502_Read( wAddr ) | (WORD)K6502_Read( wAddr + 1 ) << 8;
   }
 }
+
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
 
 #endif /* !K6502_RW_H_INCLUDED */

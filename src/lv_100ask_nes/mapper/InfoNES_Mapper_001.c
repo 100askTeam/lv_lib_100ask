@@ -9,6 +9,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "InfoNES_Mapper_001.h"
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
@@ -375,3 +377,5 @@ void Map1_Write( WORD wAddr, BYTE byData )
       break;
   }
 }
+
+#endif  /*LV_USE_100ASK_NES*/

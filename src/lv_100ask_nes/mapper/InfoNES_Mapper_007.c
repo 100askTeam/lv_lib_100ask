@@ -10,6 +10,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "InfoNES_Mapper_007.h"
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
@@ -79,3 +81,5 @@ void Map7_Write( WORD wAddr, BYTE byData )
   /* Name Table Mirroring */
   InfoNES_Mirroring( byData & 0x10 ? 2 : 3 );
 }
+
+#endif  /*LV_USE_100ASK_NES*/

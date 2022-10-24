@@ -9,6 +9,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "InfoNES_Mapper_009.h"
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
@@ -243,3 +245,5 @@ void Map9_PPU( WORD wAddr )
       break;
   }
 }
+
+#endif  /*LV_USE_100ASK_NES*/

@@ -10,6 +10,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "InfoNES_Mapper_005.h"
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
@@ -553,3 +555,5 @@ void Map5_Sync_Prg_Banks( void )
       break;
   }
 }
+
+#endif  /*LV_USE_100ASK_NES*/

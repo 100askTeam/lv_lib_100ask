@@ -9,9 +9,15 @@
 #ifndef InfoNES_SYSTEM_H_INCLUDED
 #define InfoNES_SYSTEM_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
+#include "lv_100ask_nes.h"
+#if LV_USE_100ASK_NES != 0
 
 #include "InfoNES_Types.h"
 
@@ -73,5 +79,11 @@ void InfoNES_SoundOutput(int samples, BYTE *wave1, BYTE *wave2, BYTE *wave3, BYT
 
 /* Print system message */
 void InfoNES_MessageBox( char *pszMsg, ... );
+
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
 
 #endif /* !InfoNES_SYSTEM_H_INCLUDED */

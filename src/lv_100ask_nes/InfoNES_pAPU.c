@@ -9,9 +9,11 @@
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "K6502.h"
 #include "K6502_rw.h"
-#include "InfoNES_System.h"
 #include "InfoNES_pAPU.h"
 
 /*-------------------------------------------------------------------*/
@@ -1063,6 +1065,4 @@ void InfoNES_pAPUDone(void)
   InfoNES_SoundClose();
 }
 
-/*
- * End of InfoNES_pAPU.cpp
- */
+#endif  /*LV_USE_100ASK_NES*/

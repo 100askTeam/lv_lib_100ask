@@ -9,6 +9,13 @@
 #ifndef InfoNES_PAPU_H_INCLUDED
 #define InfoNES_PAPU_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
+
 /*-------------------------------------------------------------------*/
 /*  Macros                                                           */
 /*-------------------------------------------------------------------*/
@@ -193,8 +200,11 @@ extern DWORD ApuC3Llc;                             /* Linear Length Counter */
 
 extern BYTE  ApuC4Atl;
 
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
+
 #endif /* InfoNES_PAPU_H_INCLUDED */
 
-/*
- * End of InfoNES_pAPU.h
- */

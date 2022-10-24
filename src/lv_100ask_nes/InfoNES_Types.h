@@ -9,7 +9,12 @@
 #ifndef InfoNES_TYPES_H_INCLUDED
 #define InfoNES_TYPES_H_INCLUDED
 
-#include "lvgl/lvgl.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "lv_100ask_nes.h"
+#if LV_USE_100ASK_NES != 0
 
 /*-------------------------------------------------------------------*/
 /*  Type definition                                                  */
@@ -36,5 +41,11 @@ typedef unsigned char  BYTE;
 #ifndef NULL
 #define NULL  0
 #endif /* !NULL */
+
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
 
 #endif /* !InfoNES_TYPES_H_INCLUDED */

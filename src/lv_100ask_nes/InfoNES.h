@@ -9,11 +9,16 @@
 #ifndef InfoNES_H_INCLUDED
 #define InfoNES_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Types.h"
+#if LV_USE_100ASK_NES != 0
 
 /*-------------------------------------------------------------------*/
 /*  NES resources                                                    */
@@ -316,5 +321,11 @@ void InfoNES_GetSprHitY();
 
 /* Develop character data */
 void InfoNES_SetupChr();
+
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
 
 #endif /* !InfoNES_H_INCLUDED */

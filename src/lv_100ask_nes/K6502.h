@@ -9,7 +9,12 @@
 #ifndef K6502_H_INCLUDED
 #define K6502_H_INCLUDED
 
-#include "lvgl/lvgl.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "lv_100ask_nes.h"
+#if LV_USE_100ASK_NES != 0
 
 // Type definition
 #ifndef DWORD
@@ -83,5 +88,11 @@ extern BYTE NMI_State;
 
 // The number of the clocks that it passed
 extern WORD g_wPassedClocks;
+
+#endif  /*LV_USE_100ASK_NES*/
+
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
 
 #endif /* !K6502_H_INCLUDED */

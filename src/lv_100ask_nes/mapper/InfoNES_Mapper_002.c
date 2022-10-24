@@ -9,6 +9,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "InfoNES_Mapper_002.h"
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
@@ -71,3 +73,5 @@ void Map2_Write( WORD wAddr, BYTE byData )
   ROMBANK0 = ROMPAGE( byData );
   ROMBANK1 = ROMPAGE( byData + 1 );
 }
+
+#endif  /*LV_USE_100ASK_NES*/

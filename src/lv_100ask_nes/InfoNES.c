@@ -34,9 +34,10 @@
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
 
 #include "InfoNES.h"
-#include "InfoNES_System.h"
 #include "InfoNES_Mapper.h"
 #include "InfoNES_pAPU.h"
 #include "K6502.h"
@@ -1191,3 +1192,5 @@ void InfoNES_SetupChr()
   // Reset update flag
   ChrBufUpdate = 0;
 }
+
+#endif  /*LV_USE_100ASK_NES*/

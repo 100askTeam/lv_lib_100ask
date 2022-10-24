@@ -9,9 +9,10 @@
 /*-------------------------------------------------------------------*/
 /*  Include files                                                    */
 /*-------------------------------------------------------------------*/
+#include "InfoNES_System.h"
+#if LV_USE_100ASK_NES != 0
 
 #include "InfoNES.h"
-#include "InfoNES_System.h"
 #include "InfoNES_Mapper.h"
 #include "K6502.h"
 
@@ -43,3 +44,4 @@ struct MapperTable_tag MapperTable[] =
   { -1, NULL }
 };
 
+#endif  /*LV_USE_100ASK_NES*/

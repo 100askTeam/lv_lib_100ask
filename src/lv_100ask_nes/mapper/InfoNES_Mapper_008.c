@@ -10,6 +10,8 @@
 /*-------------------------------------------------------------------*/
 
 #include "InfoNES_Mapper_000.h"
+#if LV_USE_100ASK_NES != 0
+
 #include "InfoNES_Mapper_008.h"
 #include "../InfoNES.h"
 #include "../InfoNES_Mapper.h"
@@ -99,3 +101,5 @@ void Map8_Write( WORD wAddr, BYTE byData )
   PPUBANK[ 7 ] = VROMPAGE( byChrBank + 7 );
   InfoNES_SetupChr();
 }
+
+#endif  /*LV_USE_100ASK_NES*/
