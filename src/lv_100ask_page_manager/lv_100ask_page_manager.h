@@ -74,9 +74,12 @@ typedef struct {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
+
 lv_obj_t * lv_100ask_page_manager_create(lv_obj_t * parent);
 
-lv_obj_t * lv_100ask_page_manager_page_create(lv_obj_t * parent, char * name);
+/*=====================
+ * Setter functions
+ *====================*/
 
 void lv_100ask_page_manager_set_main_page(lv_obj_t * obj, lv_obj_t * page);
 
@@ -89,16 +92,14 @@ void lv_100ask_page_manager_set_close_page(lv_obj_t * obj, char *name);
 void lv_100ask_page_manager_set_load_page_event(lv_obj_t * obj, lv_obj_t * page, char *name);
 
 /*=====================
- * Setter functions
- *====================*/
-
-/*=====================
  * Getter functions
  *====================*/
 
 /*=====================
  * Other functions
  *====================*/
+
+lv_obj_t * lv_100ask_page_manager_page_create(lv_obj_t * parent, char * name);
 
 /**********************
  *      MACROS
