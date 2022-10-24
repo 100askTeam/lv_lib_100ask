@@ -39,6 +39,8 @@ static void brower_file_event_handler(lv_event_t * e);
 static void init_style(lv_obj_t * obj);
 static void show_dir(lv_obj_t * obj, char * path);
 static void strip_ext(char * dir);
+static bool is_begin_with(const char * str1, const char * str2);
+static bool is_end_with(const char * str1, const char * str2);
 
 /**********************
  *  STATIC VARIABLES
@@ -609,14 +611,16 @@ static void show_dir(lv_obj_t * obj, char * path)
         }
 
         // 识别并展示文件
-        if ((strcmp((fn + (strlen(fn) - 4)) , ".png") == 0) || (strcmp((fn + (strlen(fn) - 4)) , ".PNG") == 0) ||\
-            (strcmp((fn + (strlen(fn) - 4)) , ".jpg") == 0) || (strcmp((fn + (strlen(fn) - 4)) , ".JPG") == 0) ||\
-            (strcmp((fn + (strlen(fn) - 4)) , ".bmp") == 0) || (strcmp((fn + (strlen(fn) - 4)) , ".BMP") == 0) ||\
-            (strcmp((fn + (strlen(fn) - 4)) , ".gif") == 0) || (strcmp((fn + (strlen(fn) - 4)) , ".GIF") == 0))
+        if ((is_end_with(fn, ".png") == true)  || (is_end_with(fn, ".PNG") == true)  ||\
+            (is_end_with(fn , ".jpg") == true) || (is_end_with(fn , ".JPG") == true) ||\
+            (is_end_with(fn , ".bmp") == true) || (is_end_with(fn , ".BMP") == true) ||\
+            (is_end_with(fn , ".gif") == true) || (is_end_with(fn , ".GIF") == true))
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_IMAGE "  %s", fn);
-        else if ((strcmp((fn + (strlen(fn) - 4)) , ".mp3") == 0) || (strcmp((fn + (strlen(fn) - 4)) , ".MP3") == 0))
+        else if ((is_end_with(fn , ".mp3") == true) || (is_end_with(fn , ".MP3") == true))
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_AUDIO "  %s", fn);
-        else if((strcmp(fn , ".") == 0) || (strcmp(fn , "..") == 0)) {
+        else if ((is_end_with(fn , ".mp4") == true) || (is_end_with(fn , ".MP4") == true))
+            lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_VIDEO "  %s", fn);
+        else if((is_end_with(fn , ".") == true) || (is_end_with(fn , "..") == true)) {
             /*is dir*/
             //lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_DIRECTORY "  %s", fn);
             continue;
@@ -665,5 +669,55 @@ static void strip_ext(char *dir)
     }
 
 }
+
+
+static bool is_begin_with(const char * str1, const char * str2)
+{
+    if(str1 == NULL || str2 == NULL)
+        return false;
+
+    uint16_t len1 = strlen(str1);
+    uint16_t len2 = strlen(str2);
+    if((len1 < len2) || (len1 == 0 || len2 == 0))
+        return false;
+
+    uint16_t i = 0;
+    char * p = str2;
+    while(*p != '\0')
+    {
+        if(*p != str1[i])
+            return false;
+
+        p++;
+        i++;
+    }
+
+    return true;
+}
+
+
+
+static bool is_end_with(const char * str1, const char * str2)
+{
+    if(str1 == NULL || str2 == NULL)
+        return false;
+    
+    uint16_t len1 = strlen(str1);
+    uint16_t len2 = strlen(str2);
+    if((len1 < len2) || (len1 == 0 || len2 == 0))
+        return false;
+    
+    while(len2 >= 1)
+    {
+        if(str2[len2 - 1] != str1[len1 - 1])
+            return false;
+
+        len2--;
+        len1--;
+    }
+
+    return true;
+}
+
 
 #endif  /*LV_USE_100ASK_FILE_EXPLORER*/
