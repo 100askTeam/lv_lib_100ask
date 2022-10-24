@@ -34,7 +34,8 @@ static void init_page3(lv_obj_t * page);
 static void init_page4(lv_obj_t * page);
 static void init_page5(lv_obj_t * page);
 static void init_page6(lv_obj_t * page);
-
+static void open_page_anim(lv_obj_t * obj);
+static void close_page_anim(lv_obj_t * obj);
 /**********************
  *  STATIC VARIABLES
  **********************/
@@ -70,8 +71,23 @@ void lv_100ask_page_manager_simple_test(void)
     lv_100ask_page_manager_set_page_init(page5, init_page5);
     lv_100ask_page_manager_set_page_init(page6, init_page6);
 
+    lv_100ask_page_manager_set_open_page_anim(main_page, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(main_page, close_page_anim);
+    lv_100ask_page_manager_set_open_page_anim(page1, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(page1, close_page_anim);
+    lv_100ask_page_manager_set_open_page_anim(page2, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(page2, close_page_anim);
+    lv_100ask_page_manager_set_open_page_anim(page3, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(page3, close_page_anim);
+    lv_100ask_page_manager_set_open_page_anim(page4, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(page4, close_page_anim);
+    lv_100ask_page_manager_set_open_page_anim(page5, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(page5, close_page_anim);
+    lv_100ask_page_manager_set_open_page_anim(page6, open_page_anim);
+    lv_100ask_page_manager_set_close_page_anim(page6, close_page_anim);
+
     lv_100ask_page_manager_set_main_page(page_manager, main_page);
-    lv_100ask_page_manager_set_open_page(NULL, "main_page");
+    lv_100ask_page_manager_set_open_page(NULL, "Page6");
 }
 
 
@@ -82,6 +98,21 @@ void lv_100ask_page_manager_simple_test(void)
 /**********************
  *   STATIC FUNCTIONS
  **********************/
+
+/*open page anim*/
+static void open_page_anim(lv_obj_t * obj)
+{
+    /*Do something with LVGL*/
+    LV_LOG_USER("open page anim.");
+}
+
+/*close page anim*/
+static void close_page_anim(lv_obj_t * obj)
+{
+    /*Do something with LVGL*/
+    LV_LOG_USER("close page anim.");
+}
+
 /* main page */
 static void init_main_page(lv_obj_t * page)
 {

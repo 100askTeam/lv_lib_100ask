@@ -91,6 +91,10 @@ void lv_100ask_page_manager_set_close_page(lv_obj_t * obj, char *name);
 
 void lv_100ask_page_manager_set_load_page_event(lv_obj_t * obj, lv_obj_t * page, char *name);
 
+void lv_100ask_page_manager_set_open_page_anim(lv_obj_t * obj, void (*open_anim)(lv_obj_t  * obj));
+
+void lv_100ask_page_manager_set_close_page_anim(lv_obj_t * obj, void (*close_anim)(lv_obj_t  * obj));
+
 /*=====================
  * Getter functions
  *====================*/

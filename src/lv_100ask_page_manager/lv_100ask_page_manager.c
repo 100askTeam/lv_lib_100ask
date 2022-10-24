@@ -213,6 +213,20 @@ void lv_100ask_page_manager_set_load_page_event(lv_obj_t * obj, lv_obj_t * page,
     }
 }
 
+void lv_100ask_page_manager_set_open_page_anim(lv_obj_t * obj, void (*open_anim)(lv_obj_t  * obj))
+{
+    lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
+    
+    page->open_page = open_anim;
+}
+
+void lv_100ask_page_manager_set_close_page_anim(lv_obj_t * obj, void (*close_anim)(lv_obj_t  * obj))
+{
+    lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
+
+    page->close_page = close_anim;
+}
+
 /*=====================
  * Getter functions
  *====================*/
