@@ -545,18 +545,18 @@ static void brower_file_event_handler(lv_event_t * e)
 
         str_fn = str_fn+5;
         if((strcmp(str_fn, ".") == 0))  return;
-
-        if((strcmp(str_fn, "..") == 0) && (strcmp(explorer->cur_path, "/") != 0))
+        
+        if((strcmp(str_fn, "..") == 0) && (strlen(explorer->cur_path) > 3))
         {
+            strip_ext(explorer->cur_path);
             strip_ext(explorer->cur_path); // 去掉最后的 '/' 路径
             lv_snprintf(file_name, sizeof(file_name), "%s", explorer->cur_path);
         }
         else
         {
-            if (strcmp(explorer->cur_path, "/") == 0)
+            if(strcmp(str_fn, "..") != 0){
                 lv_snprintf(file_name, sizeof(file_name), "%s%s", explorer->cur_path, str_fn);
-            else
-                lv_snprintf(file_name, sizeof(file_name), "%s/%s", explorer->cur_path, str_fn);
+            }
         }
 
         lv_fs_dir_t dir;
@@ -565,14 +565,17 @@ static void brower_file_event_handler(lv_event_t * e)
             show_dir(obj, file_name);
         }
         else {
-            explorer->sel_fp = str_fn;
-            lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
+            if(strcmp(str_fn, "..") != 0) {
+                explorer->sel_fp = str_fn;
+                lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
+            }
         }
     }
     else if(code == LV_EVENT_SIZE_CHANGED) {
         lv_table_set_col_width(explorer->file_list, 0, lv_obj_get_width(explorer->file_list));
     }
 }
+
 
 static void show_dir(lv_obj_t * obj, char * path)
 {
@@ -631,12 +634,19 @@ static void show_dir(lv_obj_t * obj, char * path)
     lv_fs_dir_close(&dir);
 
     lv_table_set_row_cnt(explorer->file_list, index);
+    // 让table移动到最顶部
     lv_obj_scroll_to_y(explorer->file_list, 0, LV_ANIM_OFF);
 
+    lv_memset_00(explorer->cur_path, sizeof(explorer->cur_path));
     strcpy(explorer->cur_path, path);
     lv_label_set_text_fmt(explorer->path_label, LV_SYMBOL_EYE_OPEN" %s", path);
 
+    size_t cur_path_len = strlen(explorer->cur_path);
+    if((*((explorer->cur_path) + cur_path_len) != '/') && (cur_path_len < LV_100ASK_FILE_EXPLORER_PATH_MAX_LEN)) {
+        *((explorer->cur_path) + cur_path_len) = '/';
+    }  
 }
+
 
 // 去掉最后的后缀名
 static void strip_ext(char *dir)

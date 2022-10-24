@@ -51,7 +51,7 @@ void lv_100ask_file_explorer_simple_test(void)
     // [windows]打开某个磁盘的根目录
     //lv_100ask_file_explorer_open_dir(file_explorer, "D:");
     //lv_100ask_file_explorer_open_dir(file_explorer, "D:/100ask");
-    lv_100ask_file_explorer_open_dir(file_explorer, "D:/100ask/lvgl_work");
+    lv_100ask_file_explorer_open_dir(file_explorer, "D:/100ask/tmp");
 
 #if LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
     // [windows]设置快速访问路径，跨磁盘访问要先设置 lv_conf.h 中的 LV_FS_WIN32_LETTER
@@ -95,10 +95,11 @@ static void file_explorer_simple_test_event_handler(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
-    
+
     if(code == LV_EVENT_VALUE_CHANGED) {
+        char * cur_path =  lv_100ask_file_explorer_get_cur_path(obj);
         char * sel_fn = lv_100ask_file_explorer_get_sel_fn(obj);
-        LV_LOG_USER("%s", sel_fn);
+        LV_LOG_USER("%s%s", cur_path, sel_fn);
     }
 }
 
