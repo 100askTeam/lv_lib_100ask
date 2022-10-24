@@ -145,7 +145,7 @@ menu "LV_LIB_100ASK configuration"
             default 128
         config LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
             bool "Enable LV_100ASK_FILE_EXPLORER_QUICK_ACCESS."
-            depends on LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
+            depends on LV_USE_100ASK_FILE_EXPLORER
             default y
             
         config LV_100ASK_FILE_EXPLORER_SIMPLE_TEST
