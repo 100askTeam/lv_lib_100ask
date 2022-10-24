@@ -560,7 +560,7 @@ static void brower_file_event_handler(lv_event_t * e)
 
     lv_100ask_file_explorer_t * explorer = (lv_100ask_file_explorer_t *)obj;
 
-    if(code == LV_EVENT_VALUE_CHANGED) {
+    if(code == LV_EVENT_CLICKED) {
         //struct stat stat_buf;
         char * file_name[LV_100ASK_FILE_EXPLORER_PATH_MAX_LEN];
         char * str_fn = NULL;
