@@ -16,7 +16,6 @@
 /*********************
  *      DEFINES
  *********************/
-#define LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION 0
 
 /**********************
  *      TYPEDEFS
@@ -55,7 +54,7 @@ void lv_100ask_page_manager_simple_test(void)
 {
     lv_obj_t * page_manager = lv_100ask_page_manager_create(lv_scr_act());
 
-    lv_obj_t * main_page = lv_100ask_page_manager_page_create(page_manager, "main_page");
+    lv_obj_t * main_page = lv_100ask_page_manager_page_create(page_manager, "Main_page");
     lv_obj_t * page1 = lv_100ask_page_manager_page_create(page_manager, "Page1");
     lv_obj_t * page2 = lv_100ask_page_manager_page_create(page_manager, "Page2");
     lv_obj_t * page3 = lv_100ask_page_manager_page_create(page_manager, "Page3");
@@ -89,7 +88,7 @@ void lv_100ask_page_manager_simple_test(void)
 #endif
 
     lv_100ask_page_manager_set_main_page(page_manager, main_page);
-    lv_100ask_page_manager_set_open_page(NULL, "main_page");
+    lv_100ask_page_manager_set_open_page(NULL, "Main_page");
 }
 
 
@@ -106,6 +105,7 @@ static void open_page_anim(lv_obj_t * obj)
 {
     /*Do something with LVGL*/
     LV_LOG_USER("open page anim.");
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_HIDDEN);
 }
 
 /*close page anim*/
@@ -113,6 +113,7 @@ static void close_page_anim(lv_obj_t * obj)
 {
     /*Do something with LVGL*/
     LV_LOG_USER("close page anim.");
+    lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
 }
 #endif
 

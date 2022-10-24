@@ -46,7 +46,8 @@ static void page_open_anim_timeline_create(lv_anim_timeline_t * at, const lv_ani
     static void defaule_close_page(lv_obj_t * obj);
 #endif
 
-static void lv_obj_clean_anim_ready_cb(lv_anim_t * a);
+static void lv_obj_100ask_open_page_anim_start_cb(lv_anim_t * a);
+static void lv_obj_100ask_open_page_anim_ready_cb(lv_anim_t * a);
 static lv_obj_t * get_page(lv_obj_t * page_manager, char *name);
 
 
@@ -503,6 +504,7 @@ static void page_open_anim_timeline_create(lv_anim_timeline_t * at, const lv_ani
     lv_anim_set_early_apply(&anim, atw->early_apply);
     lv_anim_set_exec_cb(&anim, (lv_anim_exec_xcb_t)atw->exec_cb);
     lv_anim_set_path_cb(&anim, atw->path_cb);
+    lv_anim_set_start_cb(&anim, lv_obj_100ask_open_page_anim_start_cb);
     lv_anim_set_time(&anim, atw->duration);
 
     lv_anim_timeline_add(at, atw->start_time, &anim);
@@ -523,7 +525,7 @@ static void page_close_anim_timeline_create(lv_anim_timeline_t * at, const lv_an
     lv_anim_set_time(&anim, atw->duration);
 
 #if LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE    
-    lv_anim_set_ready_cb(&anim, lv_obj_clean_anim_ready_cb);
+    lv_anim_set_ready_cb(&anim, lv_obj_100ask_open_page_anim_ready_cb);
 #endif
 
     lv_anim_timeline_add(at, atw->start_time, &anim);
@@ -545,10 +547,20 @@ static lv_obj_t * get_page(lv_obj_t * page_manager, char *name)
     return NULL;
 }
 
-
-static void lv_obj_clean_anim_ready_cb(lv_anim_t * a)
+static void lv_obj_100ask_open_page_anim_start_cb(lv_anim_t * a)
 {
     lv_obj_t * obj = (lv_obj_t *)a->var;
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_HIDDEN);
+}
+
+
+static void lv_obj_100ask_open_page_anim_ready_cb(lv_anim_t * a)
+{
+    lv_obj_t * obj = (lv_obj_t *)a->var;
+#if LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE    
     lv_obj_clean(obj);
+#else
+    lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
+#endif
 }
 #endif  /*LV_USE_100ASK_PAGE_MANAGER*/
