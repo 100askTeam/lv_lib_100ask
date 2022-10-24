@@ -25,7 +25,7 @@ extern "C" {
 #include __LV_TO_STR(LV_LIB_100ASK_CONF_PATH)
 #undef __LV_TO_STR_AUX
 #undef __LV_TO_STR
-#elif defined(LV_LIB_100ASK_ESP_PLATFORM)
+#elif defined(ESP_PLATFORM)
 #include "lv_lib_100ask_conf_internal.h"
 #elif defined(LV_LIB_100ASK_CONF_INCLUDE_SIMPLE)
 #include "lv_lib_100ask_conf.h"
