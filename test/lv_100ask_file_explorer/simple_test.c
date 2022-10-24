@@ -64,8 +64,13 @@ void lv_100ask_file_explorer_simple_test(void)
 #endif
 
 #else
+
+#if defined(ESP_PLATFORM)
+    lv_100ask_file_explorer_open_dir(file_explorer, "S:/");
+#else
     // [linux]打开根目录
     lv_100ask_file_explorer_open_dir(file_explorer, "/");
+#endif
 
 #if LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
     // [linux]设置快速访问路径
