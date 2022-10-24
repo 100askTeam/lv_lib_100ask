@@ -41,19 +41,19 @@ typedef enum {
     TOKENIZER_SLASH,        // /
     TOKENIZER_LPAREN,       // (
     TOKENIZER_RPAREN,       // )
-} token_t;
+} lv_100ask_calc_token_t;
 
 /* Error code */
 typedef enum {
     no_error = 0,           // no error
     syntax_error,           // syntax error
-} error_t;
+} lv_100ask_calc_error_t;
 
 /* Error code and corresponding message */
 typedef struct {
-    error_t error_code;
+    lv_100ask_calc_error_t error_code;
     char   *message;
-} error_table_t;
+} lv_100ask_calc_error_table_t;
 
 
 /*Data of canvas*/
@@ -64,8 +64,8 @@ typedef struct {
     lv_obj_t * btnm;                            // btnmatrix
     char     * curr_char;                       // The character currently parsed by the expression
     char     * next_char;                       // The next character of the expression
-    token_t  current_token;                     // Current token
-    error_t  error_code;                        // Error code
+    lv_100ask_calc_token_t  current_token;                     // Current token
+    lv_100ask_calc_error_t  error_code;                        // Error code
     uint16_t count;                             // Record expression location
     char     calc_exp[LV_100ASK_CALC_EXPR_LEN]; // Expression
 } lv_100ask_calc_t;

@@ -30,16 +30,16 @@ static void lv_100ask_calc_destructor(const lv_obj_class_t * class_p, lv_obj_t *
 
 static void calc_btnm_changed_event_cb(lv_event_t *e);
 static void lv_100ask_calc_tokenizer_init(lv_obj_t *obj, char *expr);
-static token_t lv_100ask_calc_get_next_token(lv_obj_t *obj);
-static token_t lv_100ask_calc_siglechar(char *curr_char);
+static lv_100ask_calc_token_t lv_100ask_calc_get_next_token(lv_obj_t *obj);
+static lv_100ask_calc_token_t lv_100ask_calc_siglechar(char *curr_char);
 static int lv_100ask_calc_expr(lv_obj_t *obj);
 static int lv_100ask_calc_term(lv_obj_t *obj);
 static int lv_100ask_calc_factor(lv_obj_t *obj);
 static int lv_100ask_calc_tokenizer_num(char *curr_char);
-static void lv_100ask_calc_accept(lv_obj_t *obj, token_t token);
-static void lv_100ask_calc_error(error_t error_code ,error_t err);
+static void lv_100ask_calc_accept(lv_obj_t *obj, lv_100ask_calc_token_t token);
+static void lv_100ask_calc_error(lv_100ask_calc_error_t error_code ,lv_100ask_calc_error_t err);
 static void lv_100ask_calc_tokenizer_next(lv_obj_t *obj);
-static bool lv_100ask_calc_tokenizer_finished(token_t current_token, char *curr_char);
+static bool lv_100ask_calc_tokenizer_finished(lv_100ask_calc_token_t current_token, char *curr_char);
 static int lv_100ask_calc_expr(lv_obj_t *obj);
 
 /**********************
@@ -62,7 +62,7 @@ static const char * btnm_map[] = {  "(", ")", "C", "<-", "\n",
 									"0", ".", "=", "+",  ""};
 
 // error list
-static const error_table_t error_table[] = {
+static const lv_100ask_calc_error_table_t error_table[] = {
     {.error_code = no_error,            .message = "no error"},
     {.error_code = syntax_error,        .message = "syntax error!"}
 };
@@ -294,7 +294,7 @@ static void lv_100ask_calc_tokenizer_init(lv_obj_t *obj, char *expr)
  * @param obj       pointer to a calc object
  * @return          Token type
  */
-static token_t lv_100ask_calc_get_next_token(lv_obj_t *obj)
+static lv_100ask_calc_token_t lv_100ask_calc_get_next_token(lv_obj_t *obj)
 {
     int i;
     lv_100ask_calc_t * calc = (lv_100ask_calc_t *)obj;
@@ -333,7 +333,7 @@ static token_t lv_100ask_calc_get_next_token(lv_obj_t *obj)
  * @param curr_char       Pointer to character
  * @return                Token type
  */
-static token_t lv_100ask_calc_siglechar(char *curr_char)
+static lv_100ask_calc_token_t lv_100ask_calc_siglechar(char *curr_char)
 {
     switch (*curr_char)
     {
@@ -366,7 +366,7 @@ static int lv_100ask_calc_expr(lv_obj_t *obj)
 {
     lv_100ask_calc_t * calc = (lv_100ask_calc_t *)obj;
     int t1, t2 = 0;
-    token_t op;
+    lv_100ask_calc_token_t op;
 
     // First operand
     t1 = lv_100ask_calc_term(obj);
@@ -406,7 +406,7 @@ static int lv_100ask_calc_term(lv_obj_t *obj)
 {
     lv_100ask_calc_t * calc = (lv_100ask_calc_t *)obj;
     int f1, f2;
-    token_t op;
+    lv_100ask_calc_token_t op;
 
     // Get left operand (factor)
     f1 = lv_100ask_calc_factor(obj);
@@ -496,7 +496,7 @@ static int lv_100ask_calc_tokenizer_num(char *curr_char)
  * @param curr_char       pointer to a calc object
  * @param token           token
  */
-static void lv_100ask_calc_accept(lv_obj_t *obj, token_t token)
+static void lv_100ask_calc_accept(lv_obj_t *obj, lv_100ask_calc_token_t token)
 {
     lv_100ask_calc_t * calc = (lv_100ask_calc_t *)obj;
 
@@ -513,7 +513,7 @@ static void lv_100ask_calc_accept(lv_obj_t *obj, token_t token)
  * @param error_code       Current error_code
  * @param err              Error code to be set
  */
-static void lv_100ask_calc_error(error_t error_code, error_t err)
+static void lv_100ask_calc_error(lv_100ask_calc_error_t error_code, lv_100ask_calc_error_t err)
 {
     error_code = err;
 
@@ -546,7 +546,7 @@ static void lv_100ask_calc_tokenizer_next(lv_obj_t *obj)
  * @return                true:  There are no tokens to parse
  *                        false: There are tokens that need to be resolved
  */
-static bool lv_100ask_calc_tokenizer_finished(token_t current_token, char *curr_char)
+static bool lv_100ask_calc_tokenizer_finished(lv_100ask_calc_token_t current_token, char *curr_char)
 {
     return *curr_char == '\0' || current_token == TOKENIZER_ENDOFINPUT;
 }
