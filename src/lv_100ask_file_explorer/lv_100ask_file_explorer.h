@@ -25,6 +25,11 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
+typedef enum {
+    LV_100ASK_EXPLORER_SORT_KIND,
+    LV_100ASK_EXPLORER_SORT_NAME,
+} lv_100ask_file_explorer_sort_t;
+
 #if LV_100ASK_FILE_EXPLORER_QUICK_ACCESS
 typedef enum {
     LV_100ASK_EXPLORER_HOME_DIR,
@@ -88,6 +93,14 @@ void lv_100ask_file_explorer_set_quick_access_path(lv_obj_t * obj, lv_100ask_fil
  */
 void lv_100ask_file_explorer_set_quick_access_state(lv_obj_t * obj, bool state);
 #endif
+
+
+/**
+ * Set file_explorer sort
+ * @param obj   pointer to a label object
+ * @param sort  the sort from 'lv_100ask_file_explorer_sort_t' enum.
+ */
+void lv_100ask_file_explorer_set_sort(lv_obj_t * obj, lv_100ask_file_explorer_sort_t sort);
 
 /*=====================
  * Getter functions

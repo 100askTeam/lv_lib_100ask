@@ -39,6 +39,8 @@ static void brower_file_event_handler(lv_event_t * e);
 static void init_style(lv_obj_t * obj);
 static void show_dir(lv_obj_t * obj, char * path);
 static void strip_ext(char * dir);
+static void sort_table_items(lv_obj_t * tb, int16_t lo, int16_t hi);
+static void exch_table_item(lv_obj_t * tb, int16_t i, int16_t j);
 static bool is_begin_with(const char * str1, const char * str2);
 static bool is_end_with(const char * str1, const char * str2);
 
@@ -148,6 +150,28 @@ void lv_100ask_file_explorer_set_quick_access_state(lv_obj_t * obj, bool state)
     lv_event_send(explorer->quick_access_ctrl_btn, LV_EVENT_VALUE_CHANGED, NULL);
 }
 #endif
+
+
+void lv_100ask_file_explorer_set_sort(lv_obj_t * obj, lv_100ask_file_explorer_sort_t sort)
+{
+    LV_ASSERT_OBJ(obj, MY_CLASS);
+
+    lv_100ask_file_explorer_t * explorer = (lv_100ask_file_explorer_t *)obj;
+
+    uint16_t sum = lv_table_get_row_cnt(explorer->file_list);
+
+    switch (sort)
+    {
+        case LV_100ASK_EXPLORER_SORT_KIND:
+            sort_table_items(explorer->file_list, 0, sum - 1);
+            break;
+        case LV_100ASK_EXPLORER_SORT_NAME:
+            /* TODO */
+            break;
+        default:
+            break;
+    }
+}
 
 
 /*=====================
@@ -336,6 +360,8 @@ static void lv_100ask_file_explorer_constructor(const lv_obj_class_t * class_p, 
     lv_table_set_col_width(explorer->file_list, 0, LV_PCT(100));
     lv_table_set_col_cnt(explorer->file_list, 1);
     lv_obj_add_event_cb(explorer->file_list, brower_file_event_handler, LV_EVENT_ALL, obj);
+    // only scroll up and down
+    lv_obj_set_scroll_dir(explorer->file_list, LV_DIR_TOP | LV_DIR_BOTTOM);
 
     // 初始化样式
     init_style(obj);
@@ -596,6 +622,8 @@ static void show_dir(lv_obj_t * obj, char * path)
 
     lv_table_set_cell_value_fmt(explorer->file_list, index++, 0, LV_SYMBOL_DIRECTORY "  %s", ".");
     lv_table_set_cell_value_fmt(explorer->file_list, index++, 0, LV_SYMBOL_DIRECTORY "  %s", "..");
+    lv_table_set_cell_value(explorer->file_list, 0, 1, "0");
+    lv_table_set_cell_value(explorer->file_list, 1, 1, "0");
 
     while(1) {
         res = lv_fs_dir_read(&dir, fn);
@@ -614,21 +642,31 @@ static void show_dir(lv_obj_t * obj, char * path)
         if ((is_end_with(fn, ".png") == true)  || (is_end_with(fn, ".PNG") == true)  ||\
             (is_end_with(fn , ".jpg") == true) || (is_end_with(fn , ".JPG") == true) ||\
             (is_end_with(fn , ".bmp") == true) || (is_end_with(fn , ".BMP") == true) ||\
-            (is_end_with(fn , ".gif") == true) || (is_end_with(fn , ".GIF") == true))
+            (is_end_with(fn , ".gif") == true) || (is_end_with(fn , ".GIF") == true)) {
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_IMAGE "  %s", fn);
-        else if ((is_end_with(fn , ".mp3") == true) || (is_end_with(fn , ".MP3") == true))
+            lv_table_set_cell_value(explorer->file_list, index, 1, "1");
+        }
+        else if ((is_end_with(fn , ".mp3") == true) || (is_end_with(fn , ".MP3") == true)) {
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_AUDIO "  %s", fn);
-        else if ((is_end_with(fn , ".mp4") == true) || (is_end_with(fn , ".MP4") == true))
+            lv_table_set_cell_value(explorer->file_list, index, 1, "2");
+        }
+        else if ((is_end_with(fn , ".mp4") == true) || (is_end_with(fn , ".MP4") == true)) {
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_VIDEO "  %s", fn);
+            lv_table_set_cell_value(explorer->file_list, index, 1, "3");
+        }
         else if((is_end_with(fn , ".") == true) || (is_end_with(fn , "..") == true)) {
             /*is dir*/
             //lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_DIRECTORY "  %s", fn);
             continue;
         }
-        else if(fn[0] == '/') /*is dir*/
+        else if(fn[0] == '/') {/*is dir*/
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_DIRECTORY "  %s", fn+1);
-        else
+            lv_table_set_cell_value(explorer->file_list, index, 1, "0");
+        }
+        else {
             lv_table_set_cell_value_fmt(explorer->file_list, index, 0, LV_SYMBOL_FILE "  %s", fn);
+            lv_table_set_cell_value(explorer->file_list, index, 1, "4");
+        }
 
         index++;
 
@@ -636,8 +674,8 @@ static void show_dir(lv_obj_t * obj, char * path)
     }
 
     lv_fs_dir_close(&dir);
-
     lv_table_set_row_cnt(explorer->file_list, index);
+    lv_100ask_file_explorer_set_sort(obj, LV_100ASK_EXPLORER_SORT_KIND);
     // 让table移动到最顶部
     lv_obj_scroll_to_y(explorer->file_list, 0, LV_ANIM_OFF);
 
@@ -668,6 +706,47 @@ static void strip_ext(char *dir)
         *(end+1) = '\0';
     }
 
+}
+
+
+
+static void exch_table_item(lv_obj_t * tb, int16_t i,int16_t j )
+{
+    const char * tmp;
+    tmp = lv_table_get_cell_value(tb, i, 0);
+    lv_table_set_cell_value(tb, 0, 2, tmp);
+    lv_table_set_cell_value(tb, i, 0, lv_table_get_cell_value(tb, j, 0));
+    lv_table_set_cell_value(tb, j, 0, lv_table_get_cell_value(tb, 0, 2));
+
+    tmp = lv_table_get_cell_value(tb, i, 1);
+    lv_table_set_cell_value(tb, 0, 2, tmp);
+    lv_table_set_cell_value(tb, i, 1, lv_table_get_cell_value(tb, j, 1));
+    lv_table_set_cell_value(tb, j, 1, lv_table_get_cell_value(tb, 0, 2));
+    
+}
+
+
+// Quick sort 3 way
+static void sort_table_items(lv_obj_t * tb, int16_t lo, int16_t hi )
+{
+    if( lo >= hi ) return;  //单个元素或者没有元素的情况
+
+    int16_t lt = lo;
+    int16_t i = lo + 1;  //第一个元素是切分元素，所以指针i可以从lo+1开始
+    int16_t gt = hi;
+    const char * v = lv_table_get_cell_value(tb, lo, 1);
+    while( i <= gt )
+    {
+        if(strcmp(lv_table_get_cell_value(tb, i, 1), v) < 0)  //小于切分元素的放在lt左边，因此指针lt和指针i整体右移
+            exch_table_item(tb, lt++, i++);
+        else if(strcmp(lv_table_get_cell_value(tb, i, 1), v) > 0)  //大于切分元素的放在gt右边，因此指针gt需要左移
+            exch_table_item(tb, i, gt--);
+        else
+            i++;
+    }
+    //lt-gt的元素已经排定，只需对it左边和gt右边的元素进行递归求解
+    sort_table_items(tb, lo, lt-1);
+    sort_table_items(tb, gt+1, hi);
 }
 
 
