@@ -40,6 +40,7 @@
 #include "InfoNES_Mapper.h"
 #include "InfoNES_pAPU.h"
 #include "K6502.h"
+#include <stdio.h>
 
 /*-------------------------------------------------------------------*/
 /*  NES resources                                                    */

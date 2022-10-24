@@ -9,6 +9,12 @@
 #include "lv_100ask_nes.h"
 
 #if LV_USE_100ASK_NES
+
+#if LV_100ASK_NES_PLATFORM_POSIX
+	#include <unistd.h>
+#elif LV_100ASK_NES_PLATFORM_FREERTOS
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -375,8 +381,11 @@ void lv_100ask_nes_flush(void)
         //obj->dsc->data = (const uint8_t *)WorkFrame;
         lv_img_set_src(nes->img, nes->dsc);
         lv_100ask_nes_set_unlock(nes_obj);
-
+#if LV_100ASK_NES_PLATFORM_POSIX
         usleep(lv_100ask_nes_get_speed(nes_obj));
+#elif LV_100ASK_NES_PLATFORM_FREERTOS
+        vTaskDelay(lv_100ask_nes_get_speed(nes_obj));
+#endif
     }
 
 }
