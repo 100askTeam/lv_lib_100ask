@@ -1,5 +1,9 @@
 
+⚠️  lv_100ask_file_explorer已合入LVGL主线仓库，因此 lv_lib_100ask **不再更新** lv_100ask_file_explorer，获取最新源码请移步：
 
+- 文档地址(有中文)：[https://docs.lvgl.io/master/others/file_explorer.html](https://docs.lvgl.io/master/others/file_explorer.html)
+- 源码地址：[https://github.com/lvgl/lvgl/pull/3601](https://github.com/lvgl/lvgl/pull/3601)
+- 使用示例：[https://docs.lvgl.io/master/others/file_explorer.html#example](https://docs.lvgl.io/master/others/file_explorer.html#example)
 
 
 <h1 align="center"> lv_100ask_file_explorer</h1>
