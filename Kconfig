@@ -35,6 +35,7 @@ menu "LV_LIB_100ASK configuration"
         config LV_USE_100ASK_PAGE_MANAGER
             bool "Enable LV_USE_100ASK_PAGE_MANAGER."
             default n
+        
         config LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE
             bool "Switch pages and delete old pages at the same time.."
             depends on LV_USE_100ASK_PAGE_MANAGER
@@ -42,15 +43,20 @@ menu "LV_LIB_100ASK configuration"
             help
                 Switch pages and delete old pages at the same time.
                 1: DELETE , 0:DELETE NO
-        config PAGE_SWITCHER_SNAPSHOT
-            bool "age switcher snapshot"
+        
+        config LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION
+            bool "Page switch animation"
             depends on LV_USE_100ASK_PAGE_MANAGER
             default n
-
-        config LV_100ASK_PAGE_MANAGER_BACK_BTN_SIZE
-            int "age switcher snapshot"
+            help
+                1: use custom animation , 0:Use built-in animation
+        
+        config PAGE_SWITCHER_SNAPSHOT
+            bool "Page switcher snapshot"
             depends on LV_USE_100ASK_PAGE_MANAGER
-            default 60
+            default n
+            help
+                TODO
                         
         config LV_100ASK_PAGE_MANAGER_SIMPLE_TEST
             bool "Enable LV_100ASK_PAGE_MANAGER_SIMPLE_TEST."

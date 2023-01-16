@@ -42,7 +42,6 @@ typedef struct {
 
 typedef struct {
     lv_obj_t obj;
-    lv_obj_t *back_btn;
     char * name;
     lv_anim_timeline_t * anim_timeline;
     void (*init)(lv_obj_t * obj);
@@ -98,12 +97,18 @@ void lv_100ask_page_manager_set_close_page_anim(lv_obj_t * obj, void (*close_ani
 /*=====================
  * Getter functions
  *====================*/
+lv_obj_t * lv_100ask_page_manager_get_page(lv_obj_t * obj, char * name);
+
+char * lv_100ask_page_manager_get_page_name(lv_obj_t * obj, lv_obj_t * page);
+
 
 /*=====================
  * Other functions
  *====================*/
 
 lv_obj_t * lv_100ask_page_manager_page_create(lv_obj_t * parent, char * name);
+
+void lv_100ask_page_manager_open_previous_page(lv_obj_t * obj);
 
 /**********************
  *      MACROS

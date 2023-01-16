@@ -137,7 +137,6 @@
 #if LV_USE_100ASK_FILE_EXPLORER
     #define LV_100ASK_NES_SIMPLE_TEST                   1
 #endif
-
 #endif
 
 #endif /*LV_LIB_100ASK_H*/
