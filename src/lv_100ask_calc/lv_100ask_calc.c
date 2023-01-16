@@ -260,7 +260,7 @@ static void calc_btnm_changed_event_cb(lv_event_t *e)
         // Add char
         else
         {
-            if((calc->count == 0) && (lv_textarea_get_text(calc->ta_input) != ""))
+            if((calc->count == 0) && (strcmp(lv_textarea_get_text(calc->ta_input), "") == 0))
                 lv_textarea_set_text(calc->ta_input, "");
 
             lv_textarea_add_text(calc->ta_input, txt);
@@ -517,7 +517,7 @@ static void lv_100ask_calc_error(lv_100ask_calc_error_t error_code, lv_100ask_ca
 {
     error_code = err;
 
-    return;
+    LV_UNUSED(error_code);
 }
 
 
