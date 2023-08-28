@@ -46,7 +46,7 @@
     #define LV_100ASK_PAGE_MANAGER_SW_DEL_PAGE          0
 
     /*1: use custom animation , 0:Use built-in animation*/
-    #define LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION     0
+    #define LV_100ASK_PAGE_MANAGER_CUSTOM_ANIMARION     0
         
 	/* Page switcher snapshot*/
 	#if LV_USE_SNAPSHOT
@@ -60,6 +60,15 @@
     #define LV_100ASK_PAGE_MANAGER_SIMPLE_TEST          1
 #endif
 
+/*screenshot*/
+#if LV_USE_SNAPSHOT
+    /* Requires LV_USE_SNAPSHOT = 1 */
+    #define LV_USE_100ASK_SCREENSHOT                    0
+#endif
+#if LV_USE_100ASK_SCREENSHOT
+    /*test*/
+    #define LV_USE_100ASK_SCREENSHOT_TEST               1
+#endif
 
 /* sketchpad */
 #if LV_USE_CANVAS

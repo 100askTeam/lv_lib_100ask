@@ -39,6 +39,9 @@ extern "C" {
 /*lv_100ask_pinyin_ime*/
 #include "src/lv_100ask_pinyin_ime/lv_100ask_pinyin_ime.h"
 #include "test/lv_100ask_pinyin_ime_test/simple_test.h"
+/*lv_100ask_screenshot*/
+#include "src/lv_100ask_screenshot/lv_100ask_screenshot.h"
+#include "test/lv_100ask_screenshot_test/simple_test.h"
 /*lv_100ask_sketchpad*/
 #include "src/lv_100ask_sketchpad/lv_100ask_sketchpad.h"
 #include "test/lv_100ask_sketchpad_test/simple_test.h"
