@@ -13,6 +13,7 @@
 | [src/lv_100ask_memory_game](src/lv_100ask_memory_game/README_zh.md) | lvgl方案参考(数字对拼图小游戏) |
 | [src/lv_100ask_file_explorer](src/lv_100ask_file_explorer/README_zh.md) | lvgl方案参考(文件浏览器) |
 | [src/lv_100ask_nes](src/lv_100ask_nes/README_zh.md) | lvgl方案参考(nes模拟器) |
+| [src/lv_100ask_screenshot](src/lv_100ask_screenshot/README_zh.md) | lvgl截屏功能 |
 | more todo...  | more todo... |
 
 # 使用方法
