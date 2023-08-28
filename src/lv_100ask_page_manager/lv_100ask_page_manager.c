@@ -39,9 +39,9 @@ static void lv_100ask_page_manager_page_del_event_cb(lv_event_t * e);
 static void page_close_anim_timeline_create(lv_anim_timeline_t * at, const lv_anim_timeline_wrapper_t * wrapper);
 static void page_open_anim_timeline_create(lv_anim_timeline_t * at, const lv_anim_timeline_wrapper_t * wrapper);
 
-#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION == 0
-    static void defaule_open_page(lv_obj_t * obj);
-    static void defaule_close_page(lv_obj_t * obj);
+#if LV_100ASK_PAGE_MANAGER_CUSTOM_ANIMARION == 0
+    static void default_open_page(lv_obj_t * obj);
+    static void default_close_page(lv_obj_t * obj);
 #endif
 
 static void lv_obj_100ask_open_page_anim_start_cb(lv_anim_t * a);
@@ -327,12 +327,12 @@ static void lv_100ask_page_manager_page_constructor(const lv_obj_class_t * class
 
     page->anim_timeline = NULL;
     page->init = NULL;
-#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION
+#if LV_100ASK_PAGE_MANAGER_CUSTOM_ANIMARION
     page->open_page = NULL;
     page->close_page = NULL;
 #else
-    page->open_page = defaule_open_page;
-    page->close_page = defaule_close_page;
+    page->open_page = default_open_page;
+    page->close_page = default_close_page;
     page->close_page(obj);
 #endif
 
@@ -380,8 +380,8 @@ static void lv_100ask_page_manager_event(const lv_obj_class_t * class_p, lv_even
 }
 
 
-#if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION == 0
-static void defaule_open_page(lv_obj_t * obj)
+#if LV_100ASK_PAGE_MANAGER_CUSTOM_ANIMARION == 0
+static void default_open_page(lv_obj_t * obj)
 {
     lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
 
@@ -407,7 +407,7 @@ static void defaule_open_page(lv_obj_t * obj)
 }
 
 
-static void defaule_close_page(lv_obj_t * obj)
+static void default_close_page(lv_obj_t * obj)
 {
     lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
 
