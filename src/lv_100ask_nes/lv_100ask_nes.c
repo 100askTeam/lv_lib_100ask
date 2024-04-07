@@ -44,6 +44,7 @@ static void lv_100ask_nes_destructor(const lv_obj_class_t * class_p, lv_obj_t * 
 
 static void lv_100ask_nes_event(const lv_obj_class_t * class_p, lv_event_t * e);
 //static void lv_100ask_nes_draw_event(lv_event_t * e);
+static void update_flush_timer(lv_timer_t * timer);
 
 /**********************
  *  STATIC VARIABLES
@@ -101,15 +102,15 @@ void lv_100ask_nes_set_fn(lv_obj_t * obj, char * fn)
 
     if(nes->cur_fn) {
         if(strlen(nes->cur_fn) < fn_len) {
-            lv_mem_free(nes->cur_fn);
+            lv_free(nes->cur_fn);
             nes->cur_fn = NULL;
         }
         else {
-            lv_memset_00(nes->cur_fn, strlen(nes->cur_fn));
+            lv_memzero(nes->cur_fn, strlen(nes->cur_fn));
         }
     }
 
-    nes->cur_fn = lv_mem_alloc(fn_len + 1);
+    nes->cur_fn = lv_malloc(fn_len + 1);
     LV_ASSERT_MALLOC(nes->cur_fn);
     if(nes->cur_fn == NULL) return;
 
@@ -245,7 +246,7 @@ void lv_100ask_nes_set_key(lv_obj_t * obj, lv_100ask_nes_key_t key, lv_100ask_ne
             case LV_100ASK_NES_KEY_MENU:
                 dwSystem |= PAD_SYS_QUIT;
                 if(nes->state == LV_100ASK_NES_STATE_NORMAL) {
-                    lv_100ask_nes_set_lock(obj);
+                    //lv_100ask_nes_set_lock(obj);
                     nes->state = LV_100ASK_NES_STATE_MENU;
                 }
 
@@ -311,7 +312,7 @@ void lv_100ask_nes_menu(void)
         }
         dwSystem |= 0;
         nes->state = LV_100ASK_NES_STATE_NORMAL;
-        lv_100ask_nes_set_unlock(nes_obj);
+        lv_100ask_nes_set_unlock(nes_obj);\
     }
 }
 
@@ -324,6 +325,7 @@ void lv_100ask_nes_run(void * obj)
     lv_100ask_nes_set_lock(nes_obj);
     // Wait for the user to select the file when starting for the first time
     lv_100ask_nes_set_unlock(nes_obj);
+
     lv_100ask_nes_set_state(nes_obj, LV_100ASK_NES_STATE_NORMAL);
 
     if (start_application(lv_100ask_nes_get_fn(nes_obj)))
@@ -349,44 +351,46 @@ void lv_100ask_nes_flush(void)
     uint32_t y;
     uint32_t index = 0;
 
-#if LV_COLOR_DEPTH == 16
-    //uint16_t *fb = (unsigned short *)&WorkFrame;
-    for(y =0; y < 240; y++) {
-        for(x = 0; x < 256; x++) {
-            //fb[index] = (WorkFrame[index] >> 3) << 4 | (WorkFrame[index]&0x001f);
-            nes_dbuf[index] = (WorkFrame[index] >> 3) << 4 | (WorkFrame[index]&0x001f);
-            index++;
-        }
-    }
-#else if LV_COLOR_DEPTH == 32
-    uint8_t red, green, blue, cov;
-    uint32_t nes_buf_index = 0;
-
-    for(y =0; y < 240; y++) {
-        for(x = 0; x < 256; x++) {
-            red   = (WorkFrame[index] & 0xff0000) >> 16;
-            green = (WorkFrame[index] & 0xff00) >> 8;
-            blue  = (WorkFrame[index] & 0xff >> 0);
-            //WorkFrame[index] = (green<<24) | (blue<<16) | (red << 8);
-
-            nes_dbuf[nes_buf_index++] = ((green << 8) | blue);      // l: G B
-            nes_dbuf[nes_buf_index++] = ((0xff << 8) | red);      // h: A R
-            index++;
-        }
-    }
-#endif
+    lv_100ask_nes_set_lock(nes_obj);
     if(nes->state == LV_100ASK_NES_STATE_NORMAL) {
-        lv_100ask_nes_set_lock(nes_obj);
-        nes->dsc->data = (const uint8_t *)nes_dbuf;
-        //obj->dsc->data = (const uint8_t *)WorkFrame;
-        lv_img_set_src(nes->img, nes->dsc);
-        lv_100ask_nes_set_unlock(nes_obj);
-#if LV_100ASK_NES_PLATFORM_POSIX
-        usleep(lv_100ask_nes_get_speed(nes_obj));
-#elif LV_100ASK_NES_PLATFORM_FREERTOS
-        vTaskDelay(lv_100ask_nes_get_speed(nes_obj));
+#if LV_COLOR_DEPTH == 16
+        //uint16_t *fb = (unsigned short *)&WorkFrame;
+        for(y =0; y < 240; y++) {
+            for(x = 0; x < 256; x++) {
+                //fb[index] = (WorkFrame[index] >> 3) << 4 | (WorkFrame[index]&0x001f);
+                nes_dbuf[index] = (WorkFrame[index] >> 3) << 4 | (WorkFrame[index]&0x001f);
+                index++;
+            }
+        }
+#else if LV_COLOR_DEPTH == 32
+        uint8_t red, green, blue, cov;
+        uint32_t nes_buf_index = 0;
+
+        for(y =0; y < 240; y++) {
+            for(x = 0; x < 256; x++) {
+                red   = (WorkFrame[index] & 0xff0000) >> 16;
+                green = (WorkFrame[index] & 0xff00) >> 8;
+                blue  = (WorkFrame[index] & 0xff >> 0);
+                //WorkFrame[index] = (green<<24) | (blue<<16) | (red << 8);
+
+                nes_dbuf[nes_buf_index++] = ((green << 8) | blue);      // l: G B
+                nes_dbuf[nes_buf_index++] = ((0xff << 8) | red);      // h: A R
+                index++;
+            }
+        }
 #endif
+        nes->dsc->data = (const uint8_t *)nes_dbuf;
+        lv_timer_resume(nes->timer);
+        //obj->dsc->data = (const uint8_t *)WorkFrame;
     }
+
+    lv_100ask_nes_set_unlock(nes_obj);
+
+#if LV_100ASK_NES_PLATFORM_POSIX
+    usleep(lv_100ask_nes_get_speed(nes_obj));
+#elif LV_100ASK_NES_PLATFORM_FREERTOS
+    vTaskDelay(lv_100ask_nes_get_speed(nes_obj));
+#endif
 
 }
 
@@ -408,8 +412,8 @@ static void lv_100ask_nes_constructor(const lv_obj_class_t * class_p, lv_obj_t *
     lv_obj_remove_style_all(obj);
     lv_obj_set_size(obj, LV_PCT(100), LV_PCT(100));
 
-    nes->dsc = lv_mem_alloc(sizeof(lv_img_dsc_t));
-    lv_memset_00(nes->dsc, sizeof(lv_img_dsc_t));
+    nes->dsc = lv_malloc(sizeof(lv_img_dsc_t));
+    lv_memzero(nes->dsc, sizeof(lv_img_dsc_t));
     nes->dsc->data = NULL;
 #if LV_COLOR_DEPTH == 16
     nes->dsc->data_size = 2*256*240;
@@ -418,12 +422,12 @@ static void lv_100ask_nes_constructor(const lv_obj_class_t * class_p, lv_obj_t *
 #endif
     nes->dsc->header.w = 256;
     nes->dsc->header.h = 240;
-    nes->dsc->header.cf = LV_IMG_CF_TRUE_COLOR;
+    nes->dsc->header.cf = LV_COLOR_FORMAT_ARGB8888;
 
-    nes->img = lv_img_create(lv_scr_act());
-    lv_img_set_antialias(nes->img, true);
+    nes->img = lv_image_create(lv_scr_act());
+    //lv_image_set_antialias(nes->img, true);
     lv_obj_center(nes->img);
-    lv_img_set_src(nes->img, nes->dsc);
+    //lv_image_set_src(nes->img, nes->dsc);
     //lv_img_set_zoom(nes->img, 512);
     //lv_obj_add_event_cb(nes->img, lv_100ask_nes_draw_event, LV_EVENT_ALL, obj);
 
@@ -432,6 +436,9 @@ static void lv_100ask_nes_constructor(const lv_obj_class_t * class_p, lv_obj_t *
 #elif LV_100ASK_NES_PLATFORM_FREERTOS
     nes->mutex = xSemaphoreCreateRecursiveMutex();
 #endif
+
+    nes->timer = lv_timer_create(update_flush_timer, 5,  obj);
+    lv_timer_pause(nes->timer);
 
     LV_TRACE_OBJ_CREATE("finished");
 }
@@ -478,5 +485,17 @@ static void lv_100ask_nes_draw_event(lv_event_t * e)
     }
 }
 #endif
+
+static void update_flush_timer(lv_timer_t * timer)
+{
+  /*Use the user_data*/
+  lv_obj_t * obj = timer->user_data;
+
+  lv_100ask_nes_t * nes = (lv_100ask_nes_t *)obj;
+
+  lv_image_set_src(nes->img, nes->dsc);
+  //printf("111111\n");
+
+}
 
 #endif  /*LV_USE_100ASK_NES*/

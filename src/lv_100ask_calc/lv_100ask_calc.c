@@ -51,7 +51,8 @@ const lv_obj_class_t lv_100ask_calc_class = {
     .width_def      = LV_DPI_DEF * 2,
     .height_def     = LV_DPI_DEF * 3,
     .instance_size  = sizeof(lv_100ask_calc_t),
-    .base_class     = &lv_obj_class
+    .base_class     = &lv_obj_class,
+    .name           = "calc"
 };
 
 // Key layout
@@ -147,7 +148,7 @@ static void lv_100ask_calc_constructor(const lv_obj_class_t * class_p, lv_obj_t 
     lv_obj_set_style_bg_color(calc->ta_hist, LV_100ASK_COLOR_BLACK, 0);
     lv_obj_set_style_text_color(calc->ta_hist, LV_100ASK_COLOR_GREEN, 0);
     lv_obj_set_style_radius(calc->ta_hist, 0, 0);
-    
+
     lv_obj_set_size(calc->ta_hist, LV_PCT(100), LV_PCT(20));
     lv_textarea_set_cursor_click_pos(calc->ta_hist, false);
     lv_textarea_set_max_length(calc->ta_hist, LV_100ASK_CALC_HISTORY_MAX_LINE);
@@ -159,10 +160,10 @@ static void lv_100ask_calc_constructor(const lv_obj_class_t * class_p, lv_obj_t 
     /*Input textarea*/
     calc->ta_input = lv_textarea_create(obj);
     lv_obj_set_style_bg_color(calc->ta_input, LV_100ASK_COLOR_BLACK, 0);
-    lv_obj_set_style_text_color(calc->ta_input, LV_100ASK_COLOR_GREEN, 0);
+    lv_obj_set_style_text_color(calc->ta_input, LV_100ASK_COLOR_WHITE, 0);
     lv_obj_set_style_radius(calc->ta_input, 0, 0);
     lv_obj_set_style_border_width(calc->ta_input, 0, 0);
-    
+
     lv_obj_set_size(calc->ta_input, LV_PCT(100), LV_PCT(5));
     lv_textarea_set_one_line(calc->ta_input, true);
     lv_textarea_set_cursor_click_pos(calc->ta_input, false);
@@ -196,9 +197,9 @@ static void calc_btnm_changed_event_cb(lv_event_t *e)
     lv_obj_t * obj = lv_event_get_target(e);
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * user_data = lv_event_get_user_data(e);
-    
-    uint32_t id = lv_btnmatrix_get_selected_btn(obj);
-    const char * txt = lv_btnmatrix_get_btn_text(obj, id);
+
+    uint32_t id = lv_buttonmatrix_get_selected_button(obj);
+    const char * txt = lv_buttonmatrix_get_button_text(obj, id);
 
     lv_100ask_calc_t * calc = (lv_100ask_calc_t *)user_data;
 
@@ -214,7 +215,7 @@ static void calc_btnm_changed_event_cb(lv_event_t *e)
             lv_100ask_calc_tokenizer_init(user_data, calc->calc_exp);
 
             // Calculates the value of the first level priority expression
-            calc_results = lv_100ask_calc_expr(user_data);  
+            calc_results = lv_100ask_calc_expr(user_data);
 
             if (calc->error_code != no_error)
             {
@@ -236,7 +237,7 @@ static void calc_btnm_changed_event_cb(lv_event_t *e)
                 lv_textarea_add_text(calc->ta_hist, tmp_buff);
                 lv_textarea_set_text(calc->ta_input, tmp_buff);
                 // Empty expression
-                lv_memset_00(calc->calc_exp, sizeof(calc->calc_exp));
+                lv_memzero(calc->calc_exp, sizeof(calc->calc_exp));
                 calc->count = 0;
 
             }
@@ -247,13 +248,13 @@ static void calc_btnm_changed_event_cb(lv_event_t *e)
         {
             lv_textarea_set_text(calc->ta_input, "");
             // Empty expression
-            lv_memset_00(calc->calc_exp, sizeof(calc->calc_exp));
+            lv_memzero(calc->calc_exp, sizeof(calc->calc_exp));
             calc->count = 0;
         }
         // del char
-        else if (strcmp(txt, "<-") == 0)             
+        else if (strcmp(txt, "<-") == 0)
         {
-            lv_textarea_del_char(calc->ta_input);
+            lv_textarea_delete_char(calc->ta_input);
             calc->calc_exp[calc->count-1] = '\0';
             calc->count--;
         }
@@ -419,7 +420,7 @@ static int lv_100ask_calc_term(lv_obj_t *obj)
     {
         // Next token
         lv_100ask_calc_tokenizer_next(obj);
-        
+
         // Get right operand (factor)
         f2 = lv_100ask_calc_factor(obj);
         switch ((int)op)
@@ -440,8 +441,8 @@ static int lv_100ask_calc_term(lv_obj_t *obj)
 
 
 /**
- * Get the value of the current factor. 
- * If the current factor (similar to m in the above formula) is an expression, 
+ * Get the value of the current factor.
+ * If the current factor (similar to m in the above formula) is an expression,
  * perform recursive evaluation
  * @param curr_char       pointer to a calc object
  * @return                Value of factor

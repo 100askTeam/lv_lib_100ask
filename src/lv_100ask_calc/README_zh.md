@@ -29,7 +29,7 @@ lv_100ask_calc 是一个基于 lvgl 的计算器。
 
 # 使用方法
 
-参考 **lv_lib_100ask/test/lv_100ask_calc_test** 的示例。
+参考 **lv_lib_100ask/examples/lv_100ask_calc** 的示例。
 
 
 # 关于我们

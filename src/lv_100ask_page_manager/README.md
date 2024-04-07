@@ -31,7 +31,7 @@ lv_100ask_page_manager is a lvgl page manager.
 
 # Usage
 
-Refer to the example in **lv_lib_100ask/test/lv_100ask_page_manager_test**.
+Refer to the example in **lv_lib_100ask/examples/lv_100ask_page_manager**.
 
 # About
 This is an open project and contribution is very welcome!

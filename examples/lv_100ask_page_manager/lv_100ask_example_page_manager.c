@@ -1,6 +1,6 @@
 
 /**
- * @file simple_test.c
+ * @file lv_100ask_example_page_manager.c
  *
  */
 
@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "simple_test.h"
+#include "lv_100ask_example_page_manager.h"
 
 #if LV_100ASK_PAGE_MANAGER_SIMPLE_TEST != 0
 
@@ -52,7 +52,7 @@ static void close_page_anim(lv_obj_t * obj);
 
 void lv_100ask_page_manager_simple_test(void)
 {
-    lv_obj_t * page_manager = lv_100ask_page_manager_create(lv_scr_act());
+    lv_obj_t * page_manager = lv_100ask_page_manager_create(lv_screen_active());
 
     lv_obj_t * main_page = lv_100ask_page_manager_page_create(page_manager, "Main_page");
     lv_obj_t * page1 = lv_100ask_page_manager_page_create(page_manager, "Page1");
@@ -63,12 +63,12 @@ void lv_100ask_page_manager_simple_test(void)
     lv_obj_t * page6 = lv_100ask_page_manager_page_create(page_manager, "Page6");
 
     lv_100ask_page_manager_set_page_init(main_page, init_main_page);
-    lv_100ask_page_manager_set_page_init(page1, init_page1);
-    lv_100ask_page_manager_set_page_init(page2, init_page2);
-    lv_100ask_page_manager_set_page_init(page3, init_page3);
-    lv_100ask_page_manager_set_page_init(page4, init_page4);
-    lv_100ask_page_manager_set_page_init(page5, init_page5);
-    lv_100ask_page_manager_set_page_init(page6, init_page6);
+    //lv_100ask_page_manager_set_page_init(page1, init_page1);
+    //lv_100ask_page_manager_set_page_init(page2, init_page2);
+    //lv_100ask_page_manager_set_page_init(page3, init_page3);
+    //lv_100ask_page_manager_set_page_init(page4, init_page4);
+    //lv_100ask_page_manager_set_page_init(page5, init_page5);
+    //lv_100ask_page_manager_set_page_init(page6, init_page6);
 
 #if LV_100ASK_PAGE_MANAGER_COSTOM_ANIMARION
     lv_100ask_page_manager_set_open_page_anim(main_page, open_page_anim);

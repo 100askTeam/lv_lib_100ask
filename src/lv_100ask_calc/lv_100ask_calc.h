@@ -24,8 +24,9 @@ extern "C" {
 #define LV_100ASK_CALC_HISTORY_MAX_LINE     (128)
 #define LV_100ASK_CALC_HISTORY_MAX_H        ((LV_VER_RES/4) * 1)
 #define LV_100ASK_PANEL_CALC_MAX_H          ((LV_VER_RES/4) * 3)
+#define LV_100ASK_COLOR_WHITE               lv_color_hex(0xffffff)
 #define LV_100ASK_COLOR_BLACK               lv_color_hex(0x000000)
-#define LV_100ASK_COLOR_GREEN               lv_color_hex(0xf5fffa)
+#define LV_100ASK_COLOR_GREEN               lv_palette_main(LV_PALETTE_GREEN)
 
 /**********************
  *      TYPEDEFS

@@ -1,6 +1,6 @@
 
 /**
- * @file simple_test.c
+ * @file lv_100ask_example_pinyin_ime.c
  *
  */
 
@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "simple_test.h"
+#include "lv_100ask_example_pinyin_ime.h"
 
 #if LV_100ASK_PINYIN_IME_SIMPLE_TEST != 0
 

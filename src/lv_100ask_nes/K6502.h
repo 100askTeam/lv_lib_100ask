@@ -17,17 +17,17 @@ extern "C" {
 #if LV_USE_100ASK_NES != 0
 
 // Type definition
-#ifndef DWORD
-typedef unsigned long  DWORD;
-#endif
+//#ifndef DWORD
+//typedef unsigned long  DWORD;
+//#endif
 
-#ifndef WORD
-    #if LV_COLOR_DEPTH == 16
-    typedef unsigned short WORD;
-    #elif LV_COLOR_DEPTH == 32
-    typedef unsigned int WORD;
-    #endif
-#endif
+//#ifndef WORD
+//    #if LV_COLOR_DEPTH == 16
+//    typedef unsigned short WORD;
+//    #elif LV_COLOR_DEPTH == 32
+//    typedef unsigned int WORD;
+//    #endif
+//#endif
 
 #ifndef BYTE
 typedef unsigned char  BYTE;

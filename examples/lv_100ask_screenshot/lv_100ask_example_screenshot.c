@@ -1,6 +1,6 @@
 
 /**
- * @file simple_test.c
+ * @file lv_100ask_example_screenshot.c
  *
  */
 
@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "simple_test.h"
+#include "lv_100ask_example_screenshot.h"
 
 #if LV_USE_100ASK_SCREENSHOT_TEST != 0
 #include <time.h>
@@ -81,11 +81,11 @@ static void event_handler(lv_event_t * e)
         LV_LOG_USER("New screenshot name: %s", file_name_buf);
 
         if(strcmp(dropdown_selected_str_buf, SCREENSHOT_SAVE_AS_BMP) == 0)
-            lv_100ask_screenshot_create(lv_scr_act(), LV_IMG_CF_TRUE_COLOR_ALPHA, LV_100ASK_SCREENSHOT_SV_BMP, file_name_buf);
+            lv_100ask_screenshot_create(lv_scr_act(), LV_COLOR_FORMAT_ARGB8888, LV_100ASK_SCREENSHOT_SV_BMP, file_name_buf);
         else if(strcmp(dropdown_selected_str_buf, SCREENSHOT_SAVE_AS_PNG) == 0)
-            lv_100ask_screenshot_create(lv_scr_act(), LV_IMG_CF_TRUE_COLOR_ALPHA, LV_100ASK_SCREENSHOT_SV_PNG, file_name_buf);
+            lv_100ask_screenshot_create(lv_scr_act(), LV_COLOR_FORMAT_ARGB8888, LV_100ASK_SCREENSHOT_SV_PNG, file_name_buf);
         else if(strcmp(dropdown_selected_str_buf, SCREENSHOT_SAVE_AS_JPG) == 0)
-            lv_100ask_screenshot_create(lv_scr_act(), LV_IMG_CF_TRUE_COLOR_ALPHA, LV_100ASK_SCREENSHOT_SV_JPEG, file_name_buf);
+            lv_100ask_screenshot_create(lv_scr_act(), LV_COLOR_FORMAT_ARGB8888, LV_100ASK_SCREENSHOT_SV_JPEG, file_name_buf);
         else return;
 
         lv_obj_clear_flag(obj_blink, LV_OBJ_FLAG_HIDDEN);
@@ -109,7 +109,7 @@ void lv_100ask_screenshot_test(void)
 #endif
 
     /*Create a normal drop down list*/
-    lv_obj_t * dd = lv_dropdown_create(lv_scr_act());
+    lv_obj_t * dd = lv_dropdown_create(lv_screen_active());
     lv_dropdown_set_options(dd, SCREENSHOT_SAVE_AS_BMP"\n"
                                 SCREENSHOT_SAVE_AS_PNG"\n"
                                 SCREENSHOT_SAVE_AS_JPG);
@@ -118,7 +118,7 @@ void lv_100ask_screenshot_test(void)
 
 
     /*Blinking effect*/
-    lv_obj_t * obj_blink = lv_obj_create(lv_scr_act());
+    lv_obj_t * obj_blink = lv_obj_create(lv_screen_active());
     lv_obj_set_style_border_width(obj_blink, 0, 0);
     lv_obj_set_style_pad_all(obj_blink, 0, 0);
     lv_obj_set_style_radius(obj_blink, 0, 0);

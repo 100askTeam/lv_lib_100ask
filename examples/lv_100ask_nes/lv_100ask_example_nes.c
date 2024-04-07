@@ -1,6 +1,6 @@
 
 /**
- * @file simple_test.c
+ * @file lv_100ask_example_nes.c
  *
  */
 
@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_100ask_nes_simple_test.h"
+#include "lv_100ask_example_nes.h"
 
 #if LV_100ASK_NES_SIMPLE_TEST != 0
 
@@ -67,11 +67,11 @@ static const char * btnm_opt_map[] = {"A", "B", "3",""};
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
-lv_obj_t * my_nes;
+static lv_obj_t * my_nes;
 
 void lv_100ask_nes_simple_test(void)
 {
-    my_nes = lv_100ask_nes_create(lv_scr_act());
+    my_nes = lv_100ask_nes_create(lv_screen_active());
     lv_obj_center(my_nes);
 
     init_my_nes_front_end(my_nes);
@@ -89,6 +89,8 @@ void lv_100ask_nes_simple_test(void)
     printf("Free heap: %d bytes\n\r", xPortGetFreeHeapSize());
 	taskEXIT_CRITICAL();
 #endif
+
+    return my_nes;
 
 }
 
@@ -119,33 +121,33 @@ static void init_my_nes_front_end(lv_obj_t * parent)
     lv_obj_t * btnm_dir = lv_btnmatrix_create(ctrl_area);
     lv_obj_set_height(btnm_dir, LV_PCT(60));
     lv_obj_align(btnm_dir, LV_ALIGN_LEFT_MID, 0, 0);
-    lv_btnmatrix_set_map(btnm_dir, btnm_dir_map);
-    lv_btnmatrix_set_btn_ctrl_all(btnm_dir, LV_BTNMATRIX_CTRL_CHECKED);
-    lv_btnmatrix_set_btn_ctrl(btnm_dir, 0, LV_BTNMATRIX_CTRL_HIDDEN);
-    lv_btnmatrix_set_btn_ctrl(btnm_dir, 2, LV_BTNMATRIX_CTRL_HIDDEN);
-    lv_btnmatrix_set_btn_ctrl(btnm_dir, 4, LV_BTNMATRIX_CTRL_HIDDEN);
-    lv_btnmatrix_set_btn_ctrl(btnm_dir, 6, LV_BTNMATRIX_CTRL_HIDDEN);
-    lv_btnmatrix_set_btn_ctrl(btnm_dir, 8, LV_BTNMATRIX_CTRL_HIDDEN);
+    lv_buttonmatrix_set_map(btnm_dir, btnm_dir_map);
+    lv_buttonmatrix_set_button_ctrl_all(btnm_dir, LV_BTNMATRIX_CTRL_CHECKED);
+    lv_buttonmatrix_set_button_ctrl(btnm_dir, 0, LV_BTNMATRIX_CTRL_HIDDEN);
+    lv_buttonmatrix_set_button_ctrl(btnm_dir, 2, LV_BTNMATRIX_CTRL_HIDDEN);
+    lv_buttonmatrix_set_button_ctrl(btnm_dir, 4, LV_BTNMATRIX_CTRL_HIDDEN);
+    lv_buttonmatrix_set_button_ctrl(btnm_dir, 6, LV_BTNMATRIX_CTRL_HIDDEN);
+    lv_buttonmatrix_set_button_ctrl(btnm_dir, 8, LV_BTNMATRIX_CTRL_HIDDEN);
     lv_obj_add_style(btnm_dir, &nes_ctrl_btn_style, 0);
 
     lv_obj_t * btnm_menu = lv_btnmatrix_create(ctrl_area);
     lv_obj_set_height(btnm_menu, LV_PCT(10));
     lv_obj_align(btnm_menu, LV_ALIGN_BOTTOM_MID, 0, 0);
-    lv_btnmatrix_set_map(btnm_menu, btnm_menu_map);
-    lv_btnmatrix_set_btn_ctrl_all(btnm_menu, LV_BTNMATRIX_CTRL_CHECKED);
-    //lv_btnmatrix_set_btn_ctrl(btnm_menu, 1, LV_BTNMATRIX_CTRL_CHECKABLE);
-    lv_btnmatrix_set_btn_width(btnm_menu, 0, 3);
-    lv_btnmatrix_set_btn_width(btnm_menu, 1, 1);
-    lv_btnmatrix_set_btn_width(btnm_menu, 2, 3);
+    lv_buttonmatrix_set_map(btnm_menu, btnm_menu_map);
+    lv_buttonmatrix_set_button_ctrl_all(btnm_menu, LV_BTNMATRIX_CTRL_CHECKED);
+    //lv_buttonmatrix_set_button_ctrl(btnm_menu, 1, LV_BTNMATRIX_CTRL_CHECKABLE);
+    lv_buttonmatrix_set_button_width(btnm_menu, 0, 3);
+    lv_buttonmatrix_set_button_width(btnm_menu, 1, 1);
+    lv_buttonmatrix_set_button_width(btnm_menu, 2, 3);
     lv_obj_add_style(btnm_menu, &nes_ctrl_btn_style, 0);
 
     lv_obj_t * btnm_opt = lv_btnmatrix_create(ctrl_area);
     //lv_obj_set_height(btnm_opt, LV_PCT(20));
     lv_obj_set_size(btnm_opt, LV_PCT(25), LV_PCT(20));
     lv_obj_align(btnm_opt, LV_ALIGN_RIGHT_MID, 0, 0);
-    lv_btnmatrix_set_map(btnm_opt, btnm_opt_map);
-    lv_btnmatrix_set_btn_ctrl_all(btnm_opt, LV_BTNMATRIX_CTRL_CHECKED);
-    lv_btnmatrix_set_btn_ctrl(btnm_opt, 2, LV_BTNMATRIX_CTRL_HIDDEN);
+    lv_buttonmatrix_set_map(btnm_opt, btnm_opt_map);
+    lv_buttonmatrix_set_button_ctrl_all(btnm_opt, LV_BTNMATRIX_CTRL_CHECKED);
+    lv_buttonmatrix_set_button_ctrl(btnm_opt, 2, LV_BTNMATRIX_CTRL_HIDDEN);
     lv_obj_set_style_radius(btnm_opt, 360, LV_PART_ITEMS);
     lv_obj_add_style(btnm_opt, &nes_ctrl_btn_style, 0);
 
@@ -154,7 +156,8 @@ static void init_my_nes_front_end(lv_obj_t * parent)
     lv_obj_add_event_cb(btnm_opt, ctrl_btnm_event_cb, LV_EVENT_ALL, parent);
 
     /*menu*/
-    lv_obj_t * menu_area = lv_tabview_create(lv_layer_top(), LV_DIR_TOP, 0);
+    lv_obj_t * menu_area = lv_tabview_create(lv_layer_top());
+    lv_tabview_set_tab_bar_size(menu_area, 0);
     lv_obj_center(menu_area);
     lv_obj_set_size(menu_area, LV_PCT(70), LV_PCT(70));
     lv_obj_set_style_radius(menu_area, 8, LV_PART_MAIN);
@@ -174,15 +177,15 @@ static void init_my_nes_front_end(lv_obj_t * parent)
     create_slider(tab1, LV_SYMBOL_SETTINGS, "Velocity", 0, 50000, 0);  // max 100ms(usleep)
 
     // tab 2: files explorer
-    lv_obj_t * file_explorer = lv_100ask_file_explorer_create(tab2);
+    lv_obj_t * file_explorer = lv_file_explorer_create(tab2);
     lv_obj_center(file_explorer);
     //lv_obj_align(file_explorer, LV_ALIGN_TOP_RIGHT, 0 ,0);
     lv_obj_set_size(file_explorer, LV_PCT(100), LV_PCT(100));
 
 #if LV_USE_FS_WIN32
-    lv_100ask_file_explorer_open_dir(file_explorer, "D:/ROM/NES");
+    lv_file_explorer_open_dir(file_explorer, "D:/ROM/NES");
 #else
-    lv_100ask_file_explorer_open_dir(file_explorer, "/root/ROM/NES");
+    lv_file_explorer_open_dir(file_explorer, "/root/ROM/NES");
 #endif
 
     lv_obj_add_event_cb(file_explorer, file_explorer_event_cb, LV_EVENT_VALUE_CHANGED, parent);
@@ -262,8 +265,9 @@ static void ctrl_btnm_event_cb(lv_event_t * e)
             lv_100ask_nes_set_key(nes, LV_100ASK_NES_KEY_SELECT, LV_100ASK_NES_KEY_STATE_RELEASED);
         else if(strcmp(txt, LV_SYMBOL_LIST) == 0) {
             lv_obj_add_flag(lv_layer_top(), LV_OBJ_FLAG_CLICKABLE);
-            lv_obj_clear_flag(lv_layer_top(), LV_OBJ_FLAG_HIDDEN);
+            lv_obj_remove_flag(lv_layer_top(), LV_OBJ_FLAG_HIDDEN);
             lv_100ask_nes_set_key(nes, LV_100ASK_NES_KEY_MENU, LV_100ASK_NES_KEY_STATE_RELEASED);
+            lv_100ask_nes_set_lock(nes);
         }
         //LV_LOG_USER("KE UP");
     }
@@ -277,13 +281,13 @@ static void file_explorer_event_cb(lv_event_t * e)
     lv_obj_t * nes = lv_event_get_user_data(e);
 
     if(code == LV_EVENT_VALUE_CHANGED) {
-        char * path = lv_100ask_file_explorer_get_cur_path(file_explorer);
-        char * fn = lv_100ask_file_explorer_get_sel_fn(file_explorer);
+        char * path = lv_file_explorer_get_current_path(file_explorer);
+        char * fn = lv_file_explorer_get_selected_file_name(file_explorer);
         uint16_t path_len = strlen(path);
         uint16_t fn_len = strlen(fn);
 
-        if ((path_len + fn_len) <= LV_100ASK_FILE_EXPLORER_PATH_MAX_LEN) {
-            char sel_fn[LV_100ASK_FILE_EXPLORER_PATH_MAX_LEN];
+        if ((path_len + fn_len) <= LV_FILE_EXPLORER_PATH_MAX_LEN) {
+            char sel_fn[LV_FILE_EXPLORER_PATH_MAX_LEN];
 
             strcpy(sel_fn, path);
             if(*(path + path_len) != '/')
@@ -292,8 +296,8 @@ static void file_explorer_event_cb(lv_event_t * e)
 
             lv_100ask_nes_set_state(nes, LV_100ASK_NES_STATE_NEW_GAME);
             lv_100ask_nes_set_fn(nes, sel_fn);
-            lv_event_send(lv_layer_top(), LV_EVENT_CLICKED, NULL);
-            lv_100ask_nes_set_unlock(nes);
+            lv_obj_send_event(lv_layer_top(), LV_EVENT_CLICKED, NULL);
+            //lv_100ask_nes_set_unlock(nes);
 
             LV_LOG_USER("%s", sel_fn);
         }
@@ -323,8 +327,8 @@ static void menu_scroll_event_cb(lv_event_t * e)
         if(lv_obj_get_style_base_dir(tv, LV_PART_MAIN) == LV_BASE_DIR_RTL)  t = -(p.x - w / 2) / w;
         else t = (p.x + w / 2) / w;
 
-        if(s < 0) t = tabview->tab_cnt - 1;
-        else if((t == (tabview->tab_cnt - 1)) && (s > p.x)) t = 0;
+        if(s < 0) t = tabview->tab_cur - 1;
+        else if((t == (tabview->tab_cur - 1)) && (s > p.x)) t = 0;
 
         bool new_tab = false;
         if(t != lv_tabview_get_tab_act(tv)) new_tab = true;
@@ -343,7 +347,7 @@ static void layer_top_event_cb(lv_event_t * e)
     {
         if(lv_100ask_nes_get_fn(nes) != NULL) {
             lv_obj_add_flag(layer_top, LV_OBJ_FLAG_HIDDEN);
-            lv_obj_clear_flag(layer_top, LV_OBJ_FLAG_CLICKABLE);   // 清除标志(lv_layer_top层)
+            lv_obj_remove_flag(layer_top, LV_OBJ_FLAG_CLICKABLE);   // 清除标志(lv_layer_top层)
             lv_100ask_nes_set_unlock(nes);
         }
     }

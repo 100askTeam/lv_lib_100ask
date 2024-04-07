@@ -10,7 +10,7 @@
 
 #if LV_USE_100ASK_SCREENSHOT != 0
 
-#include "lvgl/src/extra/libs/png/lodepng.h"
+#include "lvgl/src/libs/lodepng/lodepng.h"
 
 #define TJE_IMPLEMENTATION
 #include "tiny_jpeg.h"
@@ -44,7 +44,7 @@ static void data_pre_processing(lv_img_dsc_t * snapshot, uint16_t bpp, lv_100ask
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
-bool lv_100ask_screenshot_create(lv_obj_t * obj, lv_img_cf_t cf, lv_100ask_screenshot_sv_t screenshot_sv, const char * filename)
+bool lv_100ask_screenshot_create(lv_obj_t * obj, lv_color_format_t cf, lv_100ask_screenshot_sv_t screenshot_sv, const char * filename)
 {
     lv_img_dsc_t* snapshot = lv_snapshot_take(obj, cf);
 

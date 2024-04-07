@@ -65,7 +65,7 @@
     /* Requires LV_USE_SNAPSHOT = 1 */
     #define LV_USE_100ASK_SCREENSHOT                    0
 #endif
-#if LV_USE_100ASK_SCREENSHOT
+#if LV_USE_100ASK_SCREENSHOT && LV_USE_LODEPNG
     /*test*/
     #define LV_USE_100ASK_SCREENSHOT_TEST               1
 #endif
@@ -133,7 +133,7 @@
 
 /***Game simulator***/
 /*NES*/
-#if LV_USE_IMG
+#if LV_USE_IMAGE
     #define LV_USE_100ASK_NES                           0
 #endif
 #if LV_USE_100ASK_NES

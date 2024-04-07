@@ -39,7 +39,8 @@ const lv_obj_class_t lv_100ask_sketchpad_class = {
     .destructor_cb = lv_100ask_sketchpad_destructor,
     .event_cb = lv_100ask_sketchpad_event,
     .instance_size = sizeof(lv_100ask_sketchpad_t),
-    .base_class = &lv_canvas_class
+    .base_class = &lv_image_class,
+    .name = "sketchpad",
 };
 
 const lv_obj_class_t lv_100ask_sketchpad_toolbar_class = {
@@ -48,7 +49,8 @@ const lv_obj_class_t lv_100ask_sketchpad_toolbar_class = {
     .event_cb = lv_100ask_sketchpad_toolbar_event,
     .width_def = LV_SIZE_CONTENT,
     .height_def = LV_SIZE_CONTENT,
-    .base_class = &lv_obj_class
+    .base_class = &lv_obj_class,
+    .name = "sketchpad_toolbar",
 };
 
 /**********************
@@ -83,30 +85,22 @@ static void lv_100ask_sketchpad_constructor(const lv_obj_class_t * class_p, lv_o
 
     lv_100ask_sketchpad_t * sketchpad = (lv_100ask_sketchpad_t *)obj;
 
-    sketchpad->dsc.header.always_zero = 0;
-    sketchpad->dsc.header.cf          = LV_IMG_CF_TRUE_COLOR;
-    sketchpad->dsc.header.h           = 0;
-    sketchpad->dsc.header.w           = 0;
-    sketchpad->dsc.data_size          = 0;
-    sketchpad->dsc.data               = NULL;
-
     lv_draw_line_dsc_init(&sketchpad->line_rect_dsc);
-    sketchpad->line_rect_dsc.width = 2;
+    sketchpad->line_rect_dsc.width = 10;
     sketchpad->line_rect_dsc.round_start = true;
     sketchpad->line_rect_dsc.round_end = true;
-    sketchpad->line_rect_dsc.color = lv_color_black();
-    sketchpad->line_rect_dsc.opa = LV_OPA_COVER;
-
-    lv_img_set_src(obj, &sketchpad->dsc);
+    sketchpad->line_rect_dsc.color = lv_palette_main(LV_PALETTE_RED);
+    //sketchpad->line_rect_dsc.opa = LV_OPA_COVER;
 
     lv_obj_add_flag(obj, LV_OBJ_FLAG_CLICKABLE);
 
     /*toolbar*/
-    lv_obj_t * toolbar = lv_obj_class_create_obj(&lv_100ask_sketchpad_toolbar_class, obj);
-    lv_obj_class_init_obj(toolbar);
+    ///lv_obj_t * toolbar = lv_obj_class_create_obj(&lv_100ask_sketchpad_toolbar_class, obj); TODO
+    ///lv_obj_class_init_obj(toolbar);
 
     LV_TRACE_OBJ_CREATE("finished");
 }
+
 
 static void lv_100ask_sketchpad_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
 {
@@ -114,7 +108,9 @@ static void lv_100ask_sketchpad_destructor(const lv_obj_class_t * class_p, lv_ob
     LV_TRACE_OBJ_CREATE("begin");
 
     lv_canvas_t * canvas = (lv_canvas_t *)obj;
-    lv_img_cache_invalidate_src(&canvas->dsc);
+    if(canvas->draw_buf == NULL) return;
+
+    lv_image_cache_drop(&canvas->draw_buf);
 }
 
 
@@ -136,34 +132,22 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
 
     if (code == LV_EVENT_PRESSING)
     {
-        lv_indev_t * indev = lv_indev_get_act();
+        lv_indev_t * indev = lv_indev_active();
         if(indev == NULL)  return;
 
         lv_point_t point;
+        lv_point_t vect;
+
         lv_indev_get_point(indev, &point);
 
-        lv_color_t c0;
-        c0.full = 10;
-
-        lv_point_t points[2];
-
         /*Release or first use*/
-        if ((last_x == -32768) || (last_y == -32768))
+        if ((last_x != -32768) || (last_y != -32768))
         {
-            last_x = point.x;
-            last_y = point.y;
+            lv_canvas_set_px(obj, point.x, point.y, lv_palette_main(LV_PALETTE_RED), LV_OPA_COVER);
         }
-        else
-        {
-            points[0].x = last_x;
-            points[0].y = last_y;
-            points[1].x = point.x;
-            points[1].y = point.y;
-            last_x = point.x;
-            last_y = point.y;
 
-            lv_canvas_draw_line(obj, points, 2, &sketchpad->line_rect_dsc);
-        }
+        last_x = point.x;
+        last_y = point.y;
     }
 
     /*Loosen the brush*/
@@ -191,13 +175,13 @@ static void lv_100ask_sketchpad_toolbar_constructor(const lv_obj_class_t * class
     lv_obj_t * color = lv_label_create(obj);
     lv_label_set_text(color, LV_SYMBOL_EDIT);
     lv_obj_add_flag(color, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(color, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_cw);
+    ///lv_obj_add_event_cb(color, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_cw); TODO
 
     static lv_coord_t sketchpad_toolbar_width = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH;
     lv_obj_t * size = lv_label_create(obj);
     lv_label_set_text(size, LV_SYMBOL_EJECT);
     lv_obj_add_flag(size, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(size, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_width);
+    ///lv_obj_add_event_cb(size, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_width); TODO
 
     LV_TRACE_OBJ_CREATE("finished");
 }
@@ -251,9 +235,9 @@ static void sketchpad_toolbar_event_cb(lv_event_t * e)
         if ((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW)
         {
             static lv_coord_t sketchpad_toolbar_cw = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW;
-            lv_obj_t * cw = lv_colorwheel_create(sketchpad, true);
-            lv_obj_align_to(cw, obj, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-            lv_obj_add_event_cb(cw, toolbar_set_event_cb, LV_EVENT_RELEASED, &sketchpad_toolbar_cw);
+            ///lv_obj_t * cw = lv_colorwheel_create(sketchpad, true); TODO
+            ///lv_obj_align_to(cw, obj, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
+            ///lv_obj_add_event_cb(cw, toolbar_set_event_cb, LV_EVENT_RELEASED, &sketchpad_toolbar_cw);
         }
         else if((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH)
         {
@@ -277,7 +261,7 @@ static void toolbar_set_event_cb(lv_event_t * e)
     {
         if ((*toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_CW)
         {
-            sketchpad->line_rect_dsc.color = lv_colorwheel_get_rgb(obj);
+            ///sketchpad->line_rect_dsc.color = lv_colorwheel_get_rgb(obj);  TODO
             lv_obj_del(obj);
         }
         else if (*(toolbar_opt) == LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH)
@@ -293,5 +277,6 @@ static void toolbar_set_event_cb(lv_event_t * e)
         }
     }
 }
+
 
 #endif  /*LV_USE_100ASK_SKETCHPAD*/

@@ -62,7 +62,8 @@ const lv_obj_class_t lv_100ask_page_manager_class = {
     .height_def = LV_PCT(100),
     .group_def = LV_OBJ_CLASS_GROUP_DEF_FALSE,
 	.instance_size = sizeof(lv_100ask_page_manager_t),
-    .base_class = &lv_obj_class
+    .base_class = &lv_obj_class,
+    .name       = "page manager"
 };
 
 
@@ -74,6 +75,7 @@ const lv_obj_class_t lv_100ask_page_manager_page_class = {
     .group_def = LV_OBJ_CLASS_GROUP_DEF_FALSE,
     .instance_size = sizeof(lv_100ask_page_manager_page_t),
     .base_class = &lv_obj_class,
+    .name       = "page manager page"
 };
 
 /**********************
@@ -125,7 +127,7 @@ void lv_100ask_page_manager_open_previous_page(lv_obj_t * obj)
         /* Previous page exists */
         /* Delete the current item from the history */
         _lv_ll_remove(history_ll, act_hist);
-        lv_mem_free(act_hist);
+        lv_free(act_hist);
         page_manager->cur_depth--;
 
         /* Create the previous page.
@@ -134,7 +136,7 @@ void lv_100ask_page_manager_open_previous_page(lv_obj_t * obj)
         page_manager->cur_depth--;
         lv_100ask_page_manager_set_open_page(prev_hist->page, NULL);
 
-        lv_mem_free(prev_hist);
+        lv_free(prev_hist);
     }
 }
 
@@ -229,7 +231,7 @@ void lv_100ask_page_manager_set_load_page_event(lv_obj_t * obj, lv_obj_t * page,
 
     /* Remove old event */
     if(lv_obj_remove_event_cb(obj, lv_page_manager_load_page_event_cb)) {
-        lv_event_send(obj, LV_EVENT_DELETE, NULL);
+        lv_obj_send_event(obj, LV_EVENT_DELETE, NULL);
         lv_obj_remove_event_cb(obj, lv_100ask_page_manager_page_del_event_cb);
     }
 
@@ -345,7 +347,7 @@ static void lv_100ask_page_manager_page_destructor(const lv_obj_class_t * class_
     lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
 
     if(page->name != NULL) {
-        lv_mem_free(page->name);
+        lv_free(page->name);
         page->name = NULL;
     }
 }
@@ -389,7 +391,7 @@ static void default_open_page(lv_obj_t * obj)
 		lv_anim_timeline_set_reverse(page->anim_timeline, 1);
         lv_anim_timeline_start(page->anim_timeline);
 
-        lv_anim_timeline_del(page->anim_timeline);
+        lv_anim_timeline_delete(page->anim_timeline);
 		page->anim_timeline = NULL;
 	}
 
@@ -412,7 +414,7 @@ static void default_close_page(lv_obj_t * obj)
     lv_100ask_page_manager_page_t * page = (lv_100ask_page_manager_page_t *)obj;
 
 	if (page->anim_timeline) {
-		lv_anim_timeline_del(page->anim_timeline);
+		lv_anim_timeline_delete(page->anim_timeline);
 		page->anim_timeline = NULL;
 	}
 

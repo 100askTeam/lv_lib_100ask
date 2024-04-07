@@ -27,7 +27,7 @@ lv_100ask_file_explorer is a lightweight implementation of a simple and general 
 
 # Usage
 
-Refer to the example in **lv_lib_100ask/test/lv_100ask_file_explorer_test**.
+Refer to the example in **lv_lib_100ask/examples/lv_100ask_file_explorer**.
 
 # About
 This is an open project and contribution is very welcome!

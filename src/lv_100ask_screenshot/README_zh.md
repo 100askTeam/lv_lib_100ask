@@ -33,7 +33,7 @@ lv_100ask_screenshot 是一个基于 lvgl 的屏幕截图工具。
 
 # 使用方法
 
-参考 **lv_lib_100ask/test/lv_100ask_screenshot_test** 的示例。
+参考 **lv_lib_100ask/examples/lv_100ask_screenshot** 的示例。
 
 
 # 获取帮助

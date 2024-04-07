@@ -73,12 +73,13 @@ static bool game_over(uint16_t matrix[MATRIX_SIZE][MATRIX_SIZE]);
 const lv_obj_class_t lv_100ask_2048_class = {
     .constructor_cb = lv_100ask_2048_constructor,
     .destructor_cb  = lv_100ask_2048_destructor,
-    .event_cb       = lv_100ask_2048_event,
+    //.event_cb       = lv_100ask_2048_event,
     .width_def      = LV_DPI_DEF * 2,
     .height_def     = LV_DPI_DEF * 2,
     .group_def = LV_OBJ_CLASS_GROUP_DEF_TRUE,
     .instance_size  = sizeof(lv_100ask_2048_t),
-    .base_class     = &lv_obj_class
+    .base_class     = &lv_obj_class,
+    .name           = "game 2048"
 };
 
 /**********************
@@ -115,7 +116,7 @@ void lv_100ask_2048_set_new_game(lv_obj_t * obj)
     update_btnm_map(game_2048->btnm_map, game_2048->matrix);
     lv_btnmatrix_set_map(game_2048->btnm, game_2048->btnm_map);
 
-    lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
 }
 
 
@@ -164,99 +165,25 @@ uint16_t lv_100ask_2048_get_best_tile(lv_obj_t * obj)
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_100ask_2048_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+
+static void game_play_event(lv_event_t * e)
 {
-    LV_UNUSED(class_p);
-    LV_TRACE_OBJ_CREATE("begin");
-
-    lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)obj;
-
-    game_2048->score = 0;
-    game_2048->game_over = false;
-    game_2048->map_count = MATRIX_SIZE * MATRIX_SIZE + MATRIX_SIZE;
-
-    uint16_t index;
-    for (index = 0; index < game_2048->map_count; index++) {
-
-        if (((index + 1) % 5) == 0)
-        {
-            game_2048->btnm_map[index] = lv_mem_alloc(2);
-            if ((index+1) == game_2048->map_count)
-                strcpy(game_2048->btnm_map[index], "");
-            else
-                strcpy(game_2048->btnm_map[index], "\n");
-        }
-        else
-        {
-            game_2048->btnm_map[index] = lv_mem_alloc(5);
-            strcpy(game_2048->btnm_map[index], " ");
-        }
-    }
-
-    init_matrix_num(game_2048->matrix);
-    update_btnm_map(game_2048->btnm_map, game_2048->matrix);
-
-    /*obj style init*/
-    lv_theme_t * theme = lv_theme_get_from_obj(obj);
-    lv_obj_set_style_outline_color(obj, theme->color_primary, LV_STATE_FOCUS_KEY);
-    lv_obj_set_style_outline_width(obj, lv_disp_dpx(theme->disp, 2), LV_STATE_FOCUS_KEY);
-    lv_obj_set_style_outline_pad(obj, lv_disp_dpx(theme->disp, 2), LV_STATE_FOCUS_KEY);
-    lv_obj_set_style_outline_opa(obj, LV_OPA_50, LV_STATE_FOCUS_KEY);
-
-    /*game_2048->btnm init*/
-    game_2048->btnm = lv_btnmatrix_create(obj);
-    lv_obj_set_size(game_2048->btnm, LV_PCT(100), LV_PCT(100));
-    lv_obj_center(game_2048->btnm);
-    lv_obj_set_style_pad_all(game_2048->btnm, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(game_2048->btnm, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_group_remove_obj(game_2048->btnm);
-    lv_obj_add_flag(game_2048->btnm, LV_OBJ_FLAG_EVENT_BUBBLE);
-
-    lv_btnmatrix_set_map(game_2048->btnm, game_2048->btnm_map);
-    lv_btnmatrix_set_btn_ctrl_all(game_2048->btnm, LV_BTNMATRIX_CTRL_DISABLED);
-
-    lv_obj_add_event_cb(game_2048->btnm, btnm_event_cb, LV_EVENT_ALL, NULL);
-
-    LV_TRACE_OBJ_CREATE("finished");
-}
-
-static void lv_100ask_2048_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
-{
-    LV_UNUSED(class_p);
-
-    lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)obj;
-
-    uint16_t index, count;
-    for (index = 0; index < game_2048->map_count; index++)
-    {
-        lv_mem_free(game_2048->btnm_map[index]);
-    }
-}
-
-
-static void lv_100ask_2048_event(const lv_obj_class_t * class_p, lv_event_t * e)
-{
-    LV_UNUSED(class_p);
-
     lv_res_t res;
-
-    /*Call the ancestor's event handler*/
-    res = lv_obj_event_base(MY_CLASS, e);
-    if(res != LV_RES_OK) return;
 
     bool success = false;
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * btnm = lv_event_get_target(e);
-    lv_obj_t * obj = lv_event_get_current_target(e);
+    lv_obj_t * obj = lv_event_get_user_data(e);
 
     lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)obj;
 
-    if (code == LV_EVENT_CLICKED)
+    if (code == LV_EVENT_GESTURE)
     {
         game_2048->game_over = game_over(game_2048->matrix);
         if (!game_2048->game_over)
         {
-            switch(lv_indev_get_gesture_dir(lv_indev_get_act()))
+            lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_active());
+            switch(dir)
             {
                 case LV_DIR_TOP:
                     success = move_left(&(game_2048->score), game_2048->matrix);
@@ -276,7 +203,7 @@ static void lv_100ask_2048_event(const lv_obj_class_t * class_p, lv_event_t * e)
         else
         {
             LV_LOG_USER("100ASK 2048 GAME OVER!");
-            res = lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
+            res = lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
             if(res != LV_RES_OK) return;
         }
     }
@@ -305,7 +232,7 @@ static void lv_100ask_2048_event(const lv_obj_class_t * class_p, lv_event_t * e)
         else
         {
             LV_LOG_USER("100ASK 2048 GAME OVER!");
-            res = lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
+            res = lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
             if(res != LV_RES_OK) return;
         }
     }
@@ -316,49 +243,148 @@ static void lv_100ask_2048_event(const lv_obj_class_t * class_p, lv_event_t * e)
         update_btnm_map(game_2048->btnm_map, game_2048->matrix);
         lv_btnmatrix_set_map(game_2048->btnm, game_2048->btnm_map);
 
-        res = lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
+        res = lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
         if(res != LV_RES_OK) return;
     }
+}
+
+static void lv_100ask_2048_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+{
+    LV_UNUSED(class_p);
+    LV_TRACE_OBJ_CREATE("begin");
+
+    lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)obj;
+
+    game_2048->score = 0;
+    game_2048->game_over = false;
+    game_2048->map_count = MATRIX_SIZE * MATRIX_SIZE + MATRIX_SIZE;
+
+    uint16_t index;
+    for (index = 0; index < game_2048->map_count; index++) {
+
+        if (((index + 1) % 5) == 0)
+        {
+            game_2048->btnm_map[index] = lv_malloc(2);
+            if ((index+1) == game_2048->map_count)
+                strcpy(game_2048->btnm_map[index], "");
+            else
+                strcpy(game_2048->btnm_map[index], "\n");
+        }
+        else
+        {
+            game_2048->btnm_map[index] = lv_malloc(5);
+            strcpy(game_2048->btnm_map[index], " ");
+        }
+    }
+
+    init_matrix_num(game_2048->matrix);
+    update_btnm_map(game_2048->btnm_map, game_2048->matrix);
+
+    /*obj style init*/
+    lv_theme_t * theme = lv_theme_get_from_obj(obj);
+    lv_obj_set_style_outline_color(obj, theme->color_primary, LV_STATE_FOCUS_KEY);
+    lv_obj_set_style_outline_width(obj, lv_display_dpx(theme->disp, 2), LV_STATE_FOCUS_KEY);
+    lv_obj_set_style_outline_pad(obj, lv_display_dpx(theme->disp, 2), LV_STATE_FOCUS_KEY);
+    lv_obj_set_style_outline_opa(obj, LV_OPA_50, LV_STATE_FOCUS_KEY);
+
+    /*game_2048->btnm init*/
+    game_2048->btnm = lv_btnmatrix_create(obj);
+    lv_obj_set_size(game_2048->btnm, LV_PCT(100), LV_PCT(100));
+    lv_obj_center(game_2048->btnm);
+    lv_obj_set_style_pad_all(game_2048->btnm, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(game_2048->btnm, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_group_remove_obj(game_2048->btnm);
+    //lv_obj_add_flag(game_2048->btnm, LV_OBJ_FLAG_EVENT_BUBBLE);
+    //lv_obj_add_flag(game_2048->btnm, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_add_flag(game_2048->btnm, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS);
+    lv_obj_remove_flag(game_2048->btnm, LV_OBJ_FLAG_GESTURE_BUBBLE);
+
+    lv_btnmatrix_set_map(game_2048->btnm, game_2048->btnm_map);
+    lv_btnmatrix_set_btn_ctrl_all(game_2048->btnm, LV_BTNMATRIX_CTRL_DISABLED);
+
+    lv_obj_add_event_cb(game_2048->btnm, btnm_event_cb, LV_EVENT_DRAW_TASK_ADDED, NULL);
+    lv_obj_add_event_cb(game_2048->btnm, game_play_event, LV_EVENT_ALL, obj);
+
+    LV_TRACE_OBJ_CREATE("finished");
+}
+
+static void lv_100ask_2048_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+{
+    LV_UNUSED(class_p);
+
+    lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)obj;
+
+    uint16_t index, count;
+    for (index = 0; index < game_2048->map_count; index++)
+    {
+        lv_free(game_2048->btnm_map[index]);
+    }
+}
+
+
+static void lv_100ask_2048_event(const lv_obj_class_t * class_p, lv_event_t * e)
+{
+    LV_UNUSED(class_p);
+
+    lv_res_t res;
+
+    /*Call the ancestor's event handler*/
+    res = lv_obj_event_base(MY_CLASS, e);
+    if(res != LV_RES_OK) return;
+
+    lv_event_code_t code = lv_event_get_code(e);
 }
 
 
 static void btnm_event_cb(lv_event_t * e)
 {
-    lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * btnm = lv_event_get_target(e);
     lv_obj_t * parent = lv_obj_get_parent(btnm);
 
-     lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)parent;
+    lv_100ask_2048_t * game_2048 = (lv_100ask_2048_t *)parent;
 
-    if(code == LV_EVENT_DRAW_PART_BEGIN) {
-        lv_obj_draw_part_dsc_t * dsc = lv_event_get_param(e);
+    lv_draw_task_t * draw_task = lv_event_get_draw_task(e);
+    lv_draw_dsc_base_t * base_dsc = draw_task->draw_dsc;
+
+    if(base_dsc->part == LV_PART_ITEMS) {
+        //lv_obj_draw_part_dsc_t * dsc = lv_event_get_param(e);
+
+        lv_draw_label_dsc_t * label_draw_dsc = lv_draw_task_get_label_dsc(draw_task);
+        lv_draw_fill_dsc_t * fill_draw_dsc   = lv_draw_task_get_fill_dsc(draw_task);
+        lv_draw_rect_dsc_t * rect_draw_dsc   = lv_draw_task_get_mask_rect_dsc(draw_task);
 
         /*Change the draw descriptor the button*/
-        if((dsc->id >= 0) && (dsc->label_dsc))
+        if(base_dsc->id1 >= 0)
         {
             uint16_t x, y, num;
 
-            x = (uint16_t)((dsc->id) / 4);
-            y = (dsc->id) % 4;
+            x = (uint16_t)((base_dsc->id1) / 4);
+            y = (base_dsc->id1) % 4;
             num = (uint16_t)(1 << (game_2048->matrix[x][y]));
 
+            if(fill_draw_dsc)
+            {
+                fill_draw_dsc->radius= 3;
+                fill_draw_dsc->color = get_num_color(num);
+            }
 
-            dsc->rect_dsc->radius = 3;
-            dsc->rect_dsc->bg_color = get_num_color(num);
-
-            if (num < 8)
-                dsc->label_dsc->color = LV_100ASK_2048_TEXT_BLACK_COLOR;
-            else
-                dsc->label_dsc->color = LV_100ASK_2048_TEXT_WHITE_COLOR;
-
+            if(label_draw_dsc)
+            {
+                if (num < 8)
+                    label_draw_dsc->color = LV_100ASK_2048_TEXT_BLACK_COLOR;
+                else
+                    label_draw_dsc->color = LV_100ASK_2048_TEXT_WHITE_COLOR;
+            }
         }
         /*Change the draw descriptor the btnm main*/
-        else if((dsc->id == 0) && !(dsc->label_dsc))
+        else if(base_dsc->id1 == 0)
         {
-            dsc->rect_dsc->radius = 5;
-            dsc->rect_dsc->bg_color = LV_100ASK_2048_BG_COLOR;
-            dsc->rect_dsc->border_width = 0;
+            if(fill_draw_dsc)
+                fill_draw_dsc->radius = 5;
+            if(rect_draw_dsc)
+                rect_draw_dsc->border_width = 0;
         }
+
     }
 }
 

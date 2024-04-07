@@ -27,7 +27,7 @@ lv_100ask_memory_game is a memory puzzle number pair game.
 
 # Usage
 
-Refer to the example in **lv_lib_100ask/test/lv_100ask_memory_game_test**.
+Refer to the example in **lv_lib_100ask/examples/lv_100ask_memory_game**.
 
 # About
 This is an open project and contribution is very welcome!

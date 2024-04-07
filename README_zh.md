@@ -30,6 +30,7 @@
 
 - lvgl官网：[https://lvgl.io](https://lvgl.io)
 - lvgl官方文档：[https://docs.lvgl.io](https://docs.lvgl.io)
+- lvgl官方论坛：https://forum.lvgl.io](https://forum.lvgl.io/)
 - 百问网lvgl中文文档：[http://lvgl.100ask.net](http://lvgl.100ask.net)
 - 百问网lvgl论坛：[https://forums.100ask.net/c/13-category/13](https://forums.100ask.net/c/13-category/13)
 - 百问网lvgl学习交流群：[http://lvgl.100ask.net/master/contact_us/index.html](http://lvgl.100ask.net/master/contact_us/index.html)

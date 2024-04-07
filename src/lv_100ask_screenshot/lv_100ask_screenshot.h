@@ -38,7 +38,7 @@ typedef enum {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-bool lv_100ask_screenshot_create(lv_obj_t * obj,  lv_img_cf_t cf, lv_100ask_screenshot_sv_t screenshot_sv, const char * filename);
+bool lv_100ask_screenshot_create(lv_obj_t * obj,  lv_color_format_t cf, lv_100ask_screenshot_sv_t screenshot_sv, const char * filename);
 
 /*=====================
  * Setter functions

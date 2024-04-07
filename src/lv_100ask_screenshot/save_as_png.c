@@ -8,7 +8,7 @@
  *********************/
 #include "save_as_png.h"
 
-#if LV_USE_100ASK_SCREENSHOT != 0 && LV_USE_PNG
+#if LV_USE_100ASK_SCREENSHOT != 0 && LV_USE_LODEPNG
 
 /*********************
  *      DEFINES

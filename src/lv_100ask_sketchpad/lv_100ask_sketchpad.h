@@ -33,9 +33,11 @@ typedef enum {
 
 /*Data of canvas*/
 typedef struct {
-    lv_img_t img;
-    lv_img_dsc_t dsc;
+    lv_image_t img;
+    lv_draw_buf_t * draw_buf;
+    lv_draw_buf_t static_buf;
     lv_draw_line_dsc_t line_rect_dsc;
+    lv_layer_t layer;
 } lv_100ask_sketchpad_t;
 
 /***********************

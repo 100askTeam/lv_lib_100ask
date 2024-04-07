@@ -1,10 +1,10 @@
 /**
- * @file simple_test.h
+ * @file lv_100ask_example_screenshot.h
  *
  */
 
-#ifndef LV_100ASK_MEMORY_GAME_SIMPLE_TEST_H
-#define LV_100ASK_MEMORY_GAME_SIMPLE_TEST_H
+#ifndef LV_100ASK_EXAMPLE_SCREENSHOT_H
+#define LV_100ASK_EXAMPLE_SCREENSHOT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,7 +15,7 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
-#if LV_100ASK_MEMORY_GAME_SIMPLE_TEST != 0
+#if LV_USE_100ASK_SCREENSHOT_TEST != 0
 
 /*********************
  *      DEFINES
@@ -32,7 +32,7 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void lv_100ask_memory_game_simple_test(void);
+void lv_100ask_screenshot_test(void);
 
 /*=====================
  * Setter functions
@@ -50,10 +50,10 @@ void lv_100ask_memory_game_simple_test(void);
  *      MACROS
  **********************/
 
-#endif  /*LV_100ASK_MEMORY_GAME_SIMPLE_TEST*/
+#endif /*LV_USE_100ASK_SCREENSHOT_TEST*/
 
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif /*LV_100ASK_MEMORY_GAME_SIMPLE_TEST_H*/
+#endif /*LV_USE_100ASK_SCREENSHOT_TEST_H*/

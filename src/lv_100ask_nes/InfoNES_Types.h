@@ -25,9 +25,11 @@ typedef unsigned long  DWORD;
 
 #ifndef WORD
     #if LV_COLOR_DEPTH == 16
-    typedef unsigned short WORD;
+    //typedef unsigned short WORD;
+    #define WORD unsigned short
     #elif LV_COLOR_DEPTH == 32
-    typedef unsigned int WORD;
+    //typedef unsigned int WORD;
+    #define WORD unsigned int
     #endif
 #endif /* !WORD */
 

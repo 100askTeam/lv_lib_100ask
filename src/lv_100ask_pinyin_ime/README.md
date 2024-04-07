@@ -24,7 +24,7 @@ Normally, as long as lvgl can run in an environment `lv_100ask_pinyin_ime` can a
 
 
 # Usage
-Refer to the example in **lv_lib_100ask/test/lv_100ask_pinyin_ime_test**.
+Refer to the example in **lv_lib_100ask/examples/lv_100ask_pinyin_ime**.
 
 # Custom dictionary
 If you don't want to use the built-in Pinyin thesaurus, you can use the custom thesaurus.

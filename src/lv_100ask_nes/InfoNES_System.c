@@ -390,9 +390,9 @@ int InfoNES_ReadRom( const char *pszFileName ) {
   /* Allocate Memory for ROM Image */
 #if LV_MEM_CUSTOM == 0
   if(ROM == NULL)
-    ROM = (BYTE *)lv_mem_alloc( NesHeader.byRomSize * 0x4000 );
+    ROM = (BYTE *)lv_malloc( NesHeader.byRomSize * 0x4000 );
   else
-    ROM = (BYTE *)lv_mem_realloc(ROM, NesHeader.byRomSize * 0x4000 );
+    ROM = (BYTE *)lv_realloc(ROM, NesHeader.byRomSize * 0x4000 );
 #else
   if(ROM == NULL)
     ROM = (BYTE *)malloc( NesHeader.byRomSize * 0x4000 );
@@ -410,9 +410,9 @@ int InfoNES_ReadRom( const char *pszFileName ) {
       /* Allocate Memory for VROM Image */
 #if LV_MEM_CUSTOM == 0
       if(ROM == NULL)
-        VROM = (BYTE *)lv_mem_alloc( NesHeader.byVRomSize * 0x2000 );
+        VROM = (BYTE *)lv_malloc( NesHeader.byVRomSize * 0x2000 );
       else
-        VROM = (BYTE *)lv_mem_realloc(VROM, NesHeader.byVRomSize * 0x2000 );
+        VROM = (BYTE *)lv_realloc(VROM, NesHeader.byVRomSize * 0x2000 );
 #else
       if(ROM == NULL)
         VROM = (BYTE *)malloc( NesHeader.byVRomSize * 0x2000 );
@@ -438,7 +438,7 @@ int InfoNES_ReadRom( const char *pszFileName ) {
 void InfoNES_ReleaseRom(){
   if(ROM) {
 #if LV_MEM_CUSTOM == 0
-    lv_mem_free(ROM);
+    lv_free(ROM);
 #else
     free(ROM);
 #endif
@@ -448,7 +448,7 @@ void InfoNES_ReleaseRom(){
 
   if(VROM){
 #if LV_MEM_CUSTOM == 0
-    lv_mem_free(VROM);
+    lv_free(VROM);
 #else
     free(VROM);
 #endif

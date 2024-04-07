@@ -1,6 +1,6 @@
 
 /**
- * @file simple_test.c
+ * @file lv_100ask_example_calc.c
  *
  */
 
@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "simple_test.h"
+#include "lv_100ask_example_calc.h"
 
 #if LV_100ASK_CALC_SIMPLE_TEST != 0
 
@@ -44,7 +44,7 @@
 
 void lv_100ask_calc_simple_test(void)
 {
-	lv_obj_t * calc = lv_100ask_calc_create(lv_scr_act());
+	lv_obj_t * calc = lv_100ask_calc_create(lv_screen_active());
     lv_obj_set_size(calc, 480, 600);
     lv_obj_center(calc);
 

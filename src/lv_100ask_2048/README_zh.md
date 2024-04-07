@@ -34,7 +34,7 @@ lv_100ask_2048 是一个基于 lvgl 的2048小游戏。
 
 # 使用方法
 
-参考 **lv_lib_100ask/test/lv_100ask_2048_test** 的示例。
+参考 **lv_lib_100ask/examples/lv_100ask_2048** 的示例。
 
 
 # 关于我们

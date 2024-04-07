@@ -31,7 +31,7 @@ lv_100ask_page_manager 是一个 lvgl 页面管理器。
 
 # 使用方法
 
-参考 **lv_lib_100ask/test/lv_100ask_page_manager_test** 的示例。
+参考 **lv_lib_100ask/examples/lv_100ask_page_manager** 的示例。
 
 
 # 关于我们

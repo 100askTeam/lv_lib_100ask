@@ -30,7 +30,7 @@ lv_100ask_memory_game 是一个记忆拼图数字对游戏。
 
 # 使用方法
 
-参考 **lv_lib_100ask/test/lv_100ask_memory_game_test** 的示例。
+参考 **lv_lib_100ask/examples/lv_100ask_memory_game** 的示例。
 
 
 # 关于我们

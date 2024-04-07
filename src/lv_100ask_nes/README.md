@@ -39,7 +39,7 @@ You can't run lv_100ask_nes on bare metal machines, because lv_100ask_nes involv
 Be careful:
 1. Prepare ROM files and tell lv_100ask_nes_test the directory where ROM is stored;
 2. If LV_MEM_CUSTOM is enabled, please ensure that you have available memory to run ROM;
-3. For more details, please refer to **lv_lib_100ask/test/lv_100ask_nes_test**.
+3. For more details, please refer to **lv_lib_100ask/examples/lv_100ask_nes**.
 
 
 # Platform Project

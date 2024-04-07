@@ -18,6 +18,7 @@
  *      TYPEDEFS
  **********************/
 
+#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 /*BMP*/
 typedef struct tagBITMAPFILEHEADER {
   uint16_t   bfType;
@@ -29,8 +30,8 @@ typedef struct tagBITMAPFILEHEADER {
 
 typedef struct tagBITMAPINFOHEADER{
   uint32_t   biSize;
-  uint32_t   biwidth;
-  uint32_t   biheight;
+  uint32_t   biWidth;
+  uint32_t   biHeight;
   uint16_t   biPlanes;
   uint16_t   biBitCount;
   uint32_t   biCompression;
@@ -41,13 +42,16 @@ typedef struct tagBITMAPINFOHEADER{
   uint32_t   biClrImportant;
 } __attribute__ ((packed)) BITMAPINFOHEADER, *PBITMAPINFOHEADER;
 
+#endif
+
+#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP)
 typedef struct tagRGBQUAD {
   uint8_t    rgbBlue;
   uint8_t    rgbGreen;
   uint8_t    rgbRed;
   uint8_t    rgbReserved;
 } __attribute__ ((packed)) RGBQUAD;
-
+#endif
 
 /**********************
  *  STATIC PROTOTYPES
@@ -92,8 +96,8 @@ bool save_as_bmp_file(uint8_t * image, uint32_t w, uint32_t h, uint32_t bpp, cha
     tBmpFileHead.bfOffBits  = 0x00000036;
 
     tBmpInfoHead.biSize     = 0x00000028;
-    tBmpInfoHead.biwidth    = w;
-    tBmpInfoHead.biheight   = h;
+    tBmpInfoHead.biWidth    = w;
+    tBmpInfoHead.biHeight   = h;
     tBmpInfoHead.biPlanes   = 0x0001;
     tBmpInfoHead.biBitCount = bpp;
     tBmpInfoHead.biCompression  = 0;

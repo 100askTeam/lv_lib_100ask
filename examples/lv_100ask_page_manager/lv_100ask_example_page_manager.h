@@ -1,10 +1,10 @@
 /**
- * @file simple_test.h
+ * @file lv_100ask_example_page_manager.h
  *
  */
 
-#ifndef LV_100ASK_SKETCHPAD_SIMPLE_TEST_H
-#define LV_100ASK_SKETCHPAD_SIMPLE_TEST_H
+#ifndef LV_100ASK_EXAMPLE_PAGE_MANAGER_H
+#define LV_100ASK_EXAMPLE_PAGE_MANAGER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,7 +15,7 @@ extern "C" {
  *********************/
 #include "../../lv_lib_100ask.h"
 
-#if LV_100ASK_SKETCHPAD_SIMPLE_TEST != 0
+#if LV_100ASK_PAGE_MANAGER_SIMPLE_TEST != 0
 
 /*********************
  *      DEFINES
@@ -32,7 +32,7 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void lv_100ask_sketchpad_simple_test(void);
+void lv_100ask_page_manager_simple_test(void);
 
 /*=====================
  * Setter functions
@@ -50,10 +50,10 @@ void lv_100ask_sketchpad_simple_test(void);
  *      MACROS
  **********************/
 
-#endif /*LV_100ASK_SKETCHPAD_SIMPLE_TEST*/
+#endif /*LV_100ASK_PAGE_MANAGER_SIMPLE_TEST*/
 
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
 
-#endif /*LV_100ASK_SKETCHPAD_SIMPLE_TEST_H*/
+#endif /*LV_100ASK_EXAMPLE_PAGE_MANAGER_H*/

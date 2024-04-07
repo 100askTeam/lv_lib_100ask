@@ -1,6 +1,6 @@
 
 /**
- * @file simple_test.c
+ * @file lv_100ask_example_file_explorer.c
  *
  */
 
@@ -9,7 +9,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "simple_test.h"
+#include "lv_100ask_example_file_explorer.h"
 
 #if LV_100ASK_FILE_EXPLORER_SIMPLE_TEST != 0
 

@@ -70,7 +70,7 @@ typedef enum {
 typedef struct {
     lv_obj_t obj;
     lv_obj_t * canvas;
-    lv_draw_img_dsc_t img_rect_dsc;
+    lv_draw_image_dsc_t img_rect_dsc;
     lv_img_dsc_t * dsc;
     lv_obj_t * img;
     void * nes_pixels;
@@ -78,6 +78,7 @@ typedef struct {
     uint32_t speed;
     lv_100ask_nes_mutex_t mutex;
     lv_100ask_nes_state_t state;
+    lv_timer_t * timer;
 } lv_100ask_nes_t;
 
 extern const lv_obj_class_t lv_100ask_nes_class;

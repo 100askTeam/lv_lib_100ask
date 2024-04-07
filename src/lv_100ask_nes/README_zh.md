@@ -37,7 +37,7 @@ lv_100ask_nes 基于lvgl实现了nes模拟器的显示和控制。
 需要注意的是：
 1. 准备好ROM文件并告诉 lv_100ask_nes_test 存放ROM的目录；
 2. 如果使能了 LV_MEM_CUSTOM 请确保你有可用的内存运行ROM；
-3. 其他更多细节请参考 **lv_lib_100ask/test/lv_100ask_nes_test** 的示例代码。
+3. 其他更多细节请参考 **lv_lib_100ask/examples/lv_100ask_nes** 的示例代码。
 
 ## 视频教程
 
