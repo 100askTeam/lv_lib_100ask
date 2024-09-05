@@ -1,6 +1,6 @@
 /**
  * @file lv_lib_100ask_conf.h
- * Configuration file for v8.2.0
+ * Configuration file for v9.1
  *
  */
 /*
@@ -8,12 +8,14 @@
  */
 
 /* clang-format off */
-#if 0 /*Set it to "1" to enable the content*/
+#if 1 /*Set it to "1" to enable the content*/
 
 #ifndef LV_LIB_100ASK_CONF_H
 #define LV_LIB_100ASK_CONF_H
 
 #include "lv_conf.h"
+
+#include "lvgl/src/lvgl_private.h"
 
 /*******************
  * GENERAL SETTING

@@ -216,6 +216,11 @@ static void lv_100ask_memory_game_constructor(const lv_obj_class_t * class_p, lv
     memory_game->row = 0;
     memory_game->col = 0;
 
+    lv_style_reset(&cont_style);
+    lv_style_reset(&item_def_style);
+    lv_style_reset(&item_click_style);
+    lv_style_reset(&item_hit_style);
+
     lv_style_init(&cont_style);
     lv_style_set_flex_flow(&cont_style, LV_FLEX_FLOW_ROW_WRAP);
     lv_style_set_flex_main_place(&cont_style, LV_FLEX_ALIGN_SPACE_EVENLY);

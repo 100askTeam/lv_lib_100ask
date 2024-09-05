@@ -62,6 +62,11 @@ static const char * btnm_map[] = {  "(", ")", "C", "<-", "\n",
 									"1", "2", "3", "-",  "\n",
 									"0", ".", "=", "+",  ""};
 
+static const lv_buttonmatrix_ctrl_t ctrl_map[] = {  1, 1, LV_BUTTONMATRIX_CTRL_CHECKED, LV_BUTTONMATRIX_CTRL_CHECKED,
+                                                    1, 1, 1, LV_BUTTONMATRIX_CTRL_CHECKED,
+                                                    1, 1, 1, LV_BUTTONMATRIX_CTRL_CHECKED,
+                                                    1, 1, 1, LV_BUTTONMATRIX_CTRL_CHECKED,
+                                                    1, 1, LV_BUTTONMATRIX_CTRL_CHECKED, LV_BUTTONMATRIX_CTRL_CHECKED};
 // error list
 static const lv_100ask_calc_error_table_t error_table[] = {
     {.error_code = no_error,            .message = "no error"},
@@ -177,7 +182,8 @@ static void lv_100ask_calc_constructor(const lv_obj_class_t * class_p, lv_obj_t 
     lv_obj_set_style_border_width(calc->btnm, 0, 0);
 
     lv_obj_set_size(calc->btnm, LV_PCT(100), LV_PCT(75));
-    lv_btnmatrix_set_map(calc->btnm, btnm_map);
+    lv_buttonmatrix_set_map(calc->btnm, btnm_map);
+    lv_buttonmatrix_set_ctrl_map(calc->btnm, ctrl_map);
     lv_obj_add_event_cb(calc->btnm, calc_btnm_changed_event_cb, LV_EVENT_VALUE_CHANGED, obj);
 
     LV_TRACE_OBJ_CREATE("finished");
