@@ -86,7 +86,7 @@ static void lv_100ask_sketchpad_constructor(const lv_obj_class_t * class_p, lv_o
     lv_100ask_sketchpad_t * sketchpad = (lv_100ask_sketchpad_t *)obj;
 
     lv_draw_line_dsc_init(&sketchpad->line_rect_dsc);
-    sketchpad->line_rect_dsc.width = 10;
+    sketchpad->line_rect_dsc.width = 4;
     sketchpad->line_rect_dsc.round_start = true;
     sketchpad->line_rect_dsc.round_end = true;
     sketchpad->line_rect_dsc.color = lv_palette_main(LV_PALETTE_RED);
@@ -128,7 +128,7 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
     lv_obj_t * obj = lv_event_get_target(e);
     lv_100ask_sketchpad_t * sketchpad = (lv_100ask_sketchpad_t *)obj;
 
-    static lv_coord_t last_x, last_y = -32768;
+    static lv_coord_t last_x = -32768, last_y = -32768;
 
     if (code == LV_EVENT_PRESSING)
     {
@@ -141,9 +141,20 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
         lv_indev_get_point(indev, &point);
 
         /*Release or first use*/
-        if ((last_x != -32768) || (last_y != -32768))
+        if ((last_x != -32768) && (last_y != -32768))
         {
-            lv_canvas_set_px(obj, point.x, point.y, lv_palette_main(LV_PALETTE_RED), LV_OPA_COVER);
+            lv_layer_t layer;
+            lv_canvas_init_layer(obj, &layer);
+
+            //lv_canvas_set_px(obj, point.x, point.y, lv_palette_main(LV_PALETTE_RED), LV_OPA_COVER);
+            sketchpad->line_rect_dsc.p1.x = last_x;
+            sketchpad->line_rect_dsc.p1.y = last_y;
+            sketchpad->line_rect_dsc.p2.x = point.x;
+            sketchpad->line_rect_dsc.p2.y = point.y;
+
+            lv_draw_line(&layer, &sketchpad->line_rect_dsc);
+
+            lv_canvas_finish_layer(obj, &layer);
         }
 
         last_x = point.x;
