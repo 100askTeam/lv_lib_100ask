@@ -8,7 +8,7 @@
  */
 
 /* clang-format off */
-#if 1 /*Set it to "1" to enable the content*/
+#if 0 /*Set it to "1" to enable the content*/
 
 #ifndef LV_LIB_100ASK_CONF_H
 #define LV_LIB_100ASK_CONF_H
@@ -49,7 +49,7 @@
 
     /*1: use custom animation , 0:Use built-in animation*/
     #define LV_100ASK_PAGE_MANAGER_CUSTOM_ANIMARION     0
-        
+
 	/* Page switcher snapshot*/
 	#if LV_USE_SNAPSHOT
         /* Requires LV_USE_SNAPSHOT = 1 */
@@ -109,7 +109,7 @@
 
     /*test*/
     #define  LV_100ASK_MEMORY_GAME_SIMPLE_TEST          1
-#endif   
+#endif
 
 /*2048 game*/
 #define LV_USE_100ASK_2048                              0
@@ -131,7 +131,7 @@
     #define LV_100ASK_FILE_EXPLORER_QUICK_ACCESS        1
     /*test*/
     #define  LV_100ASK_FILE_EXPLORER_SIMPLE_TEST        1
-#endif  
+#endif
 
 /***Game simulator***/
 /*NES*/
@@ -143,7 +143,7 @@
     #define LV_100ASK_NES_PLATFORM_POSIX                1
     #define LV_100ASK_NES_PLATFORM_FREERTOS             0 /*Not tested yet*/
     #define LV_100ASK_NES_PLATFORM_RTTHREAD             0 /*TODO*/
-    
+
     /*test*/
 #if LV_USE_100ASK_FILE_EXPLORER
     #define LV_100ASK_NES_SIMPLE_TEST                   1

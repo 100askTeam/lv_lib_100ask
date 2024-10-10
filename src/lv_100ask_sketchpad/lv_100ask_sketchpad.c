@@ -136,9 +136,11 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
         if(indev == NULL)  return;
 
         lv_point_t point;
-        lv_point_t vect;
 
         lv_indev_get_point(indev, &point);
+
+        point.x = point.x - sketchpad->pos.x;
+        point.y = point.y - sketchpad->pos.y;
 
         /*Release or first use*/
         if ((last_x != -32768) && (last_y != -32768))
@@ -146,7 +148,6 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
             lv_layer_t layer;
             lv_canvas_init_layer(obj, &layer);
 
-            //lv_canvas_set_px(obj, point.x, point.y, lv_palette_main(LV_PALETTE_RED), LV_OPA_COVER);
             sketchpad->line_rect_dsc.p1.x = last_x;
             sketchpad->line_rect_dsc.p1.y = last_y;
             sketchpad->line_rect_dsc.p2.x = point.x;
@@ -154,7 +155,7 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
 
             lv_draw_line(&layer, &sketchpad->line_rect_dsc);
 
-            lv_canvas_finish_layer(obj, &layer);
+            lv_canvas_finish_layer(obj, &layer);     
         }
 
         last_x = point.x;
@@ -166,6 +167,12 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
     {
         last_x = -32768;
         last_y = -32768;
+    }
+    else if((code == LV_EVENT_STYLE_CHANGED) || (code == LV_EVENT_SIZE_CHANGED))
+    {
+        lv_obj_refr_pos(obj);
+        sketchpad->pos.x = lv_obj_get_x(obj);
+        sketchpad->pos.y = lv_obj_get_y(obj);
     }
 }
 

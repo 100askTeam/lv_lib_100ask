@@ -38,6 +38,7 @@ typedef struct {
     lv_draw_buf_t static_buf;
     lv_draw_line_dsc_t line_rect_dsc;
     lv_layer_t layer;
+    lv_point_t pos;
 } lv_100ask_sketchpad_t;
 
 /***********************
