@@ -155,7 +155,9 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t * class_p, lv_event_t
 
             lv_draw_line(&layer, &sketchpad->line_rect_dsc);
 
-            lv_canvas_finish_layer(obj, &layer);     
+            lv_canvas_finish_layer(obj, &layer);
+
+            lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
         }
 
         last_x = point.x;

@@ -26,7 +26,7 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-
+static void event_handler(lv_event_t * e);
 
 /**********************
  *  STATIC VARIABLES
@@ -49,7 +49,9 @@ void lv_100ask_sketchpad_simple_test(void)
 
 	lv_canvas_set_draw_buf(sketchpad, &draw_buf);
     lv_obj_center(sketchpad);
-    lv_canvas_fill_bg(sketchpad, lv_palette_lighten(LV_PALETTE_GREY, 3), LV_OPA_COVER);
+    lv_canvas_fill_bg(sketchpad, lv_color_white(), LV_OPA_COVER);
+
+    lv_obj_add_event_cb(sketchpad, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
 
 }
 
@@ -61,6 +63,17 @@ void lv_100ask_sketchpad_simple_test(void)
 /**********************
  *   STATIC FUNCTIONS
  **********************/
+
+static void event_handler(lv_event_t * e)
+{
+    lv_obj_t * sketchpad = lv_event_get_target(e);
+
+    void * canvas_buf = lv_canvas_get_buf(sketchpad);
+    lv_draw_buf_t * canvas_draw_buf = lv_canvas_get_draw_buf(sketchpad);
+
+    LV_LOG_USER("LV_EVENT_VALUE_CHANGED");
+
+}
 
 
 #endif  /*SIMPLE_TEST*/
